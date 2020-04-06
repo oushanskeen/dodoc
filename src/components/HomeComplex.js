@@ -1,8 +1,42 @@
 import React, {useState} from 'react';
-import Text from "./components/Text";
-//import './App.css';
 
-function Text() {
+const isAllowed = (_status,_password) => {
+        return (
+            (_status==="guest" && _password==="guest") 
+            ? "read" 
+            : (_status==="admin" && _password==="admin") 
+                ? "read & write" 
+                : "nothing"
+        );
+    };
+    const makeEditable = (_content,_setState,_editable) => {
+        return (
+            <div
+                contentEditable={_editable}
+                onInput={e => _setState(e.currentTarget.textContent)}
+            >
+            {_content}
+            </div>
+       );
+    };
+    const Header = _ => {
+        return(
+           <div className="header">
+                <h1>Hello {_.name} I'm a doc builder!</h1>       
+           </div>
+        );
+    };
+    const Login = _ => {
+        return(
+            <div className="login">
+                {makeEditable("YOURNAME",_.setLogin,"true")}
+                {makeEditable("YOURWORD",_.setPassword,"true")}
+                You are allowed to: <h3>{isAllowed(_.login,_.password)}</h3>
+            </div>
+        );
+    };
+
+function Home() {
   const [login,setLogin] = useState("");
   const [password,setPassword] = useState("userpassword");
   const [one,setOne] = useState("ONE");
@@ -46,5 +80,5 @@ function Text() {
   );
 }
 
-export default Text;
+export default Home;
 

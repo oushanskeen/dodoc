@@ -1,13 +1,13 @@
 import React from 'react';
-//import './App.css';
+import './css/App.css';
 import { Route, Switch } from 'react-router-dom';
 
 import Home from './components/Home';
 
 function App() {
   return (
-    <main>
-        <Switch>
+    <main class="container" >
+        <Switch id="main">
             <Route exact path="/dodoc/" 
                 component={Home} />          
         </Switch>
