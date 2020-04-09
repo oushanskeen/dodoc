@@ -42,7 +42,6 @@ const ParamBox = styled.div`
 `;
 const Text = styled.div`
     margin:${p => p.m};
-        
 `;
 const Button = styled.div`
     display:flex;
@@ -59,6 +58,7 @@ const Img = styled.img`
 `;
 const TextBox = styled(ParamBox)`
     display:flex;
+    flex-wrap:wrap;
     width:100%;
     height:${p => p.h || "66%"};
     justify-content:flex-start;

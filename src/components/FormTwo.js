@@ -6,20 +6,14 @@
     } from '../css/style.js';
     import * as actions from '../actions';
 
-    const FormOne = () => {
+    const FormTwo = () => {
         const [formData, setFormData] = useState({
-            compFullName: "",
-            compShortName: "",
+            Name: "",
+            FIO: "",
             INN: "",
-            KPP:"",
-            OGRN:"",
+            OGRNIP:"",
             OKPO:"",
-            GosRegDate:"",
-            YurAdress:"",
             FactAdress:"",
-            GenDirector:"",
-            Buhgalter:"",
-            tel:"",
             bankName:"",
             BIK:"",
             BillOne:"",
@@ -34,18 +28,12 @@
         }
         const 
         { 
-            compFullName, 
-            compShortName,
+            Name, 
+            FIO,
             INN,
-            KPP,
-            OGRN,
+            OGRNIP,
             OKPO,
-            GosRegDate,
-            YurAdress,
             FactAdress,
-            GenDirector,
-            Buhgalter,
-            tel,
             bankName,
             BIK,
             BillOne,
@@ -67,25 +55,25 @@
     return (
         <form>
             <br/>
-                <label> Полное название организации : <br/>
+                <label> Название : <br/>
                     <Input
-                        id="compFullName"
-                        value= {compFullName}
+                        id="Name"
+                        value= {Name}
                         onChange={e => updateFormData(e)}
-                        placeholder=" Полное название организации "
+                        placeholder=" Название "
                         type="text"
-                        name="compFullName"
+                        name="Name"
                         required
                     /><br/>
                </label>
-               <label> Краткое название организации : <br/>
+               <label> ФИО : <br/>
                     <Input
-                        id="compShortName"
-                        value= {compShortName}
+                        id="FIO"
+                        value= {FIO}
                         onChange={e => updateFormData(e)}
-                        placeholder=" Краткое название организации "
+                        placeholder=" ФИО "
                         type="text"
-                        name="compShortName"
+                        name="FIO"
                         required
                     /><br/>
                </label>
@@ -100,25 +88,14 @@
                         required
                     /><br/>
                </label>
-               <label> КПП : <br/>
+               <label> ОГРНИП : <br/>
                     <Input
-                        id="KPP"
-                        value= {KPP}
+                        id="OGRNIP"
+                        value= {OGRNIP}
                         onChange={e => updateFormData(e)}
-                        placeholder=" КПП "
+                        placeholder=" ОГРНИП "
                         type="text"
-                        name="KPP"
-                        required
-                    /><br/>
-               </label>
-               <label> ОГРН : <br/>
-                    <Input
-                        id="OGRN"
-                        value= {OGRN}
-                        onChange={e => updateFormData(e)}
-                        placeholder=" ОГРН "
-                        type="text"
-                        name="OGRN"
+                        name="OGRNIP"
                         required
                     /><br/>
                </label>
@@ -133,28 +110,6 @@
                         required
                     /><br/>
                </label>
-               <label> Дата государственной регистрации : <br/>
-                    <Input
-                        id="GosRegDate"
-                        value= {GosRegDate}
-                        onChange={e => updateFormData(e)}
-                        placeholder=" Дата государственной регистрации "
-                        type="text"
-                        name="GosRegDate"
-                        required
-                    /><br/>
-               </label>
-               <label> Юридический адрес : <br/>
-                    <Input
-                        id="YurAdress"
-                        value= {YurAdress}
-                        onChange={e => updateFormData(e)}
-                        placeholder=" Юридический адрес "
-                        type="text"
-                        name="YurAdress"
-                        required
-                    /><br/>
-               </label>
                <label> Фактический адрес : <br/>
                     <Input
                         id="FactAdress"
@@ -166,39 +121,6 @@
                         required
                     /><br/>
                </label>
-               <label> Ген. директор (ФИО) : <br/>
-                    <Input
-                        id="GenDirector"
-                        value= {GenDirector}
-                        onChange={e => updateFormData(e)}
-                        placeholder=" Ген. директор (ФИО) "
-                        type="text"
-                        name="GenDirector"
-                        required
-                    /><br/>
-               </label>
-               <label> Бухгалтер (ФИО) : <br/>
-                    <Input
-                        id="Buhgalter"
-                        value= {Buhgalter}
-                        onChange={e => updateFormData(e)}
-                        placeholder=" Бухгалтер (ФИО) "
-                        type="text"
-                        name="Buhgalter"
-                        required
-                    /><br/>
-               </label>
-               <label> телефон : <br/>
-                    <Input
-                        id="tel"
-                        value= {tel}
-                        onChange={e => updateFormData(e)}
-                        placeholder=" телефон "
-                        type="text"
-                        name="tel"
-                        required
-                    /><br/>
-               </label><br/>
            <br/>
            Банковские реквизиты <br/>
            <br/>
@@ -259,4 +181,4 @@
     };
 
         
-    export default FormOne;
+    export default FormTwo;

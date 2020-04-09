@@ -8,6 +8,8 @@ import {connect} from 'react-redux';
 import { useForm } from "react-hook-form";
 import * as data from "./datavector";
 import FormOne from "./FormOne";
+import FormTwo from "./FormTwo";
+import FormThree from "./FormThree";
 const inData = data.datavectorOne;
 console.log("inData : ", inData);
 
@@ -63,7 +65,7 @@ const Home = ({store,home,yurlitzas,dogovorTypes,dialects,onYur}) => {
             </Text>
     )};
 
-    const zakTypes = ["organ","IP","fizlitso"];
+    const zakTypes = ["организация","ИП","физическое лицо"];
     const Zakazchik = () => (
         <Text m={"2vmin"}>
             <div id="zakazchik">
@@ -90,12 +92,12 @@ const Home = ({store,home,yurlitzas,dogovorTypes,dialects,onYur}) => {
                 </AreaBox>
                 <AreaBox g={[5,2,10,5]} fd="row">
                     <TextBox h={"100%"}>
-                        {zakazchik==="organ"
+                        {zakazchik==="организация"
                                 ? <FormOne/> 
-                                : zakazchik==="IP"
-                                    ? "IP form" 
-                                    : zakazchik==="fizlitso"
-                                        ? "Fizlitso form" 
+                                : zakazchik==="ИП"
+                                    ? <FormTwo/>
+                                    : zakazchik==="физическое лицо"
+                                        ? <FormThree/> 
                                         : "who knows"
                         }<br/>
                     </TextBox>
