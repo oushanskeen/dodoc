@@ -18,19 +18,10 @@ const Home = ({store,home,yurlitzas,dogovorTypes,dialects,onYur}) => {
     const [yurlitso,setYurlitso] = useState("unknown");
     const [dogType,setDogType] = useState("unknown");
     const [outerdata,setOuterdata] = useState("formDataDefault");
-
-    let vars = ["one","two","three","four"];
-
-    // ["a"] => editable "a" + [a,doA]
-    const [variables,setVariables] = useState("someValues");    
-    const Editable = _props => (
-            <b contentEditable="true" >
-                {_props.data}{"  "}
-            </b>
-    );   
-
-   
-        
+    const [zakazchik,setZakazchik] = useState("unknown");
+    
+    
+    
     const Elem = _props => {
         const handleClick = () => {
             console.log("data : ", _props.data);
@@ -72,6 +63,16 @@ const Home = ({store,home,yurlitzas,dogovorTypes,dialects,onYur}) => {
             </Text>
     )};
 
+    const zakTypes = ["organ","IP","fizlitso"];
+    const Zakazchik = () => (
+        <Text m={"2vmin"}>
+            <div id="zakazchik">
+                ТИП ЗАКАЗЧИКА: <b>{zakazchik}</b> <br/>
+                {zakTypes.map(e => <Elem data={e} set={setZakazchik}/>)}<br/>  
+            </div>
+        </Text>        
+    );
+
   return (
     <div>
         <GlobalStyle/>
@@ -83,21 +84,20 @@ const Home = ({store,home,yurlitzas,dogovorTypes,dialects,onYur}) => {
                             <YurTab/>
                             <DogTab/>
                             <DialTab/>
+                            <Zakazchik/>
                         </Text>
                     </TextBox>
                 </AreaBox>
                 <AreaBox g={[5,2,10,5]} fd="row">
                     <TextBox h={"100%"}>
-                        <FormOne/><br/>
-                        {/*<Text m={"2vmin"} id="dogovorText">
-                           <b> {currentVars[0]} </b>, 
-                           именуемое в дальнейшем «Поставщик», в лице 
-                           <b> {currentVars[1]} </b>, 
-                           действующего на основании Устава, с одной стороны,
-                           <b> {currentVars[2]} </b>, в лице
-                           генерального директора <b> {currentVars[3]} </b>
-                           именуемое в дальнейшем «Покупатель»,                         
-                        </Text>*/}
+                        {zakazchik==="organ"
+                                ? <FormOne/> 
+                                : zakazchik==="IP"
+                                    ? "IP form" 
+                                    : zakazchik==="fizlitso"
+                                        ? "Fizlitso form" 
+                                        : "who knows"
+                        }<br/>
                     </TextBox>
                 </AreaBox>
             </Grid>
