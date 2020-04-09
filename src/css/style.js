@@ -25,7 +25,7 @@ const AreaBox = styled.div`
     grid-area:${p=> p.g[0]+"/"+p.g[1]+"/"+p.g[2]+"/"+p.g[3]};
     justify-content:center;
     align-items:center;
-    //border:0.5px solid black;
+    border:0.5px solid black;
     padding:0px;
     overflow-wrap:normal;
     background:White;
@@ -64,7 +64,7 @@ const TextBox = styled(ParamBox)`
     justify-content:flex-start;
     align-items:flex-start;
     font-size:1rem;
-    padding:7vmin;
+    margin:1vmin;
     overflow:scroll;
 `;
 const Input = styled.input`
