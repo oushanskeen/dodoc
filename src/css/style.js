@@ -67,6 +67,19 @@ const TextBox = styled(ParamBox)`
     padding:7vmin;
     overflow:scroll;
 `;
+const Input = styled.input`
+    color: black;
+    border: 1px solid darkGrey;
+    margin: 0 0 5px 0;
+    width: 300%;
+    background-color: lightGrey;
+        
+    &:hover & {
+        background-color: white;
+        box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.05);
+    }
+
+`
 
 const Selectable = styled.b`
     &:hover {
@@ -86,5 +99,5 @@ const naked = {
 };
 
 export {
-    GlobalStyle,Container,Grid,AreaBox,ParamBox,TextBox,Text,Button,Img,link,naked,Selectable,ghost
+    GlobalStyle,Container,Grid,AreaBox,ParamBox,TextBox,Input,Text,Button,Img,link,naked,Selectable,ghost
 }

@@ -1,29 +1,35 @@
 import React, {useState, useEffect} from 'react';
 import {
     GlobalStyle,Container,Grid,AreaBox,Text,
-    TextBox,Button,link,naked,Selectable,ghost
+    TextBox,Input,Button,link,naked,Selectable,ghost
 } from '../css/style.js';
 import * as actions from '../actions';
 import {connect} from 'react-redux';
+import { useForm } from "react-hook-form";
+import * as data from "./datavector";
+import FormOne from "./FormOne";
+const inData = data.datavectorOne;
+console.log("inData : ", inData);
 
-/*
-const makeEditable = (_content,_setState,_editable) => {
-    return (
-        <b
-            contentEditable={_editable}
-            onInput={e => _setState(e.currentTarget.textContent)}
-        >
-         {_content}
-        </b>
-   );
-};
-*/
 
-//yurlitzas.map(e => (<div>{" | "}{e}{" | "}</div>))}<br/>
-const Home = ({store,home,yurlitzas,dogovorTypes,dialects}) => { 
+
+const Home = ({store,home,yurlitzas,dogovorTypes,dialects,onYur}) => { 
 
     const [yurlitso,setYurlitso] = useState("unknown");
     const [dogType,setDogType] = useState("unknown");
+    const [outerdata,setOuterdata] = useState("formDataDefault");
+
+    let vars = ["one","two","three","four"];
+
+    // ["a"] => editable "a" + [a,doA]
+    const [variables,setVariables] = useState("someValues");    
+    const Editable = _props => (
+            <b contentEditable="true" >
+                {_props.data}{"  "}
+            </b>
+    );   
+
+   
         
     const Elem = _props => {
         const handleClick = () => {
@@ -50,7 +56,7 @@ const Home = ({store,home,yurlitzas,dogovorTypes,dialects}) => {
     );
     const DialTab = () => {
         //console.log("dialects : ", dialects);
-        let current = () => { 
+        let current = () => {
             return ((dogType == "проектирование") ? [...dialects.make] :
                 (dogType == "поставка") ? [...dialects.sell] :
                 dialects.basic
@@ -65,8 +71,6 @@ const Home = ({store,home,yurlitzas,dogovorTypes,dialects}) => {
                 </div>
             </Text>
     )};
-   
-
 
   return (
     <div>
@@ -84,6 +88,7 @@ const Home = ({store,home,yurlitzas,dogovorTypes,dialects}) => {
                 </AreaBox>
                 <AreaBox g={[5,2,10,5]} fd="row">
                     <TextBox h={"100%"}>
+                        <FormOne/><br/>
                         {/*<Text m={"2vmin"} id="dogovorText">
                            <b> {currentVars[0]} </b>, 
                            именуемое в дальнейшем «Поставщик», в лице 
@@ -111,13 +116,13 @@ const mapStateToProps = _state => ({
     dogovorTypes: _state.home.dogovorTypes,
     dialects: _state.home.varDialects
 });
-//const mapDispatchToProps = _dispatch => ({
-//    onYur: data => _dispatch(actions.yurlitso(data))
-//});
+const mapDispatchToProps = _dispatch => ({
+    onYur: data => _dispatch(actions.yurlitso(data))
+});
 
 export default connect (
-    mapStateToProps//,
-    //mapDispatchToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(Home);
 
 //export default Home;
