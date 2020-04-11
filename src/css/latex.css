@@ -1,0 +1,129 @@
+/*
+latex.css
+https://github.com/davidrzs/latexcss
+MIT-License
+*/
+
+
+
+/* Latin Modern (LaTeX default) font */
+
+
+/* Page Layout */
+
+body {
+  background-color: white;
+  font-size: 13pt;
+}
+
+body {
+	font-family: 'Roboto Mono', monospace;
+	counter-reset: theorem;
+	counter-reset: definition;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	border: none;
+	font-weight: bold;
+}
+
+a, a:visited {
+	color: #a00;
+}
+
+ul {
+	list-style: disc;
+}
+
+/* Content Box */
+
+body {
+	max-width: 720px;
+	margin: 2em auto;
+}
+
+h1:first-of-type  {
+	text-align: center;
+	display: block;
+}
+
+/* Article Body */
+
+body {
+	text-align: justify;
+	-moz-hyphens: auto;
+	-webkit-hyphens: auto;
+	hyphens: auto;
+  padding: 0 1em;
+}
+
+dl dd {
+	/* center definitions (most useful for display equations) */
+	text-align: center;
+}
+
+@media (min-width: 43.75em) {
+  body {
+    padding: 0;
+  }
+}
+
+div{
+    padding: 3rem;
+}
+.block{
+    border:1px solid Grey;
+}
+.theorem {
+	 counter-increment: theorem;
+    display: block;
+    margin: 12px 0;
+    font-style: italic;
+}
+.theorem:before {
+ content: "Theorem " counter(theorem) ".";
+     font-weight: bold;
+    font-style: normal;
+}
+.lemma {
+	 counter-increment: theorem;
+    display: block;
+    margin: 12px 0;
+    font-style: italic;
+}
+.lemma:before {
+	content: "Lemma " counter(theorem) ".";
+    font-weight: bold;
+    font-style: normal;
+}
+.proof {
+    display: block;
+    margin: 12px 0;
+    font-style: normal;
+}
+.proof:before {
+    content: "Proof.";
+    font-style: italic;
+}
+.proof:after {
+    content: "\25FB";
+    float:right;
+}
+.definition {
+	 counter-increment: definition;
+    display: block;
+    margin: 12px 0;
+    font-style: normal;
+}
+.definition:before {
+ content: "Definition " counter(definition) ".";
+     font-weight: bold;
+    font-style: normal;
+}
+
+.author {
+	margin-top: 8px;
+	margin-bottom: 8px;
+  	font-variant-caps: small-caps;
+  	text-align: center;
+}

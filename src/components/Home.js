@@ -10,6 +10,7 @@ import * as data from "./datavector";
 import FormOne from "./FormOne";
 import FormTwo from "./FormTwo";
 import FormThree from "./FormThree";
+import BeautyText from "./BeautyText";
 const inData = data.datavectorOne;
 console.log("inData : ", inData);
 
@@ -74,10 +75,9 @@ const Home = ({store,home,yurlitzas,dogovorTypes,dialects,onYur}) => {
             </div>
         </Text>        
     );
-
-  return (
+  const Basic = () => (
     <div>
-        <GlobalStyle/>
+    <GlobalStyle/>
         <Container>
             <Grid>
                 <AreaBox g={[2,2,5,5]} fd="row">
@@ -91,6 +91,7 @@ const Home = ({store,home,yurlitzas,dogovorTypes,dialects,onYur}) => {
                     </TextBox>
                 </AreaBox>
                 <AreaBox g={[5,2,10,5]} fd="row">
+                    
                     <TextBox h={"100%"}>
                         {zakazchik==="организация"
                                 ? <FormOne/> 
@@ -102,8 +103,14 @@ const Home = ({store,home,yurlitzas,dogovorTypes,dialects,onYur}) => {
                         }<br/>
                     </TextBox>
                 </AreaBox>
+                
             </Grid>
-        </Container>    
+        </Container>
+    </div>
+  );
+  return (
+    <div>
+        <Basic/>   
     </div>
   );
 }

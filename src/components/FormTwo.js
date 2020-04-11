@@ -4,7 +4,8 @@
         GlobalStyle,Container,Grid,AreaBox,Text,
         TextBox,Input,Button,link,naked,Selectable,ghost
     } from '../css/style.js';
-    import * as actions from '../actions';
+    import * as actions from '../actions';    
+    import BeautyText from "./BeautyText";
 
     const FormTwo = () => {
         const [formData, setFormData] = useState({
@@ -19,6 +20,7 @@
             BillOne:"",
             BillTwo:""
         });
+        const formString = JSON.stringify(formData);
         const updateFormData = event => {
             setFormData({
               ...formData,
@@ -170,11 +172,11 @@
                </label><br/>
            
           <button onClick={handleSubmit}>Submit</button>
-          <div>
-            <Text>
-                <FormReport/>
-            </Text>
-          </div>
+
+            <div>
+                <BeautyText text={formString}/>
+            </div>
+
         
         </form>
     );

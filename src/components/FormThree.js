@@ -5,6 +5,7 @@
         TextBox,Input,Button,link,naked,Selectable,ghost
     } from '../css/style.js';
     import * as actions from '../actions';
+    import BeautyText from "./BeautyText";
 /*
 1. Название (то, как будет отображаться контакт в системе, неформальное название)
 2. Фамилия
@@ -32,6 +33,7 @@
             codeGave:"",
             addressGave:""
         });
+        const formString = JSON.stringify(formData);
         const updateFormData = event => {
             setFormData({
               ...formData,
@@ -193,9 +195,9 @@
            
           <button onClick={handleSubmit}>Submit</button>
           <div>
-            <Text>
-                <FormReport/>
-            </Text>
+            <div>
+                <BeautyText text={formString}/>
+            </div>
           </div>
         
         </form>

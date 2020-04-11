@@ -5,6 +5,7 @@
         TextBox,Input,Button,link,naked,Selectable,ghost
     } from '../css/style.js';
     import * as actions from '../actions';
+    import BeautyText from "./BeautyText";
 
     const FormOne = () => {
         const [formData, setFormData] = useState({
@@ -25,6 +26,7 @@
             BillOne:"",
             BillTwo:""
         });
+        const formString = JSON.stringify(formData);
         const updateFormData = event => {
             setFormData({
               ...formData,
@@ -216,7 +218,7 @@
                <label> БИК : <br/>
                    <Input
                        id="BIK"
-                       value= {bankName}
+                       value= {BIK}
                        onChange={e => updateFormData(e)}
                        placeholder=" BIK "
                        type="text"
@@ -249,11 +251,10 @@
            
           <button onClick={handleSubmit}>Submit</button>
           <div>
-            <Text>
-                <FormReport/>
-            </Text>
           </div>
-        
+            <div>
+                <BeautyText text={formString}/>
+            </div>
         </form>
     );
     };
