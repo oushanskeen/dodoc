@@ -1,13 +1,11 @@
    
     import React, {useState} from 'react';
-    import {
-        GlobalStyle,Container,Grid,AreaBox,Text,
-        TextBox,Input,Button,link,naked,Selectable,ghost
-    } from '../css/style.js';
+    import {Input} from '../css/style.js';
     import * as actions from '../actions';
     import BeautyText from "./BeautyText";
+    import {connect} from 'react-redux';
 
-    const FormOne = () => {
+    const FormOne = ({store,formOneState,onDataReady}) => {
         const [formData, setFormData] = useState({
             compFullName: "",
             compShortName: "",
@@ -26,13 +24,11 @@
             BillOne:"",
             BillTwo:""
         });
-        const formString = JSON.stringify(formData);
         const updateFormData = event => {
             setFormData({
               ...formData,
               [event.target.name]: event.target.value
             });
-            //console.log("formData : ", formData);
         }
         const 
         { 
@@ -55,17 +51,10 @@
         } = formData;
         const handleSubmit = e => {
             e.preventDefault();
-            //onYur(formData);
+            onDataReady(formData);
             console.log("formData after submit: ", formData);
         };
-    const FormReport = () => (
-        <Text m={"2vmin"}>
-            <div>
-                {"FORM REPORT: coming soon"}
-            </div>
-        </Text>
-      
-    );
+    console.log("store in formOne : ", formOneState);
     return (
         <form>
             <br/>
@@ -78,6 +67,7 @@
                         type="text"
                         name="compFullName"
                         required
+                        maxlength="120"
                     /><br/>
                </label>
                <label> Краткое название организации : <br/>
@@ -89,6 +79,7 @@
                         type="text"
                         name="compShortName"
                         required
+                        maxlength="120"
                     /><br/>
                </label>
                <label> ИНН : <br/>
@@ -97,9 +88,11 @@
                         value= {INN}
                         onChange={e => updateFormData(e)}
                         placeholder=" ИНН "
-                        type="text"
+                        type="number"
                         name="INN"
                         required
+                        minlength="10"
+                        maxlength="10"
                     /><br/>
                </label>
                <label> КПП : <br/>
@@ -119,9 +112,11 @@
                         value= {OGRN}
                         onChange={e => updateFormData(e)}
                         placeholder=" ОГРН "
-                        type="text"
+                        type="number"
                         name="OGRN"
                         required
+                        minlength="13"
+                        maxlength="13"
                     /><br/>
                </label>
                <label> ОКПО : <br/>
@@ -130,9 +125,11 @@
                         value= {OKPO}
                         onChange={e => updateFormData(e)}
                         placeholder=" ОКПО "
-                        type="text"
+                        type="number"
                         name="OKPO"
                         required
+                        minlength="8"
+                        maxlength="8"
                     /><br/>
                </label>
                <label> Дата государственной регистрации : <br/>
@@ -253,11 +250,22 @@
           <div>
           </div>
             <div>
-                <BeautyText text={formString}/>
+                <BeautyText text={JSON.stringify(formOneState)} store={store}/>
             </div>
         </form>
     );
     };
 
-        
-    export default FormOne;
+const mapStateToProps = _state => ({
+    store: _state,
+    formOneState: _state.formOne
+});
+const mapDispatchToProps = _dispatch => ({
+    onDataReady: data =>
+        _dispatch(actions.zakazchikTypeOneData(data))
+});
+
+export default connect (
+    mapStateToProps,
+    mapDispatchToProps
+)(FormOne);       

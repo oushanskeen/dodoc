@@ -1,21 +1,15 @@
 
-    import React, {useState} from 'react';
-    //import '../css/latex.css';
-    //import Pdf from "react-to-pdf";
+    import React from 'react';
     import font from '../css/Roboto_Mono/RobotoMono-Medium.ttf'
-
     import {
         Page,
         Text,
         View,
         Document,
         StyleSheet,
-        Image,
         PDFDownloadLink,
         Font,
-        BlobProvider
     } from "@react-pdf/renderer";
-    //import { StyleSheet, Font } from '@react-pdf/renderer'
 
     // Register font
     Font.register({
@@ -23,39 +17,120 @@
       src: font
     })
 
-    // Reference font
-    //const styles = StyleSheet.create({
-    //  title: {
-    //    fontFamily: 'Roboto'
-    //  }
-    //})
-    //import { PDFDownloadLink } from "@react-pdf/renderer";
-
     const styles = StyleSheet.create({
         page: {
-            //minWidth: "43.75em",
 	        margin: "2em auto",
             fontFamily: "Roboto Mono",
             display: "flex",
             wordBreak: "break-word",
-            //backgroundColor: "lightGrey",
             border:"1px solid black",
 	        hyphens: "auto"
         },
         section: {
             margin: 10,
             padding: 10,
-            //textAlign: "start",
-            //border:"1px solid red"
         },
         content: {
-            display: "block",
-            //border:"1px solid grey"
+            display: "block"
         }
     });
-    //
 
-    const inputText = " Ut turpis mi, hendrerit rutrum nibh eget, porttitor feugiat ligula. Nullam tempus facilisis laoreet. Donec ac est ut diam auctor vestibulum ac ut mi. Aenean ut est massa. Ut eleifend auctor neque, ut ultrices lacus vestibulum vitae. Ut eleifend diam quis orci finibus tristique. Aenean mattis vel libero sit amet auctor. Nam ut felis magna. Nunc ullamcorper quam eget iaculis facilisis. Maecenas consectetur  hendrerit lectus, eget dictum enim venenatis a. Ut turpis mi, hendrerit rutrum nibh eget, porttitor feugiat ligula. Nullam tempus facilisis laoreet. Donec ac est ut diam auctor vestibulum ac ut mi. Aenean ut est massa. Ut eleifend auctor neque, ut ultrices lacus vestibulum vitae. Ut eleifend diam quis orci finibus tristique. Aenean mattis vel libero sit amet auctor. Nam ut felis magna. Nunc ullamcorper quam eget iaculis facilisis. Maecenas consectetur  hendrerit lectus, eget dictum enim venenatis a. Ut turpis mi, hendrerit rutrum nibh eget, porttitor feugiat ligula. Nullam tempus facilisis laoreet. Donec ac est ut diam auctor vestibulum ac ut mi. Aenean ut est massa. Ut eleifend auctor neque, ut ultrices lacus vestibulum vitae. Ut eleifend diam quis orci finibus tristique. Aenean mattis vel libero sit amet auctor. Nam ut felis magna. Nunc ullamcorper quam eget iaculis facilisis. Maecenas consectetur  hendrerit lectus, eget dictum enim venenatis a. Ut turpis mi, hendrerit rutrum nibh eget, porttitor feugiat ligula. Nullam tempus facilisis laoreet. Donec ac est ut diam auctor vestibulum ac ut mi. Aenean ut est massa. Ut eleifend auctor neque, ut ultrices lacus vestibulum vitae. Ut eleifend diam quis orci finibus tristique. Aenean mattis vel libero sit amet auctor. Nam ut felis magna. Nunc ullamcorper quam eget iaculis facilisis. Maecenas consectetur  hendrerit lectus, eget dictum enim venenatis a. Ut turpis mi, hendrerit rutrum nibh eget, porttitor feugiat ligula. Nullam tempus facilisis laoreet. Donec ac est ut diam auctor vestibulum ac ut mi. Aenean ut est massa. Ut eleifend auctor neque, ut ultrices lacus vestibulum vitae. Ut eleifend diam quis orci finibus tristique. Aenean mattis vel libero sit amet auctor. Nam ut felis magna. Nunc ullamcorper quam eget iaculis facilisis. Maecenas consectetur  hendrerit lectus, eget dictum enim venenatis a. Ut turpis mi, hendrerit rutrum nibh eget, porttitor feugiat ligula. Nullam tempus facilisis laoreet. Donec ac est ut diam auctor vestibulum ac ut mi. Aenean ut est massa. Ut eleifend auctor neque, ut ultrices lacus vestibulum vitae. Ut eleifend diam quis orci finibus tristique. Aenean mattis vel libero sit amet auctor. Nam ut felis magna. Nunc ullamcorper quam eget iaculis facilisis. Maecenas consectetur  hendrerit lectus, eget dictum enim venenatis a."
+    let sampleDataOne = {type:
+        {
+            compFullName: " - ",
+            compShortName: " - ",
+            INN: " - ",
+            KPP: " - ",
+            OGRN: " - ",
+            OKPO: " - ",
+            GosRegDate: " - ",
+            YurAdress: " - ",
+            FactAdress: " - ",
+            GenDirector: " - ",
+            Buhgalter: " - ",
+            tel: " - ",
+            bankName: " - ",
+            BIK: " - ",
+            BillOne: " - ",
+            BillTwo: " - ",
+        }
+    };
+    let sampleDataTwo = {type:
+        {
+            Name: "-",
+            FIO: "-",
+            INN: "-",
+            OGRNIP:"-",
+            OKPO:"-",
+            FactAdress:"-",
+            bankName:"-",
+            BIK:"-",
+            BillOne:"-",
+            BillTwo:"-"
+        }
+    };
+    let sampleDataThree = {type:
+        {
+            NameInformal: "-",
+            lastName: "-",
+            firstName: "-",
+            midName:"-",
+            docType:"-",
+            Serial:"-",
+            number:"-",
+            whoGave:"-",
+            whenGave:"-",
+            codeGave:"-",
+            addressGave:"-"
+        }
+    };
+    
+    const templateOne = (_data = sampleDataOne.type) => {
+        return ("Нашакомпания ,в лице директора ФИОдиректора Нашей Компании действующего на основании Устава, с одной стороны, именуемое в дальнейшем 'Поставщик' и " +
+        _data.compFullName + " , в лице генерального директора  ФИО второй стороны , действующего(ей) на основании Устава, именуемое в дальнейшем 'Покупатель',РЕКВИЗИТЫ СТОРОН: " + 
+        " Покупатель: " + _data.compShortName  +
+        " ИНН: " + _data.INN +
+        " КПП: " + _data.KPP +
+        " ОГРН: " + _data.OGRN + 
+        " Юр.адрес: " + _data.YurAdress +
+        " Факт.адрес: " + _data.FactAdress +
+        " Банк: " +  _data.bankName +
+        " БИК: " +  _data.BIK +
+        " р/с: " +  _data.BillOne +
+        " к/с: " +  _data.BillTwo +
+        " ")
+    };
+    const templateTwo = (_data = sampleDataTwo.type) => {
+        return("Наша компания, в лице директора ФИОдиректора нашей компании, действующего на основании Устава, с одной стороны, именуемое в дальнейшем 'Поставщик' и " + _data.Name + " , в лице генерального директора " + _data.FIO + ", действующего(ей) на основании Устава, именуемое в дальнейшем 'Покупатель', РЕКВИЗИТЫ СТОРОН: Покупатель: " + 
+_data.Name + " ИНН: " + _data.INN + " ОГРНИП: " + _data.OGRNIP + " Факт.адрес: " +  _data.FactAdress + " Банк: " + _data.bankName +
+" БИК: " +  _data.BIK + " р/с: " + _data.BillOne + " к/с: " +  _data.BillTwo + " подписи " + _data.Name + " _/инициалы(ФИО)/ " + _data.FIO + ""
+        )
+    };
+    const templateThree = (_data = sampleDataTwo.type) => {
+        return("Нашакомпания, в лице директора ФИОдиректора нашей компании, действующего на основании Устава, с одной стороны, именуемое в дальнейшем 'Поставщик' и " + _data.lastName + " " + _data.firstName + " " + _data.midName + " , " + _data.docType + " серия " + _data.Serial + " номер " +  _data.number + " , выдан " +  _data.whoGave + " " +  _data.whenGave + " код подразделения " +  _data.codeGave + " , именуемый(ая) в дальнейшем 'Покупатель', РЕКВИЗИТЫ СТОРОН: Покупатель: "  + _data.lastName + " " + _data.firstName + " " + _data.midName + " , " + _data.docType + " серия " + _data.Serial + " номер " +  _data.number + " , выдан " +  _data.whoGave + " " +  _data.whenGave + " код подразделения " +  _data.codeGave + " подписи _/инициалы(ФИО)/"
+        );
+    };
+
+    const zakazchik = {
+        one:{ template: templateOne, data: sampleDataOne },
+        two:{ template: templateTwo, data: sampleDataTwo },
+        three:{ template: templateThree, data: sampleDataThree }
+    };
+
+    const data_to_text = (_data,_store) => {
+        console.log("data_to_text on load : ", _store);
+        const hold = Object.keys(JSON.parse(_data))[0];
+        switch (hold) {
+            case 'zakazchikTypeOneData':
+                return JSON.stringify(zakazchik.one.template(JSON.parse(_data)[hold]));
+            case 'zakazchikTypeTwoData':
+                return JSON.stringify(zakazchik.two.template(JSON.parse(_data)[hold]));
+            case 'zakazchikTypeThreeData':
+                return JSON.stringify(zakazchik.three.template(JSON.parse(_data)[hold]));
+            default:
+                return "whatever";
+        }
+    };
 
     const PdfDocument = _props => (
         <Document>
@@ -68,48 +143,19 @@
             </Page>
         </Document>
     );
-/*
-    const Downloader = () => ( 
-        <div>
-            <PDFDownloadLink 
-                document={<PdfDocument />} 
-                fileName="somename.pdf"
-            >
-                {
-                    ({ blob, url, loading, error }) => (loading 
-                        ? 'Loading document...' 
-                        : 'Download now!')}
-            </PDFDownloadLink>
-        </div>
-    );
 
-    const BeautyText = () => (
-        <div>
-            <PdfDocument/>
-            <Downloader/>
-        </div>
-    );\
-*/
-/*
-    const MyDoc = () => (
-      <Document>
-        <Page>
-            <View>
-                <Text>
-                    {" Ut turpis mi, hendrerit rutrum nibh eget, porttitor feugiat ligula. Nullam tempus facilisis laoreet. Donec ac est ut diam auctor vestibulum ac ut mi. Aenean ut est massa. Ut eleifend auctor neque, ut ultrices lacus vestibulum vitae. Ut eleifend diam quis orci finibus tristique. Aenean mattis vel libero sit amet auctor. Nam ut felis magna. Nunc ullamcorper quam eget iaculis facilisis. Maecenas consectetur  hendrerit lectus, eget dictum enim venenatis a. Ut turpis mi, hendrerit rutrum nibh eget, porttitor feugiat ligula. Nullam tempus facilisis laoreet. Donec ac est ut diam auctor vestibulum ac ut mi. Aenean ut est massa. Ut eleifend auctor neque, ut ultrices lacus vestibulum vitae. Ut eleifend diam quis orci finibus tristique. Aenean mattis vel libero sit amet auctor. Nam ut felis magna. Nunc ullamcorper quam eget iaculis facilisis. Maecenas consectetur  hendrerit lectus, eget dictum enim venenatis a. Ut turpis mi, hendrerit rutrum nibh eget, porttitor feugiat ligula. Nullam tempus facilisis laoreet. Donec ac est ut diam auctor vestibulum ac ut mi. Aenean ut est massa. Ut eleifend auctor neque, ut ultrices lacus vestibulum vitae. Ut eleifend diam quis orci finibus tristique. Aenean mattis vel libero sit amet auctor. Nam ut felis magna. Nunc ullamcorper quam eget iaculis facilisis. Maecenas consectetur  hendrerit lectus, eget dictum enim venenatis a. Ut turpis mi, hendrerit rutrum nibh eget, porttitor feugiat ligula. Nullam tempus facilisis laoreet. Donec ac est ut diam auctor vestibulum ac ut mi. Aenean ut est massa. Ut eleifend auctor neque, ut ultrices lacus vestibulum vitae. Ut eleifend diam quis orci finibus tristique. Aenean mattis vel libero sit amet auctor. Nam ut felis magna. Nunc ullamcorper quam eget iaculis facilisis. Maecenas consectetur  hendrerit lectus, eget dictum enim venenatis a. Ut turpis mi, hendrerit rutrum nibh eget, porttitor feugiat ligula. Nullam tempus facilisis laoreet. Donec ac est ut diam auctor vestibulum ac ut mi. Aenean ut est massa. Ut eleifend auctor neque, ut ultrices lacus vestibulum vitae. Ut eleifend diam quis orci finibus tristique. Aenean mattis vel libero sit amet auctor. Nam ut felis magna. Nunc ullamcorper quam eget iaculis facilisis. Maecenas consectetur  hendrerit lectus, eget dictum enim venenatis a. Ut turpis mi, hendrerit rutrum nibh eget, porttitor feugiat ligula. Nullam tempus facilisis laoreet. Donec ac est ut diam auctor vestibulum ac ut mi. Aenean ut est massa. Ut eleifend auctor neque, ut ultrices lacus vestibulum vitae. Ut eleifend diam quis orci finibus tristique. Aenean mattis vel libero sit amet auctor. Nam ut felis magna. Nunc ullamcorper quam eget iaculis facilisis. Maecenas consectetur  hendrerit lectus, eget dictum enim venenatis a."}
-                </Text>
-            </View>
-        </Page>
-      </Document>
-    )
-*/
-    const BeautyText = _props => (
+    const BeautyText = (_props) => (
       <div>
-        <PdfDocument text={_props.text}/>
-        <PDFDownloadLink document={<PdfDocument text={_props.text}/>} fileName="somename.pdf">
-          {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Забери PDF если считаешь что он ок.')}
+        <PdfDocument text={data_to_text(_props.text,_props.store)}/>
+        <PDFDownloadLink 
+            document={<PdfDocument 
+                text={data_to_text(_props.text,_props.store)}/>
+            } 
+            fileName="somename.pdf"
+        >
+            {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Забери PDF если считаешь что он ок.')}
         </PDFDownloadLink>
       </div>
-    )
+    );
 
     export default BeautyText;

@@ -1,11 +1,9 @@
    
     import React, {useState} from 'react';
-    import {
-        GlobalStyle,Container,Grid,AreaBox,Text,
-        TextBox,Input,Button,link,naked,Selectable,ghost
-    } from '../css/style.js';
+    import {Input} from '../css/style.js';
     import * as actions from '../actions';
     import BeautyText from "./BeautyText";
+    import {connect} from 'react-redux';
 /*
 1. Название (то, как будет отображаться контакт в системе, неформальное название)
 2. Фамилия
@@ -19,7 +17,7 @@
 10. Код подразделения
 11. Адрес прописки
 */
-    const FormThree = () => {
+    const FormThree = ({store,onDataReady}) => {
         const [formData, setFormData] = useState({
             NameInformal: "",
             lastName: "",
@@ -33,7 +31,6 @@
             codeGave:"",
             addressGave:""
         });
-        const formString = JSON.stringify(formData);
         const updateFormData = event => {
             setFormData({
               ...formData,
@@ -58,16 +55,9 @@
         const handleSubmit = e => {
             e.preventDefault();
             //onYur(formData);
+            onDataReady(formData);
             console.log("formData after submit: ", formData);
         };
-    const FormReport = () => (
-        <Text m={"2vmin"}>
-            <div>
-                {"FORM REPORT: coming soon"}
-            </div>
-        </Text>
-      
-    );
     return (
         <form>
             <br/>
@@ -196,7 +186,7 @@
           <button onClick={handleSubmit}>Submit</button>
           <div>
             <div>
-                <BeautyText text={formString}/>
+                <BeautyText text={JSON.stringify(store)}/>
             </div>
           </div>
         
@@ -204,5 +194,24 @@
     );
     };
 
+        const mapStateToProps = _state => ({
+        store: _state.formThree,
+        //home: _state.home,
+        //yurlitzas: _state.home.yurlitzas,
+        //dogovorTypes: _state.home.dogovorTypes,
+        //dialects: _state.home.varDialects,
+        //formData: _state.home.formData
+    });
+    const mapDispatchToProps = _dispatch => ({
+        //onYur: data => _dispatch(actions.yurlitso(data))
+        onDataReady: data =>
+            _dispatch(actions.zakazchikTypeThreeData(data))
+    });
+
+    export default connect (
+        mapStateToProps,
+        mapDispatchToProps
+    )(FormThree); 
+
         
-    export default FormThree;
+    //export default FormThree;

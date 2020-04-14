@@ -1,18 +1,15 @@
 import {state} from '../state.js';
 import {
-    YURLITSO,
-    DOGOVOR_TYPE,
+    ZAKAZCHIK_TYPEONE_DATA
 } from '../constants/actionTypes'
 
 const initialState = (window.Cypress && window.initialState) ||
-state;
+state.formData;
 
 export default function(state = initialState,action){
     switch (action.type){
-        case YURLITSO:
-            return { yurlitso: action.payload };
-        case DOGOVOR_TYPE:
-            return { dogovorType: action.payload };
+        case ZAKAZCHIK_TYPEONE_DATA:
+            return { zakazchikTypeOneData: action.payload };
         default:        
             return state;
     };

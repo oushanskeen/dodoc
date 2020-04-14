@@ -4,7 +4,7 @@ import Home from './components/Home';
 
 function App() {
   return (
-    <main class="container" >
+    <main className="container" >
         <Switch id="main">
             <Route exact path="/dodoc/" 
                 component={Home} />          

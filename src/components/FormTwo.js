@@ -1,13 +1,11 @@
    
     import React, {useState} from 'react';
-    import {
-        GlobalStyle,Container,Grid,AreaBox,Text,
-        TextBox,Input,Button,link,naked,Selectable,ghost
-    } from '../css/style.js';
+    import {Input} from '../css/style.js';
     import * as actions from '../actions';    
     import BeautyText from "./BeautyText";
+    import {connect} from 'react-redux';
 
-    const FormTwo = () => {
+    const FormTwo = ({store,onDataReady}) => {
         const [formData, setFormData] = useState({
             Name: "",
             FIO: "",
@@ -20,7 +18,6 @@
             BillOne:"",
             BillTwo:""
         });
-        const formString = JSON.stringify(formData);
         const updateFormData = event => {
             setFormData({
               ...formData,
@@ -44,16 +41,10 @@
         const handleSubmit = e => {
             e.preventDefault();
             //onYur(formData);
+            onDataReady(formData);
             console.log("formData after submit: ", formData);
         };
-    const FormReport = () => (
-        <Text m={"2vmin"}>
-            <div>
-                {"FORM REPORT: coming soon"}
-            </div>
-        </Text>
-      
-    );
+    console.log("store in formTwo : ", store)
     return (
         <form>
             <br/>
@@ -140,7 +131,7 @@
                <label> БИК : <br/>
                    <Input
                        id="BIK"
-                       value= {bankName}
+                       value= {BIK}
                        onChange={e => updateFormData(e)}
                        placeholder=" BIK "
                        type="text"
@@ -174,7 +165,7 @@
           <button onClick={handleSubmit}>Submit</button>
 
             <div>
-                <BeautyText text={formString}/>
+                <BeautyText text={JSON.stringify(store)}/>
             </div>
 
         
@@ -182,5 +173,24 @@
     );
     };
 
+const mapStateToProps = _state => ({
+    store: _state.formTwo,
+    //home: _state.home,
+    //yurlitzas: _state.home.yurlitzas,
+    //dogovorTypes: _state.home.dogovorTypes,
+    //dialects: _state.home.varDialects,
+    //formData: _state.home.formData
+});
+const mapDispatchToProps = _dispatch => ({
+    //onYur: data => _dispatch(actions.yurlitso(data))
+    onDataReady: data =>
+        _dispatch(actions.zakazchikTypeTwoData(data))
+});
+
+export default connect (
+    mapStateToProps,
+    mapDispatchToProps
+)(FormTwo); 
+
         
-    export default FormTwo;
+    //export default FormTwo;

@@ -1,28 +1,31 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {
     GlobalStyle,Container,Grid,AreaBox,Text,
-    TextBox,Input,Button,link,naked,Selectable,ghost
+    TextBox
 } from '../css/style.js';
 import * as actions from '../actions';
 import {connect} from 'react-redux';
-import { useForm } from "react-hook-form";
-import * as data from "./datavector";
 import FormOne from "./FormOne";
 import FormTwo from "./FormTwo";
 import FormThree from "./FormThree";
-import BeautyText from "./BeautyText";
-const inData = data.datavectorOne;
-console.log("inData : ", inData);
 
-
-
-const Home = ({store,home,yurlitzas,dogovorTypes,dialects,onYur}) => { 
+const Home = (
+    {
+        store,
+        home,
+        yurlitzas,
+        dogovorTypes,
+        dialects,
+        onYur,
+        formData
+    }) => { 
 
     const [yurlitso,setYurlitso] = useState("unknown");
     const [dogType,setDogType] = useState("unknown");
-    const [outerdata,setOuterdata] = useState("formDataDefault");
     const [zakazchik,setZakazchik] = useState("unknown");
-    
+    console.log("store : ", store);
+    console.log("home :" , home);
+    console.log("formData : ", formData);
     
     
     const Elem = _props => {
@@ -36,7 +39,7 @@ const Home = ({store,home,yurlitzas,dogovorTypes,dialects,onYur}) => {
         <Text m={"2vmin"}>
             <div id="yurfacesPanel">
                 ЮРЛИЦО: <b>{yurlitso}</b> <br/>
-                {yurlitzas.map(e => <Elem data={e} set={setYurlitso}/>)}<br/>  
+                {yurlitzas.map((e,i) => <Elem key={i} data={e} set={setYurlitso}/>)}<br/>  
             </div>
         </Text>
     ); 
@@ -44,15 +47,15 @@ const Home = ({store,home,yurlitzas,dogovorTypes,dialects,onYur}) => {
         <Text m={"2vmin"}>
             <div id="contractTypesPanel">
                 ТИП ДОГОВОРА: <b>{dogType}</b> <br/>
-                {dogovorTypes.map(e => <Elem data={e} set={setDogType}/>)}<br/>  
+                {dogovorTypes.map((e,i) => <Elem key={i} data={e} set={setDogType}/>)}<br/>  
             </div>
         </Text>
     );
     const DialTab = () => {
         //console.log("dialects : ", dialects);
         let current = () => {
-            return ((dogType == "проектирование") ? [...dialects.make] :
-                (dogType == "поставка") ? [...dialects.sell] :
+            return ((dogType === "проектирование") ? [...dialects.make] :
+                (dogType === "поставка") ? [...dialects.sell] :
                 dialects.basic
             );
         };
@@ -61,7 +64,7 @@ const Home = ({store,home,yurlitzas,dogovorTypes,dialects,onYur}) => {
             <Text m={"2vmin"}>
                 <div id="varsPanel">
                     НАБОР ПЕРЕМЕННЫХ: <b>{dogType}</b> <br/>
-                    {current().map(e => <b>{e}{" | "}</b>)}
+                    {current().map((e,i) => <b key={i} >{e}{" | "}</b>)}
                 </div>
             </Text>
     )};
@@ -71,7 +74,7 @@ const Home = ({store,home,yurlitzas,dogovorTypes,dialects,onYur}) => {
         <Text m={"2vmin"}>
             <div id="zakazchik">
                 ТИП ЗАКАЗЧИКА: <b>{zakazchik}</b> <br/>
-                {zakTypes.map(e => <Elem data={e} set={setZakazchik}/>)}<br/>  
+                {zakTypes.map((e,i) => <Elem key={i} data={e} set={setZakazchik}/>)}<br/>  
             </div>
         </Text>        
     );
@@ -123,7 +126,7 @@ const mapStateToProps = _state => ({
     home: _state.home,
     yurlitzas: _state.home.yurlitzas,
     dogovorTypes: _state.home.dogovorTypes,
-    dialects: _state.home.varDialects
+    dialects: _state.home.varDialects,
 });
 const mapDispatchToProps = _dispatch => ({
     onYur: data => _dispatch(actions.yurlitso(data))
