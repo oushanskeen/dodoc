@@ -107,7 +107,7 @@ _data.Name + " ИНН: " + _data.INN + " ОГРНИП: " + _data.OGRNIP + " Фа
         )
     };
     const templateThree = (_data = sampleDataTwo.type) => {
-        return("Нашакомпания, в лице директора ФИОдиректора нашей компании, действующего на основании Устава, с одной стороны, именуемое в дальнейшем 'Поставщик' и " + _data.lastName + " " + _data.firstName + " " + _data.midName + " , " + _data.docType + " серия " + _data.Serial + " номер " +  _data.number + " , выдан " +  _data.whoGave + " " +  _data.whenGave + " код подразделения " +  _data.codeGave + " , именуемый(ая) в дальнейшем 'Покупатель', РЕКВИЗИТЫ СТОРОН: Покупатель: "  + _data.lastName + " " + _data.firstName + " " + _data.midName + " , " + _data.docType + " серия " + _data.Serial + " номер " +  _data.number + " , выдан " +  _data.whoGave + " " +  _data.whenGave + " код подразделения " +  _data.codeGave + " подписи _/инициалы(ФИО)/"
+        return("Нашакомпания, в лице директора ФИОдиректора нашей компании, действующего на основании Устава, с одной стороны, именуемое в дальнейшем 'Поставщик' и " + _data.lastName + " " + _data.firstName + " " + _data.midName + " , " + _data.docType + " серия " + _data.Serial + " номер " +  _data.number + " , выдан " +  _data.whoGave + " " +  _data.whenGave + " код подразделения " +  _data.codeGave + " , именуемый(ая) в дальнейшем 'Покупатель', РЕКВИЗИТЫ СТОРОН: Покупатель: "  + _data.lastName + " " + _data.firstName + " " + _data.midName + " , " + _data.docType + " серия " + _data.Serial + " номер " +  _data.number + " , выдан " +  _data.whoGave + " " +  _data.whenGave + " код подразделения " +  _data.codeGave + " подписи " + "_/инициалы(ФИО)/"
         );
     };
 
