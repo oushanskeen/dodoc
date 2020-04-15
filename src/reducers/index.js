@@ -6,9 +6,7 @@ import formThree from './formThree';
 
 const rootReducer = combineReducers({
     home,
-    formOne,
-    formTwo,
-    formThree
+    form:combineReducers({formOne,formTwo,formThree}),
 });
 
 export default rootReducer;

@@ -258,7 +258,7 @@
 
 const mapStateToProps = _state => ({
     store: _state,
-    formOneState: _state.formOne
+    formOneState: _state.form.formOne
 });
 const mapDispatchToProps = _dispatch => ({
     onDataReady: data =>

@@ -195,7 +195,7 @@
     };
 
         const mapStateToProps = _state => ({
-        store: _state.formThree,
+        store: _state.form.formThree,
         //home: _state.home,
         //yurlitzas: _state.home.yurlitzas,
         //dogovorTypes: _state.home.dogovorTypes,

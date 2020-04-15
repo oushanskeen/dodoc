@@ -8,6 +8,7 @@ import {connect} from 'react-redux';
 import FormOne from "./FormOne";
 import FormTwo from "./FormTwo";
 import FormThree from "./FormThree";
+const {newDogGen,nameExtractor} = require("../utils/dognums");
 
 const Home = (
     {
@@ -23,6 +24,8 @@ const Home = (
     const [yurlitso,setYurlitso] = useState("unknown");
     const [dogType,setDogType] = useState("unknown");
     const [zakazchik,setZakazchik] = useState("unknown");
+    const [dogsList,setDogsList] = useState(nameExtractor());
+    const [dogs, setDogs] = useState("unknown");
     console.log("store : ", store);
     console.log("home :" , home);
     console.log("formData : ", formData);
@@ -78,32 +81,71 @@ const Home = (
             </div>
         </Text>        
     );
-  const Basic = () => (
+    const ZakData = () => (
+        <TextBox h={"100%"}>
+            {zakazchik==="организация"
+                    ? <FormOne/> 
+                    : zakazchik==="ИП"
+                        ? <FormTwo/>
+                        : zakazchik==="физическое лицо"
+                            ? <FormThree/> 
+                            : "who knows"
+            }<br/>
+        </TextBox>
+    );
+    const dogTypesData  = [
+        "Договор проектирования",
+        "Договор поставки",
+        "Договор монтажа",
+        "Договор сервисного обслуживания",
+        "Договор субподряда"
+    ];
+    const Dogovors = () => {
+        const newdogHandler = () => {
+            setDogsList(dogsList.concat(newDogGen(dogs)));
+            console.log("new dog : ", newDogGen(dogs));
+        };
+        return(
+            <Text m={"2vmin"}>
+                <div>
+                    СОЗДАТЬ ДОГОВОР: <b onClick={newdogHandler}>{dogs}</b> <br/>
+                    {dogTypesData.map((e,i) => <Elem key={i} data={e} set={setDogs}/>)}
+                </div>
+            </Text>        
+        )
+    };
+    const DogsData = () => (
+        <Text m={"2vmin"}>
+            <div>
+                СПИСОК ДОГОВОРОВ:
+                <br/><br/>
+                {dogsList.map(e => (<div><b>{e}</b></div>))}
+            </div>
+        </Text> 
+    );
+    
+    const Basic = () => (
     <div>
     <GlobalStyle/>
         <Container>
             <Grid>
-                <AreaBox g={[2,2,5,5]} fd="row">
+                <AreaBox g={[2,2,6,5]} fd="row">
                     <TextBox h={"100%"}>
                         <Text m={"2vmin"}>
                             <YurTab/>
                             <DogTab/>
                             <DialTab/>
                             <Zakazchik/>
+                            <Dogovors/>
                         </Text>
                     </TextBox>
                 </AreaBox>
-                <AreaBox g={[5,2,10,5]} fd="row">
-                    
+                <AreaBox g={[6,2,10,5]} fd="row">
                     <TextBox h={"100%"}>
-                        {zakazchik==="организация"
-                                ? <FormOne/> 
-                                : zakazchik==="ИП"
-                                    ? <FormTwo/>
-                                    : zakazchik==="физическое лицо"
-                                        ? <FormThree/> 
-                                        : "who knows"
-                        }<br/>
+                        <Text m={"2vmin"}>
+                            {zakazchik==="unknown" ? <div></div> : <ZakData/>}
+                            {dogs==="unknown" ? <div></div> : <DogsData/>}
+                        </Text>
                     </TextBox>
                 </AreaBox>
                 
@@ -118,9 +160,6 @@ const Home = (
   );
 }
 
-//const mapStateToProps = state => ({
-//    store: state.home
-//},console.log("mapState state : ", state));
 const mapStateToProps = _state => ({
     store: _state,
     home: _state.home,
