@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {
     GlobalStyle,Container,Grid,AreaBox,Text,
-    TextBox,Button,ParamBox,naked
+    TextBox
 } from '../css/style.js';
 import * as actions from '../actions';
 import {connect} from 'react-redux';
@@ -10,14 +10,6 @@ import FormTwo from "./FormTwo";
 import FormThree from "./FormThree";
 import Carousel from "./Carousel";
 const {newDogGen,nameExtractor} = require("../utils/dognums");
-
-const steps = [
-    "Выбери объект, к которому нужно создать документ",
-    "Выбери тип договора",
-    "Выбери своё юрлицо",
-    "Выбери тип контр-агента и заполни его данные",
-    "Ты сделал всё что мог, отдохни"
-];
 
 const Home = (
     {
@@ -30,10 +22,6 @@ const Home = (
         formData
     }) => { 
 
-    const idScope = steps.map((e,i) => i);
-   console.log("idScope : ", idScope);
-   const [count,setCount] = useState(idScope[0]);
-    
     const [obj,setObj] = useState("unknown");
     const [yurlitso,setYurlitso] = useState("unknown");
     const [dogType,setDogType] = useState("unknown");
@@ -46,30 +34,25 @@ const Home = (
     const objects = ["Липки","Пипки","Ципки"];
     
     const Elem = _props => {
-        console.log("here must be the count");
-        console.log("cnt : ", count);
         const handleClick = () => {
             console.log("data : ", _props.data);
-            console.log("cnt : ", count);
             _props.set(_props.data);
-            
         };
         return (<b onClick={handleClick}>{_props.data}{" | "}</b>
     )};
-    const ObjTab = () => (
-        <Text m={"2vmin"} style={naked}>
+    const YurTab = () => (
+        <Text m={"2vmin"}>
             <div >
                 ОБЪЕКТ: <b>{obj}</b> <br/>
                 {objects.map((e,i) => <Elem key={i} data={e} set={setObj}/>)}<br/>  
             </div>
         </Text>
     ); 
-    
-    const YurTab = () => (
+    const DogTab = () => (
         <Text m={"2vmin"}>
             <div id="contractTypesPanel">
-                ЮРЛИЦО: <b>{yurlitso}</b> <br/>
-                {yurlitzas.map((e,i) => <Elem key={i} data={e} set={setYurlitso}/>)}<br/>  
+                ТИП ДОГОВОРА: <b>{dogType}</b> <br/>
+                {dogovorTypes.map((e,i) => <Elem key={i} data={e} set={setDogType}/>)}<br/>  
             </div>
         </Text>
     );
@@ -91,16 +74,6 @@ const Home = (
             </Text>
     )};
 
-    const FormTab = () => {
-        return (zakazchik==="организация"
-                    ? <FormOne/> 
-                    : zakazchik==="ИП"
-                        ? <FormTwo/>
-                        : zakazchik==="физическое лицо"
-                            ? <FormThree/> 
-                            : "who knows"
-            );
-    };
     const zakTypes = ["организация","ИП","физическое лицо"];
     const Zakazchik = () => (
         <Text m={"2vmin"}>
@@ -108,10 +81,19 @@ const Home = (
                 ТИП ЗАКАЗЧИКА: <b>{zakazchik}</b> <br/>
                 {zakTypes.map((e,i) => <Elem key={i} data={e} set={setZakazchik}/>)}<br/>  
             </div>
-            
-            <FormTab/>
-            
         </Text>        
+    );
+    const ZakData = () => (
+        <TextBox h={"100%"}>
+            {zakazchik==="организация"
+                    ? <FormOne/> 
+                    : zakazchik==="ИП"
+                        ? <FormTwo/>
+                        : zakazchik==="физическое лицо"
+                            ? <FormThree/> 
+                            : "who knows"
+            }<br/>
+        </TextBox>
     );
     const dogTypesData  = [
         "Договор проектирования",
@@ -126,30 +108,14 @@ const Home = (
             console.log("new dog : ", newDogGen(dogs));
         };
         return(
+            <Text m={"2vmin"}>
                 <div>
-                    СОЗДАТЬ ДОГОВОР: 
-                    <b onClick={newdogHandler}>{dogs}</b> <br/>
-                    {dogTypesData.map((e,i) => 
-                    <Elem key={i} data={e} set={setDogs}/>)}
-                </div>   
+                    СОЗДАТЬ ДОГОВОР: <b onClick={newdogHandler}>{dogs}</b> <br/>
+                    {dogTypesData.map((e,i) => <Elem key={i} data={e} set={setDogs}/>)}
+                </div>
+            </Text>        
         )
     };
-    const DogTab = () => (
-        <TextBox h={"100%"}>
-        <Text m={"2vmin"}>
-            <div id="contractTypesPanel">
-                ТИП ДОГОВОРА: <b>{dogType}</b> <br/>
-                {dogovorTypes.map((e,i) => <Elem key={i} data={e} set={setDogType}/>)}<br/>  
-            </div>
-        
-            
-            {dogType === "проектирование" 
-                ? <Dogovors/>
-                : ""            
-            }
-           </Text> 
-        </TextBox>
-    );
     const DogsData = () => (
         <Text m={"2vmin"}>
             <div>
@@ -161,83 +127,40 @@ const Home = (
     );
     
     const components = 
-    [<ObjTab/>,<DogTab/>,<YurTab/>,<Zakazchik/>];
+    [
+        <YurTab/>,<DogTab/>   
+    ];
 
-    let handlePrev = _stepId => {
-        setCount(count-1);
-    };
-    let handleNext = _stepId => {
-        setCount(count+1);
-    };
-
-        const PrevButton = () => (
-        <Button>
-            <div onClick={handlePrev}> 
-                PREVIOUS 
-            </div>
-        </Button>     
-    );
-    const NextButton = () => (
-        <Button>
-            <div onClick={handleNext}> 
-                NEXT 
-            </div>
-        </Button>
-    );
-    /*
-    const ButtonsBox = () => (
-        <AreaBox g={[7,2,8,5]} fd="row">
-            <PrevButton/>
-            <NextButton/>
-        </AreaBox>
-    );
-    */
-    
-    const ButtonsBox = () => (
-        <div>
-            <PrevButton/>
-            <NextButton/>
-        </div>
-    );
-    
     const Basic = () => (
     <div>
     <GlobalStyle/>
-    <Container>
-        <Grid>
-              <AreaBox g={[2,2,7,5]} fd="row">
-                    <TextBox h={"100%"}>
-                        <Text m={"2vmin"}>
-                            <Carousel 
-                            components={components}
-                            steps={steps}
-                            count={count}
-                            
-                            />
-                            
-                        </Text>
-                    </TextBox>
-                </AreaBox>
-            <AreaBox g={[7,2,10,5]} fd="row">
-
-                <ButtonsBox/>
-     
-            </AreaBox>
-            
-                {/*<!--AreaBox g={[2,2,3,5]} fd="row">
+        <Container>
+            <Grid>
+                <AreaBox g={[2,2,3,5]} fd="row">
                     <TextBox h={"100%"}>
                         <Text m={"2vmin"}>
                             <YurTab/>
                             <DogTab/>
                             <DialTab/>
                             <Zakazchik/>
-                            <Dogovors/-->
+                            <Dogovors/>
                         </Text>
                     </TextBox>
-                </AreaBox-->*/}
-              
-        </Grid>
-    </Container>
+                </AreaBox>
+                <AreaBox g={[3,2,10,5]} fd="row">
+                    <TextBox h={"100%"}>
+                        <Text m={"2vmin"}>
+                            <Carousel components={components}/>
+                            {zakazchik==="unknown" 
+                            ? <div></div> : <ZakData/>}
+                            {dogs==="unknown" ? <div></div> 
+                            : <DogsData/>}
+                        </Text>
+                    </TextBox>
+                </AreaBox>
+                
+            </Grid>
+        </Container>
     </div>
   );
   return (

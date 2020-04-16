@@ -25,7 +25,7 @@ const AreaBox = styled.div`
     grid-area:${p=> p.g[0]+"/"+p.g[1]+"/"+p.g[2]+"/"+p.g[3]};
     justify-content:center;
     align-items:center;
-    border:0.5px solid black;
+    border:${p=> p.b || "0.5px solid black"};
     padding:0px;
     overflow-wrap:normal;
     background:White;
@@ -38,7 +38,7 @@ const ParamBox = styled.div`
     justify-content:center;
     align-items:center;
     overflow-wrap:normal;
-    //overflow:scroll;
+    overflow:scroll;
 `;
 const Text = styled.div`
     margin:${p => p.m};
@@ -49,7 +49,7 @@ const Button = styled.div`
     align-items:center;
     margin:1vmin;
     padding:5vmin;
-    width:50vw;
+    width:30vw;
     border:0.5vmin solid DarkSlateGrey;    
 `;
 const Img = styled.img`
