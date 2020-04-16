@@ -38,7 +38,7 @@ const ParamBox = styled.div`
     justify-content:center;
     align-items:center;
     overflow-wrap:normal;
-    overflow:scroll;
+    //overflow:scroll;
 `;
 const Text = styled.div`
     margin:${p => p.m};
@@ -65,7 +65,7 @@ const TextBox = styled(ParamBox)`
     align-items:flex-start;
     font-size:1rem;
     margin:1vmin;
-    overflow:scroll;
+    //overflow:scroll;
 `;
 const Input = styled.input`
     color: black;
@@ -98,6 +98,26 @@ const naked = {
   'border': '0px',
 };
 
+const NavbarDropdownContent = styled.div`
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    opacity:90%;
+    min-width: 300px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0, 2);
+    padding: 12px 16px;
+    z-index: 1;
+`;
+
+const NavbarDropdown = styled.div`
+position: relative;
+display: inline-block;
+&:hover ${NavbarDropdownContent} {
+  display: block;
+}
+`;
+
+
 export {
-    GlobalStyle,Container,Grid,AreaBox,ParamBox,TextBox,Input,Text,Button,Img,link,naked,Selectable,ghost
+    GlobalStyle,NavbarDropdown,NavbarDropdownContent,Container,Grid,AreaBox,ParamBox,TextBox,Input,Text,Button,Img,link,naked,Selectable,ghost
 }

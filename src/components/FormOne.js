@@ -5,7 +5,7 @@
     import BeautyText from "./BeautyText";
     import {connect} from 'react-redux';
 
-    const FormOne = ({store,formOneState,onDataReady}) => {
+    const FormOne = ({store,formOneState,onDataReady},_props) => {
         const [formData, setFormData] = useState({
             compFullName: "",
             compShortName: "",
@@ -52,9 +52,12 @@
         const handleSubmit = e => {
             e.preventDefault();
             onDataReady(formData);
-            console.log("formData after submit: ", formData);
+            //form.setFormValue(formData);
+            //console.log("FormData after submit: ", form.FormValue);
+            //console.log("formData after submit: ", formData);
         };
     console.log("store in formOne : ", formOneState);
+    
     return (
         <form>
             <br/>
@@ -245,12 +248,15 @@
                        required
                    /><br/>
                </label><br/>
-           
+
           <button onClick={handleSubmit}>Submit</button>
           <div>
           </div>
             <div>
-                <BeautyText text={JSON.stringify(formOneState)} store={store}/>
+                <BeautyText 
+                    text={JSON.stringify(formOneState)}
+                    store={store}
+                />
             </div>
         </form>
     );
