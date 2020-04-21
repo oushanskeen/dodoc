@@ -5,7 +5,9 @@
     import BeautyText from "./BeautyText";
     import {connect} from 'react-redux';
 
-    const FormOne = ({store,formOneState,onDataReady},_props) => {
+    const FormOne = ({store,onDataReady,onNewdogData,onDogovorData,dogovorData}) => {
+        console.log("store visible in FormOne : ", store);
+        console.log("onDataReady inside form one : ", onDataReady);
         const [formData, setFormData] = useState({
             compFullName: "",
             compShortName: "",
@@ -29,6 +31,7 @@
               ...formData,
               [event.target.name]: event.target.value
             });
+            console.log("form data : ", formData);
         }
         const 
         { 
@@ -51,13 +54,9 @@
         } = formData;
         const handleSubmit = e => {
             e.preventDefault();
-            onDataReady(formData);
-            //form.setFormValue(formData);
-            //console.log("FormData after submit: ", form.FormValue);
-            //console.log("formData after submit: ", formData);
+            //onDataReady({clientType:"ORG", data:formData});
+            onDogovorData({...dogovorData,formData:formData}); 
         };
-    console.log("store in formOne : ", formOneState);
-    
     return (
         <form>
             <br/>
@@ -249,12 +248,10 @@
                    /><br/>
                </label><br/>
 
-          <button onClick={handleSubmit}>Submit</button>
-          <div>
-          </div>
-            <div>
+             <button onClick={handleSubmit}>Submit</button>
+             <div>
                 <BeautyText 
-                    text={JSON.stringify(formOneState)}
+                    text={JSON.stringify(formData)}
                     store={store}
                 />
             </div>
@@ -262,16 +259,19 @@
     );
     };
 
-const mapStateToProps = _state => ({
-    store: _state,
-    formOneState: _state.form.formOne
-});
-const mapDispatchToProps = _dispatch => ({
-    onDataReady: data =>
-        _dispatch(actions.zakazchikTypeOneData(data))
-});
+    const mapStateToProps = _state => ({
+        store: _state,
+        dogovorData: _state.dogovorData
+        //formOneState: _state.form.formOne
+    });
+    const mapDispatchToProps = _dispatch => ({
+        onDataReady: data => _dispatch(actions.formDataNew(data)),
+        onDogovorData: data => _dispatch(actions.dogovorData(data))
+    });
 
-export default connect (
-    mapStateToProps,
-    mapDispatchToProps
-)(FormOne);       
+    export default connect (
+        mapStateToProps,
+        mapDispatchToProps
+    )(FormOne);   
+
+    

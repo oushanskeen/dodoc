@@ -1,5 +1,15 @@
 import * as types from "../constants/actionTypes";
 
+export const dogovorData = _data => {
+    console.log({type:types.DOGOVOR_DATA, payload: _data});
+    return {type:types.DOGOVOR_DATA, payload: _data}
+};
+
+export const formDataNew = _data => {
+    console.log({type:types.FORM_DATA_NEW, payload: _data});
+    return {type:types.FORM_DATA_NEW, payload: _data};
+};
+
 export const yurlitso = _yurlitso => {
     console.log({type:types.YURLITSO, payload: _yurlitso});
     return {type:types.YURLITSO, payload: _yurlitso};

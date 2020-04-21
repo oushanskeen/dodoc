@@ -5,7 +5,7 @@
     import BeautyText from "./BeautyText";
     import {connect} from 'react-redux';
 
-    const FormTwo = ({store,onDataReady}) => {
+    const FormTwo = ({store,onDataReady,dogovorData,onDogovorData}) => {
         const [formData, setFormData] = useState({
             Name: "",
             FIO: "",
@@ -41,7 +41,8 @@
         const handleSubmit = e => {
             e.preventDefault();
             //onYur(formData);
-            onDataReady(formData);
+            //onDataReady(formData);
+            onDogovorData({...dogovorData,formData:formData});
             console.log("formData after submit: ", formData);
         };
     console.log("store in formTwo : ", store)
@@ -174,8 +175,8 @@
     };
 
 const mapStateToProps = _state => ({
-    store: _state.form.formTwo,
-    //home: _state.home,
+     store: _state,
+     dogovorData: _state.dogovorData
     //yurlitzas: _state.home.yurlitzas,
     //dogovorTypes: _state.home.dogovorTypes,
     //dialects: _state.home.varDialects,
@@ -184,7 +185,8 @@ const mapStateToProps = _state => ({
 const mapDispatchToProps = _dispatch => ({
     //onYur: data => _dispatch(actions.yurlitso(data))
     onDataReady: data =>
-        _dispatch(actions.zakazchikTypeTwoData(data))
+        _dispatch(actions.zakazchikTypeTwoData(data)),
+    onDogovorData: data => _dispatch(actions.dogovorData(data))
 });
 
 export default connect (

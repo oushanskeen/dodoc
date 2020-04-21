@@ -14,6 +14,12 @@ describe('Home page actions', () => {
       payload: "make"
     });
   });
+  it('Form one emits FORM_DATA_NEW action', () => {
+    expect(actions.formDataNew({clientType:"Org",formDataNew: "some data"})).toEqual({
+      type: types.FORM_DATA_NEW,
+      payload: {clientType:"Org",formDataNew: "some data"}
+    });
+  });
 });
 
 

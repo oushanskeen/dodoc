@@ -3,10 +3,13 @@ import home from './home';
 import formOne from './formOne';
 import formTwo from './formTwo';
 import formThree from './formThree';
+import formDataNew from './formDataNew';
+import dogovorData from './dogovorData';
 
 const rootReducer = combineReducers({
     home,
-    form:combineReducers({formOne,formTwo,formThree}),
+    formDataNew,
+    dogovorData
 });
 
 export default rootReducer;

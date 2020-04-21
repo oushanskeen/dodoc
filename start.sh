@@ -1,0 +1,2 @@
+#!/bini/bash
+npm start

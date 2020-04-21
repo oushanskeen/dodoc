@@ -2,7 +2,7 @@ import home from './home';
 import * as types from '../constants/actionTypes';
 import {state} from "../state.js";
 
-const initHomeState = state.hello;
+const initHomeState = state;
 
 describe('home reducer', () => {
     it('should handle initial state', () => {

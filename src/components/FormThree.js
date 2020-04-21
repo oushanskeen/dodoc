@@ -17,7 +17,7 @@
 10. Код подразделения
 11. Адрес прописки
 */
-    const FormThree = ({store,onDataReady}) => {
+    const FormThree = ({store,onDataReady,dogovorData,onDogovorData}) => {
         const [formData, setFormData] = useState({
             NameInformal: "",
             lastName: "",
@@ -55,7 +55,7 @@
         const handleSubmit = e => {
             e.preventDefault();
             //onYur(formData);
-            onDataReady(formData);
+            onDogovorData({...dogovorData,formData:formData});
             console.log("formData after submit: ", formData);
         };
     return (
@@ -195,7 +195,8 @@
     };
 
         const mapStateToProps = _state => ({
-        store: _state.form.formThree,
+     store: _state,
+     dogovorData: _state.dogovorDatree,
         //home: _state.home,
         //yurlitzas: _state.home.yurlitzas,
         //dogovorTypes: _state.home.dogovorTypes,
@@ -205,7 +206,8 @@
     const mapDispatchToProps = _dispatch => ({
         //onYur: data => _dispatch(actions.yurlitso(data))
         onDataReady: data =>
-            _dispatch(actions.zakazchikTypeThreeData(data))
+            _dispatch(actions.zakazchikTypeThreeData(data)),
+       onDogovorData: data => _dispatch(actions.dogovorData(data))
     });
 
     export default connect (

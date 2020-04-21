@@ -1,218 +1,187 @@
-import React, {useState,useEffect} from 'react';
-import {
-    GlobalStyle,Container,Grid,AreaBox,Text,
-    TextBox,Button,ParamBox,naked,
-    NavbarDropdown,NavbarDropdownContent,
-} from '../css/style.js';
-import * as actions from '../actions';
-import {connect} from 'react-redux';
-import FormOne from "./FormOne";
-import FormTwo from "./FormTwo";
-import FormThree from "./FormThree";
-import Carousel from "./Carousel";
-const {newDogGen,nameExtractor} = require("../utils/dognums");
+   
+    import React, {useState,useEffect} from 'react';
+    import {
+        GlobalStyle,Container,Grid,AreaBox,Text,
+        TextBox,Button,ParamBox,naked,
+        NavbarDropdown,NavbarDropdownContent,link
+    } from '../css/style.js';
+    import { Link } from 'react-router-dom';
+    import * as actions from '../actions';
+    import {connect} from 'react-redux';
+    import FormOne from "./FormOne";
+    import FormTwo from "./FormTwo";
+    import FormThree from "./FormThree";
+    import Montaj from "./Montaj";
+    const {newDogGen,nameExtractor} = require("../utils/dognums");
 
-const Home = (
-    {
-        store,
-        home,
-        yurlitzas,
-        dogovorTypes,
-        dialects,
-        onYur,
-        formOneData,
-        formTwoData,
-        formThreeData
-    }) => { 
+    const Home = (
+        {
+            store,
+            home,
+            formData,
+            newDogData,
+            onDogovorData,
+            dogovorData
+        }) => { 
+        console.log("store inside home : ", store);
+        console.log("form data : ", formData);
+        console.log("new dogovor data : ", newDogData);
 
-//  COMPONENT STATES AND STATE SETTERS -------------------------
-
-    const [obj,setObj] = useState(" - ");
-    const [yurlitso,setYurlitso] = useState(" - ");
-    const [dogType,setDogType] = useState(" - ");
-    const [zakazchik,setZakazchik] = useState(" - ");
-    const [dogsList,setDogsList] = useState(nameExtractor());
-    const [dogs, setDogs] = useState(" - ");
-    const [dogProj, setDogProj] = useState(" - ");
-    const [zakazchikData, setZakazhikData] = useState(" - ");
-    const [formData,setFormData] = useState(
-        {formOneData,formTwoData,formThreeData}
-    );
-    const choiceState = [obj,dogType,dogs,yurlitso,zakazchik];
+//  STATE -------------------------------------------------------------
     
-
-//  LOCAL UTIL FUNCTIONS ---------------------------------------
     
-    const noFormData = () => {
-        return(
-            (formOneData===formTwoData &&
-             formTwoData===formThreeData)
-             ===false ? "ECТЬ" : "НЕТ")
-    };
-    const isAllData = () => {
-        return(
-            (
-            obj !== " - " 
-            && 
-            dogType !== " - "
-            &&
-            dogProj !== " - "  
-            && 
-            yurlitso !== " - " 
-            &&
-            zakazchik !== " - " 
-            &&
-            noFormData() !== "НЕТ"
-            ) 
-            ? "OK" : "HZ"
-        );
-    };
+    // INIT
+    const [selection, setSelection] = useState({
+        objNameSel:"",
+        dogTypeSel:"",
+        sysTypeSel:"",
+        servTypeSel:"",
+        clientTypeSel:""    
+    });
+    const [hub,setHub] = useState({});
+    const output = {...dogovorData,selectors:{...selection,hub}};
+    
+    console.log("output : ", output);
 
-    // 1 ELEM --------------------------------------------------
-    const Elem = _props => {
-        const handleClick = () => _props.set(_props.data);
-        return <b onClick={handleClick}>{_props.data}<br/></b>;
-    };
-    // 2 TAB ---------------------------------------------------
-    const Tab = _props => (
-        <div>
-            {_props.vals.map((e,i) => 
-                <Elem 
-                    key={i} 
-                    data={e} 
-                    set={_props.setter}
-                />)
-            }<br/>   
-        </div>    
-    );
-    // 3 NAVBAR -----------------------------------------------
-    const Navbar = _props => (
-        <div>
-            <NavbarDropdown>
-                <span>{_props.name} : {_props.v}</span>
-                    <NavbarDropdownContent>
-                        {_props.comp}
-                </NavbarDropdownContent><br/><hr/>
-            </NavbarDropdown>
-        </div>
-    );
+//  REDUCERS -----------------------------------------------------------------------------
 
-//  SAMPLE HARDCODED DATA --------------------------------------
+    const updateSelection = event => {
+        setSelection({
+          ...selection,
+          [event.target.name]: event.target.value
+        });
+        console.log("updateSelection : ", selection);
+    }; 
+    const updateHub = event => {
+        const target = event.target;      
+        const value = target.value === "on" ? target.checked : !target.checked;
+        const name = target.name;
+        setHub({...hub,[name]: value});
+    }; 
+    const { objNameSel,
+            dogTypeSel,
+            sysTypeSel,
+            servTypeSel,
+            clientTypeSel,
+            } = selection;
 
-    const objects = ["Липки","Лапки","Пипки"];
-    const dogas  = [
-        "Договор проектирования",
-        "Договор поставки",
-    ];
-    const dogProjData  = [
+//  SAMPLE HARDCODED DATA VECTORS -----------------------------------------------------------------------
+
+    const objectsDataVector = ["Липки","Лапки","Пипки"];
+    const dogovorsDataVector  = [
         "Договор проектирования",
         "Договор поставки",
         "Договор монтажа",
         "Договор сервисного обслуживания",
         "Договор субподряда"
     ];
-    const zakTypes = ["организация","ИП","физическое лицо"];
-
-//  UI TABS ----------------------------------------------------
-
-    const YurTab = () => (
-        <Tab vals={yurlitzas} setter={setYurlitso}/>
-    );
-    const ObjTab = () => (
-        <Tab vals={objects} setter={setObj}/>
-    ); 
-    const DogTab = () => (
-        <Tab vals={dogas} setter={setDogType}/>
-    );
-    const DogProjTab = () => (
-        <Tab vals={dogProjData} setter={setDogProj}/>
-    );
-    const ZakTab = () => (
-        <Tab vals={zakTypes} setter={setZakazchik}/>  
-    );
-
-//  MENU DATA HUB ----------------------------------------------
-
-    const menuData = [
-        ["ИМЯ ОБЪЕКТА", obj, objects, <ObjTab/>],
-        ["ТИП ДОГОВОРА", dogType, dogas, <DogTab/>],
-        ["ТИП ТИПА ДОГОВОРА", dogProj,dogProjData,<DogProjTab/>],
-        ["ЮРЛИЦО", yurlitso, yurlitzas, <YurTab/>],
-        ["КОНТРАГЕНТ",zakazchik,zakTypes,<ZakTab/>],
-        ["ДАННЫЕ КОНТРАГЕНТА", formOneData ]
+    const systemsDataVector = [
+        "Вентиляция и кондиционирование", 
+        "Отопление",  
+        "Котельная",  
+        "Водоснабжение и канализация",  
+        "ЭОМ", 
+        "Слаботочные сети",
+        " Автоматизация"
     ];
+    const serversDataVector = ["сервер один", "сервер два"];
+    const clientDataVector = ["организация","ИП","физическое лицо"];
 
-//  ROOT COMOPOSER -------------------------------------------
+// ----------------------------------------------------------------------------------------------------------
 
-    const StatusBar = () => (    
-        <TextBox h={"100%"}>
-            <Text m={"2vmin"}>
-                <Navbar
-                    name={menuData[0][0]}
-                    v={menuData[0][1]}
-                    data={menuData[0][2]}          
-                    comp={menuData[0][3]}   
-                />
-                <Navbar
-                    name={menuData[1][0]}
-                    v={menuData[1][1]}
-                    data={menuData[1][2]}          
-                    comp={menuData[1][3]}   
-                />
-                {dogType==="Договор проектирования"
-                  ? (<Navbar
-                        name={menuData[2][0]}
-                        v={menuData[2][1]}
-                        data={menuData[2][2]}          
-                        comp={menuData[2][3]}   
-                    />)
-                  : ""
-                }
-                <Navbar
-                    name={menuData[3][0]}
-                    v={menuData[3][1]}
-                    data={menuData[3][2]}          
-                    comp={menuData[3][3]}   
-               />
-                <Navbar
-                    name={menuData[4][0]}
-                    v={menuData[4][1]}
-                    data={menuData[4][2]}          
-                    comp={menuData[4][3]}   
-                />  
-                <div>
-                    ДАННЫЕ КОНТРАГЕНТА: {noFormData()}
-                </div><br/>            
-            </Text>
-        </TextBox>
+    const ObjectSelector = () => (
+        <label for="pet-select"> выбери объект : <br/> 
+        <select
+            value={objNameSel} 
+            id="objNameSel" 
+            name="objNameSel" 
+            onChange={e =>updateSelection(e)}
+        >
+            <option value=""> - - - - - - - - - - - - - - - </option>
+            {objectsDataVector.map(e => (<option value={`${e}`}> {e} </option> ))}
+        </select><br/>
+        </label>
+    );
+    const DogovorSelector = () => (
+       <label for="pet-select"> выбери тип договора : <br/>
+        <select
+            value={dogTypeSel} 
+            id="dogTypeSel" 
+            name="dogTypeSel" 
+            onChange={e =>updateSelection(e)}
+        >
+            <option value=""> - - - - - - - - - - - - - - - </option>
+            {dogovorsDataVector.map(e => (<option value={`${e}`}> {e} </option> ))}
+        </select><br/> 
+        </label>
+    );
+    const ServerSelector = () => (
+        <div>
+            <label for="pet-select"> выбери тип сервера : </label><br/>
+            <select
+                value={servTypeSel} 
+                id="servTypeSel" 
+                name="servTypeSel" 
+                onChange={e =>updateSelection(e)}
+            >
+                <option value=""> - - - - - - - - - - - - - - - </option>
+                {serversDataVector.map(e => (<option value={`${e}`}> {e} </option> ))}
+            </select><br/>
+        </div>
+    );
+
+    const ClientSelector = () => (
+        <div>
+           <label for="pet-select"> выбери тип клиента : </label><br/>
+            <select
+                value={clientTypeSel} 
+                id="clientTypeSel" 
+                name="clientTypeSel" 
+                onChange={e =>updateSelection(e)}
+            >
+                <option value=""> - - - - - - - - - - - - - - - </option>
+                {clientDataVector.map(e => (<option value={`${e}`}> {e} </option> ))}
+            </select><br/> 
+        </div>
+    );
+    const SystemSelector = () => (
+        <div>
+            {systemsDataVector.map(e => 
+                (<label>{`${e}`}
+                    <input
+                        checked={hub[`${e}`]}
+                        name={`${e}`}
+                        type="checkbox"
+                        onChange={e =>updateHub(e)}
+                    /><br/>
+                </label>)
+             )}          
+        </div>
     );
 
     const FormTab = _props => {
-        return (zakazchik==="организация"
-                    ? <FormOne data={_props.data}/> 
-                    : zakazchik==="ИП"
-                        ? <FormTwo data={_props.data}/>
-                        : zakazchik==="физическое лицо"
-                            ? <FormThree data={_props.data}/> 
+        return (clientTypeSel==="организация"
+                    ? <FormOne/> 
+                    : clientTypeSel==="ИП"
+                        ? <FormTwo/>
+                        : clientTypeSel==="физическое лицо"
+                            ? <FormThree/> 
                             : "тип контрагента не выбран"
             );
-    };  
-    /*
-    const Dogovors = () => {
-        const newdogHandler = () => {
-            setDogsList(dogsList.concat(newDogGen(dogs)));
-            console.log("new dog : ", newDogGen(dogs));
-        };
-        return(
-                <div>
-                    СОЗДАТЬ ДОГОВОР: 
-                    <b onClick={newdogHandler}>{dogs}</b> <br/>
-                    {dogProjData.map((e,i) => 
-                    <Elem key={i} data={e} set={setDogs}/>)}
-                </div>   
-        )
     };
-    */
+
+    const Dogovors = () => (
+                                        <Button>
+                            <Link 
+                                to="/dodoc/montaj"
+                                style={link}
+                            >
+                            CОЗДАТЬ ДОГОВОР
+                            </Link>
+                        </Button>  
+        )
+ 
+     
    
 //  OUTPUT COMPONENT ------------------------------------------
 
@@ -221,19 +190,28 @@ const Home = (
         <GlobalStyle/>
         <Container>
             <Grid>
-                 <AreaBox g={[2,2,5,5]} fd="row" style={naked}>
-                    <ParamBox>
-                        <StatusBar/>
+                 <AreaBox g={[2,2,7,4]} fd="column" style={naked}>
+                    <ParamBox h={"auto"} w={"auto"}>
+                        <div><ObjectSelector/></div>
                     </ParamBox>
-                    <ParamBox>
-                    {console.log("is all data : ", isAllData())}
-                    {    isAllData()==="OK"?
-                        <Button>{"CОЗДАТЬ ДОГОВОР"}</Button>
-                        : ""
+                    <ParamBox h={"auto"} w={"auto"}>
+                        <div><DogovorSelector/></div>
+                    </ParamBox>
+                    {dogTypeSel==="Договор проектирования" ? 
+                        (<ParamBox  h={"auto"} w={"auto"}>
+                            <SystemSelector/>
+                        </ParamBox>) : ""
                     }
+                    <ParamBox h={"auto"} w={"auto"}>
+                        <ServerSelector/>
                     </ParamBox>
+                    <ParamBox h={"auto"}>
+                        <ClientSelector/>
+                    </ParamBox>
+                    <Button onClick={()=>onDogovorData(output)}>SEND SELECTORS DATA</Button>
+                    <Dogovors/>
                  </AreaBox>
-                 <AreaBox g={[5,2,11,5]} fd="row" style={naked}>
+                 <AreaBox g={[7,2,11,5]} fd="row" style={naked}>
                     <ParamBox>
                         <TextBox h={"100%"}>
                             <Text m={"2vmin"}>
@@ -252,14 +230,11 @@ const Home = (
 const mapStateToProps = _state => ({
     store: _state,
     home: _state.home,
-    yurlitzas: _state.home.yurlitzas,
-    dogovorTypes: _state.home.dogovorTypes,
-    formOneData: _state.form.formOne,
-    formTwoData: _state.form.formTwo,
-    formThreeData: _state.form.formThree
+    formData: _state.formDataNew,
+    dogovorData: _state.dogovorData
 });
 const mapDispatchToProps = _dispatch => ({
-    onYur: data => _dispatch(actions.yurlitso(data))
+    onDogovorData: data => _dispatch(actions.dogovorData(data))
 });
 
 export default connect (
