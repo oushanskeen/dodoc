@@ -2,6 +2,7 @@
     import React from 'react';
     import MontajBody from "./MontajBody";
     import {connect} from 'react-redux';
+    import { Link } from 'react-router-dom';
     import {
         GlobalStyle,Container,Grid,AreaBox,Text,
         TextBox,Button,ParamBox,naked,link
@@ -89,7 +90,7 @@
                             <Text m={"2vmin"} style={divStyle}>
                                 Hello
                                 {console.log("state in montaj : ", store)}
-                                {JSON.stringify(dogovorData)}<br/>
+                                {Object.keys(dogovorData.formData).map(e =>(<div>{dogovorData.formData[e]}</div>))}<br/>
                                 <MontajHead/>
                                 <MontajFoot/>
                             </Text>

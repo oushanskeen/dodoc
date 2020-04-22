@@ -147,14 +147,14 @@
     const SystemSelector = () => (
         <div>
             {systemsDataVector.map(e => 
-                (<label>{`${e}`}
-                    <input
-                        checked={hub[`${e}`]}
-                        name={`${e}`}
-                        type="checkbox"
-                        onChange={e =>updateHub(e)}
-                    /><br/>
-                </label>)
+                (<div>                    
+                <input
+                    checked={hub[`${e}`]}
+                    name={`${e}`}
+                    type="checkbox"
+                    onChange={e =>updateHub(e)}
+                /><label>{`${e}`}</label>
+                </div>)
              )}          
         </div>
     );
@@ -169,17 +169,17 @@
                             : "тип контрагента не выбран"
             );
     };
-
+    const [dataSent,setDataSent] = useState(false);
     const Dogovors = () => (
-                                        <Button>
-                            <Link 
-                                to="/dodoc/montaj"
-                                style={link}
-                            >
-                            CОЗДАТЬ ДОГОВОР
-                            </Link>
-                        </Button>  
-        )
+        <button type="button" disabled="false">
+            <Link 
+                to="/dodoc/montaj"
+                style={link}
+            >
+                CОЗДАТЬ ДОГОВОР
+            </Link>
+        </button>  
+    );
  
      
    
@@ -190,28 +190,21 @@
         <GlobalStyle/>
         <Container>
             <Grid>
-                 <AreaBox g={[2,2,7,4]} fd="column" style={naked}>
-                    <ParamBox h={"auto"} w={"auto"}>
-                        <div><ObjectSelector/></div>
-                    </ParamBox>
-                    <ParamBox h={"auto"} w={"auto"}>
-                        <div><DogovorSelector/></div>
-                    </ParamBox>
-                    {dogTypeSel==="Договор проектирования" ? 
-                        (<ParamBox  h={"auto"} w={"auto"}>
-                            <SystemSelector/>
-                        </ParamBox>) : ""
-                    }
-                    <ParamBox h={"auto"} w={"auto"}>
-                        <ServerSelector/>
-                    </ParamBox>
-                    <ParamBox h={"auto"}>
-                        <ClientSelector/>
-                    </ParamBox>
-                    <Button onClick={()=>onDogovorData(output)}>SEND SELECTORS DATA</Button>
-                    <Dogovors/>
+                 <AreaBox g={[2,2,6,4]} fd="column" style={naked}>  
+                     <TextBox h={"100%"}>
+                         <Text m={"2vmin"}>
+                             <ObjectSelector/>
+                             <DogovorSelector/>
+                             <SystemSelector/>
+                             <ServerSelector/>
+                             <ClientSelector/>
+                         </Text>
+                     </TextBox>
+                     {/*<Button onClick={()=>onDogovorData(output)}>SEND SELECTORS DATA</Button>*/}
+                     {/*dataSent==true ? <Dogovors/> : ""*/}
+                    
                  </AreaBox>
-                 <AreaBox g={[7,2,11,5]} fd="row" style={naked}>
+                 <AreaBox g={[6,2,11,5]} fd="row" style={naked}>
                     <ParamBox>
                         <TextBox h={"100%"}>
                             <Text m={"2vmin"}>

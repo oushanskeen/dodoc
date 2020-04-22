@@ -4,10 +4,29 @@
     import * as actions from '../actions';
     import BeautyText from "./BeautyText";
     import {connect} from 'react-redux';
+    import { Link } from 'react-router-dom';
+        import {
+        GlobalStyle,Container,Grid,AreaBox,Text,
+        TextBox,Button,ParamBox,naked,link
+    } from '../css/style.js'
+
+
 
     const FormOne = ({store,onDataReady,onNewdogData,onDogovorData,dogovorData}) => {
         console.log("store visible in FormOne : ", store);
         console.log("onDataReady inside form one : ", onDataReady);
+    const [dataSent,setDataSent] = useState({is:"not ok"});
+    const [isOk, setIsOk] = useState("isNotOk")
+    const Dogovors = () => (
+        <button>
+            <Link 
+                to="/dodoc/montaj"
+                style={link}
+            >
+                CОЗДАТЬ ДОГОВОР
+            </Link>
+        </button>  
+    );
         const [formData, setFormData] = useState({
             compFullName: "",
             compShortName: "",
@@ -31,6 +50,7 @@
               ...formData,
               [event.target.name]: event.target.value
             });
+            setDataSent("OK");
             console.log("form data : ", formData);
         }
         const 
@@ -54,8 +74,7 @@
         } = formData;
         const handleSubmit = e => {
             e.preventDefault();
-            //onDataReady({clientType:"ORG", data:formData});
-            onDogovorData({...dogovorData,formData:formData}); 
+            onDogovorData({...dogovorData,formData:formData});
         };
     return (
         <form>
@@ -249,6 +268,7 @@
                </label><br/>
 
              <button onClick={handleSubmit}>Submit</button>
+             <Dogovors/>
              <div>
                 <BeautyText 
                     text={JSON.stringify(formData)}
