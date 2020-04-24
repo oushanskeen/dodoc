@@ -8,73 +8,72 @@
     };
 
     export const formOrgDataSample = {
-        compFullName:"ПОЛНОЕ ИМЯ КОМАНИИ",
-        compShortName: "КОРОТКОЕ ИМЯ КОМПАНИИ",
-        FIO:"ИМЯ ФАМИЛИЯ ОТЧЕСТВО", 
-        INN:"ИНН",
-        KPP:"КПП",
-        OGRN:"ОГРН",
-        OKPO:"ОКРО",
-        GosRegDate:"ДАТА ГОС РЕГИСТРАЦИИ",
-        YurAdress:"ЮРИДИЧЕСКИЙ АДРЕСС",
-        FactAdress:"ФАКТИЧЕСКИЙ АДРЕСС",
-        GenDirector:"ГЕН ДИРЕКТОР",
-        Buhgalter:"БУХГАЛТЕР",
-        tel:"ТЕЛЕФОН",
-        bankName:"ИМЯ БАНКА",
-        BIK:"БИК",
-        BillOne:"РАСЧЁТНЫЙ СЧЁТ",
-        BillTwo:"КОРРЕСПОНДЕНДТСКИЙ СЧЁТ"
+        compFullName:"ORGПОЛНОЕ ИМЯ КОМАНИИ",
+        compShortName: "ORGКОРОТКОЕ ИМЯ КОМПАНИИ",
+        FIO:"ORGИМЯ ФАМИЛИЯ ОТЧЕСТВО", 
+        INN:"ORGИНН",
+        KPP:"ORGКПП",
+        OGRN:"ORGОГРН",
+        OKPO:"ORGОКРО",
+        GosRegDate:"ORGДАТА ГОС РЕГИСТРАЦИИ",
+        YurAdress:"ORGЮРИДИЧЕСКИЙ АДРЕСС",
+        FactAdress:"ORGФАКТИЧЕСКИЙ АДРЕСС",
+        GenDirector:"ORGГЕН ДИРЕКТОР",
+        Buhgalter:"ORGБУХГАЛТЕР",
+        tel:"ORGТЕЛЕФОН",
+        bankName:"ORGИМЯ БАНКА",
+        BIK:"ORGБИК",
+        BillOne:"ORGРАСЧЁТНЫЙ СЧЁТ",
+        BillTwo:"ORGКОРРЕСПОНДЕНДТСКИЙ СЧЁТ"
     };
     export const formIPDataSample = {
-        Name:"ИМЯ ИП",
-        FIO:"ФИО",
-        INN:"ИНН",
-        OGRNIP:"ОГРНИП",
-        OKPO:"ОКРО",
-        FactAdress:"ФАКТИЧЕСКИЙ АДРЕСС",
-        bankName:"ИМЯ БАНКА",
-        BIK:"БИК",
-        BillOne:"РАСЧЁТНЫЙ СЧЁТ",
-        BillTwo:"КОРЕСПОНДЕНТСКИЙ СЧЁТ"
+        Name:"IPИМЯ ИП",
+        FIO:"IPФИО",
+        INN:"IPИНН",
+        OGRNIP:"IPОГРНИП",
+        OKPO:"IPОКРО",
+        FactAdress:"IPФАКТИЧЕСКИЙ АДРЕСС",
+        bankName:"IPИМЯ БАНКА",
+        BIK:"IPБИК",
+        BillOne:"IPРАСЧЁТНЫЙ СЧЁТ",
+        BillTwo:"IPКОРЕСПОНДЕНТСКИЙ СЧЁТ"
     };
     export const formFLDataSample = {
-        NameInformal:"НЕФОРМАЛЬНОЕ ИМЯ",
-        lastName:"ФАМИЛИЯ",
-        firstName:"ИМЯ",
-        midName:"ОТЧЕСТВО",
-        docType:"ВИД ДОКУМЕНТА",
-        Serial:"СЕРИЯ",
-        number:"НОМЕР",
-        whoGave:"ВЫДАН",
-        whenGave:"ДАТА ВЫДАЧИ",
-        codeGave:"КОД ПОДРАЗДЕЛЕНИЯ",
-        addressGave:"ГДЕ ВЫДАН"
+        NameInformal:"FLНЕФОРМАЛЬНОЕ ИМЯ",
+        lastName:"FLФАМИЛИЯ",
+        firstName:"FLИМЯ",
+        midName:"FLОТЧЕСТВО",
+        docType:"FLВИД ДОКУМЕНТА",
+        Serial:"FLСЕРИЯ",
+        number:"FLНОМЕР",
+        whoGave:"FLВЫДАН",
+        whenGave:"FLДАТА ВЫДАЧИ",
+        codeGave:"FLКОД ПОДРАЗДЕЛЕНИЯ",
+        addressGave:"FLГДЕ ВЫДАН"
     };
 
-    export const ServerData = {
+    export const serverData = {
         varOne:{
             CompName:"ИП Попов Александр Петрович",
             FIO:"Попов Александр Петрович",
-            INN: 145839485037,
-            OGRN: 194837564738574,
-            yurAdress: "168233 Россия Домодедово г., 5 кв-л, 34", 
+            INN: "1111111111111111",
+            OGRN: "11111111111111111",
+            yurAdress: "111111 Россия Домодедово г., 1 кв-л, 11", 
             bank: "Сбербанк",
-            BIK: 584568974,
-            firstBill: 240958729458776879836958,
-            secondBill: 345870254870475947545347
+            BIK: "1111111111111111",
+            firstBill: "111111111111111111111111",
+            secondBill: "1111111111111111111111111"
         },
         varTwo:{
-            CompName:"YURLITSO TWO",
-            FIO:"FIO TWO",
-            data:"TWO",
-            INN: '00000000000',
-            OGRN: 124726458645234523,
-            yurAdress: "168233 Россия Довобродово г., 12 кв-л, 665", 
+            CompName:"ЮРЛИЦО ДВА",
+            FIO:"Клопов Алексей Ветрович",
+            INN: '222222222222',
+            OGRN: "22222222222222222222",
+            yurAdress: "22222222 Россия Довобродово г., 222 кв-л, 222", 
             bank: "Сбедбанк",
-            BIK: 58456845,
-            firstBill: 111111111111111111111111,
-            secondBill: 22222222222222222222222
+            BIK: "222222222",
+            firstBill: "222222222222222222222",
+            secondBill: "22222222222222222222222"
         }    
     };
  

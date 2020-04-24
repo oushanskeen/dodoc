@@ -4,8 +4,23 @@
     import * as actions from '../actions';    
     import BeautyText from "./BeautyText";
     import {connect} from 'react-redux';
+    import { Link } from 'react-router-dom';
+    import {
+        GlobalStyle,Container,Grid,AreaBox,Text,
+        TextBox,Button,ParamBox,naked,link
+    } from '../css/style.js'
 
     const FormTwo = ({store,onDataReady,dogovorData,onDogovorData}) => {
+    const Dogovors = () => (
+        <button>
+            <Link 
+                to="/dodoc/montaj"
+                style={link}
+            >
+                CОЗДАТЬ ДОГОВОР
+            </Link>
+        </button>  
+    );
         const [formData, setFormData] = useState({
             Name: "",
             FIO: "",
@@ -164,6 +179,7 @@
                </label><br/>
            
           <button onClick={handleSubmit}>Submit</button>
+            <Dogovors/>
 
             <div>
                 <BeautyText text={JSON.stringify(store)}/>

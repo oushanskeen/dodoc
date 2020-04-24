@@ -4,20 +4,23 @@
     import * as actions from '../actions';
     import BeautyText from "./BeautyText";
     import {connect} from 'react-redux';
-/*
-1. Название (то, как будет отображаться контакт в системе, неформальное название)
-2. Фамилия
-3. Имя
-4. Отчество
-5. Вид документа (чаще всего паспорт, но может быть загранник, военный билет)
-6. Серия
-7. Номер
-8. Кем выдан
-9. Дата выдачи
-10. Код подразделения
-11. Адрес прописки
-*/
+    import { Link } from 'react-router-dom';
+    import {
+        GlobalStyle,Container,Grid,AreaBox,Text,
+        TextBox,Button,ParamBox,naked,link
+    } from '../css/style.js'
+
     const FormThree = ({store,onDataReady,dogovorData,onDogovorData}) => {
+    const Dogovors = () => (
+        <button>
+            <Link 
+                to="/dodoc/montaj"
+                style={link}
+            >
+                CОЗДАТЬ ДОГОВОР
+            </Link>
+        </button>  
+    );
         const [formData, setFormData] = useState({
             NameInformal: "",
             lastName: "",
@@ -58,6 +61,7 @@
             onDogovorData({...dogovorData,formData:formData});
             console.log("formData after submit: ", formData);
         };
+    console.log("store in formThree : ", store)
     return (
         <form>
             <br/>
@@ -184,11 +188,12 @@
                </label><br/>
            
           <button onClick={handleSubmit}>Submit</button>
-          <div>
+            <Dogovors/>
+         
             <div>
                 <BeautyText text={JSON.stringify(store)}/>
             </div>
-          </div>
+         
         
         </form>
     );
@@ -196,17 +201,9 @@
 
         const mapStateToProps = _state => ({
      store: _state,
-     dogovorData: _state.dogovorDatree,
-        //home: _state.home,
-        //yurlitzas: _state.home.yurlitzas,
-        //dogovorTypes: _state.home.dogovorTypes,
-        //dialects: _state.home.varDialects,
-        //formData: _state.home.formData
+     dogovorData: _state.dogovorData
     });
     const mapDispatchToProps = _dispatch => ({
-        //onYur: data => _dispatch(actions.yurlitso(data))
-        onDataReady: data =>
-            _dispatch(actions.zakazchikTypeThreeData(data)),
        onDogovorData: data => _dispatch(actions.dogovorData(data))
     });
 

@@ -5,9 +5,10 @@ import {Provider} from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import reducer from './reducers'; 
 import App from './App';
+import store from './store';
 
-const store = createStore(reducer);
-console.log("store while initialise in index.js : ", store.getState());
+//const store = createStore(reducer);
+//console.log("store while initialise in index.js : ", //store.getState());
 
 ReactDOM.render(
     <Provider store={store}>

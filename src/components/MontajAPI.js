@@ -1,65 +1,91 @@
-    //  API'ED FORM DATA -----------------------------------------------------------------------------------------------------
 
-    export const dogData = _d => {
-        return {
-            name:_d.name,
-            start:_d.start,
-            end:_d.end,
-            money:_d.money,
-            systems:_d.systems 
-        };
-    };    
+    import React from 'react';
+    import store from '../store';
+    import {connect} from 'react-redux';
+    import {
+    dogSampleData,
+    formOrgDataSample,
+    formIPDataSample,
+    formFLDataSample,
+    serverData
+    } 
+    from "./MontajSampleData";  
+    import {ClientDataORG,ClientDataIP,ClientDataFL} from './FormMap';
+    
+    
 
-    // Org data ---------------------------------------------------------------------------------------------------------
-    export const ClientOrgData = _d => {
-        return {
-            compFullName:_d.compFullName,
-            compShortName:_d.compShortName,
-            FIO:_d.FIO, 
-            INN:_d.INN,
-            KPP: _d.KPP,
-            OGRN:_d.OGRN,
-            OKPO:_d.OKPO,
-            GosRegDate:_d.GosRegDate,
-            YurAdress:_d.YurAdress,
-            FactAdress:_d.FactAdress,
-            GenDirector:_d.GenDirector,
-            Buhgalter:_d.Buhgalter,
-            tel:_d.tel,
-            bankName:_d.bankName,
-            BIK:_d.BIK,
-            BillOne:_d.BillOne,
-            BillTwo:_d.BillTwo
+        const Store = store.getState();
+        console.log("store inside MontajAPI : ", Store);
+        console.log(Store.dogovorData.selectors === undefined);
+        console.log(Store.dogovorData.formData === undefined);
+       // const input = undefined;
+        
+        const input = _store => {
+            const Selector = _store.dogovorData.selectors;
+            const FormData = _store.dogovorData.formData;
+            console.log("who asks conditional input??????? / /???");
+            return ((Selector === undefined && FormData === undefined) 
+                ? 
+                {
+                    clientType: "FL",
+                    clientData: formFLDataSample,
+                    serverType: "varOne"
+                } :
+                {
+                    clientType: (Selector.clientTypeSel === "организация") ? "ORG" : "IP",
+                    clientData: FormData,
+                    serverType: Selector.serverTypeSel
+                } 
+            );
         };
-    };
-    // IP data -----------------------------------------------------------------------
-    export const ClientIPData = _d => {
-        return {
-            Name:_d.Name,
-            FIO:_d.FIO,
-            INN:_d.INN,
-            OGRNIP:_d.OGRNIP,
-            OKPO:_d.OKPO,
-            FactAdress:_d.FactAdress,
-            bankName:_d.bankName,
-            BIK:_d.BIK,
-            BillOne:_d.BillOne,
-            BillTwo:_d.BillTwo
-       };
-    };
-    // FL data ---------------------------------------------------------------------
-    export const ClientFLData = _d => {
-        return {
-            NameInformal:_d.NameInformal,
-            lastName:_d.lastName,
-            firstName:_d.firstName,
-            midName:_d.midName,
-            docType:_d.docType,
-            Serial:_d.Serial,
-            number:_d.number,
-            whoGave:_d.whoGave,
-            whenGave:_d.whenGave,
-            codeGave:_d.codeGave,
-            addressGave:_d.addressGave
+        console.log("input store inside Montaj API: ", input(Store));
+
+        const a = input(Store).clientType;
+        const b = input(Store).clientData;
+        const c = input(Store).serverType;
+        const d = serverData;
+        
+
+        //  API'ED FORM DATA ------------------------------------------
+        // Org data ----------------------------------------
+       
+
+        // OUTPUT:
+
+        // 1 
+        const ClientType = _clientType => _clientType; 
+        // 2
+        const ClientData = (_clientType,_clientData) => {
+            console.log("_clientType", _clientType);
+            console.log("_clientData", _clientData);
+            const chooseData = {
+                ORG:_clientData => ClientDataORG(_clientData),
+                IP:_clientData => ClientDataIP(_clientData),
+                FL:_clientData => ClientDataFL(_clientData)
+            };
+            return chooseData[_clientType](_clientData);        
         };
-    };
+        // 3
+        const ServerData = (_serverType,_serverData) => {
+            return  _serverData[_serverType];
+        };
+        // 4
+        const DogData = _d => {
+            return {
+                name:_d.name,
+                start:_d.start,
+                end:_d.end,
+                money:_d.money,
+                systems:_d.systems 
+            };
+        };
+
+
+                
+        const ClientTypeOut = ClientType(a);
+        //exportconst ClientDataOut = ClientData(a,b);
+        //export const ServerDataOut = ServerData(c,d);
+        //export const DogDataOut = DogData(d); 
+
+
+    

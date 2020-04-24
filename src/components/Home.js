@@ -85,7 +85,7 @@
         " Автоматизация"
     ];
     const serversDataVector = ["сервер один", "сервер два"];
-    const clientDataVector = ["организация","ИП","физическое лицо"];
+    const clientDataVector = ["организация","ИП","физ лицо"];
 
 // ----------------------------------------------------------------------------------------------------------
 
@@ -164,7 +164,7 @@
                     ? <FormOne/> 
                     : clientTypeSel==="ИП"
                         ? <FormTwo/>
-                        : clientTypeSel==="физическое лицо"
+                        : clientTypeSel==="физ лицо"
                             ? <FormThree/> 
                             : "тип контрагента не выбран"
             );
@@ -200,7 +200,7 @@
                              <ClientSelector/>
                          </Text>
                      </TextBox>
-                     {/*<Button onClick={()=>onDogovorData(output)}>SEND SELECTORS DATA</Button>*/}
+                     <button onClick={()=>onDogovorData(output)}>SEND SELECTORS DATA</button>
                      {/*dataSent==true ? <Dogovors/> : ""*/}
                     
                  </AreaBox>

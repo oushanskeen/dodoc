@@ -5,136 +5,135 @@ import {
     formOrgDataSample,
     formIPDataSample,
     formFLDataSample,
-    ServerData} 
+    serverData
+    } 
     from "./MontajSampleData";
-import {
-    dogData,
-    ClientOrgData,
-    ClientIPData,
-    ClientFLData,} 
-    from "./MontajAPI";
+import {ClientDataORG,ClientDataIP,ClientDataFL} from './FormMap';
+import {OrgHeader,IPHeader,FLHeader,ClientOrgFooter,ClientIPFooter,ClientFLFooter,ServerFooter} from './HsFs';
+import * as actions from '../actions';
+//import store from '../store';
+import {connect} from 'react-redux';
 
-//  HEADER ELEMENTS -------------------------------------
-    // Org -----------------------------------------------
-    export const OrgHeader = p => (
-        <div> {ServerData[p.clientType].CompName}, в лице 
-            директора {ServerData[p.clientType].FIO}, 
-            действующего на основании Устава, с одной 
-            стороны, именуемое в дальнейшем {"Поставщик"}
-            и {ClientOrgData(p.data).compFullName}, в лице
-            генерального директора {ClientOrgData(p.data).
-            FIO}, действующего(ей) на основании Устава, именуемое в дальнейшем «Покупатель»,
+const HeadFootOut = ({store}) => {
+    const Store = store;
+    console.log("store inside MontajAPI : ", Store);
+    console.log(Store.dogovorData.selectors === undefined);
+    console.log(Store.dogovorData.formData === undefined);
+    // const input = undefined;
+        
+        const input = _store => {
+            const Selector = _store.dogovorData.selectors;
+            const FormData = _store.dogovorData.formData;
+            console.log("who asks conditional input??????? / /???");
+            console.log("Selector in headfoot : ", Selector);
+            console.log("FormData in headfoot : ", FormData);
+            console.log("Server data inside headfoot : ", serverData);
+            //console.log("Selector.clientTypeSel  : ", Selector.clientTypeSel);
+            return ((Selector === undefined && FormData === undefined) 
+                ? 
+                {
+                    clientType: "FL",
+                    clientData: formFLDataSample,
+                    serverType: "varOne"
+                } :
+                {
+                    clientType: (Selector.clientTypeSel === "организация") ? "ORG" : 
+                    (Selector.clientTypeSel == "физ лицо") ? "FL" : "IP",
+                    clientData: FormData,
+                    serverType: (Selector.servTypeSel === "сервер один") 
+                        ? "varOne" : "varTwo" ,
+                } 
+            );
+        };
+        //console.log("input store inside Montaj API: ", input(Store));
+ 
+
+
+        const a = input(Store).clientType;
+        const b = input(Store).clientData;
+        const c = input(Store).serverType;
+        const d = serverData;
+        
+
+        //  API'ED FORM DATA ------------------------------------------
+        // Org data ----------------------------------------
+       
+
+        // OUTPUT:
+
+        // 1 
+        const ClientType = _clientType => _clientType; 
+        // 2
+        const ClientData = (_clientType,_clientData) => {
+            console.log("_clientType", _clientType);
+            console.log("_clientData", _clientData);
+            const chooseData = {
+                ORG:_clientData => ClientDataORG(_clientData),
+                IP:_clientData => ClientDataIP(_clientData),
+                FL:_clientData => ClientDataFL(_clientData)
+            };
+            return chooseData[_clientType](_clientData);        
+        };
+        // 3
+        const ServerData = (_serverType,_serverData) => {
+            return  _serverData[_serverType];
+        };
+        // 4
+        const DogData = _d => {
+            return {
+                name:_d.name,
+                start:_d.start,
+                end:_d.end,
+                money:_d.money,
+                systems:_d.systems 
+            };
+        };
+        const ClientTypeOut = ClientType(a);
+        const ClientDataOut = ClientData(a,b);
+        const ServerDataOut = ServerData(c,d);
+        const DogDataOut = DogData(d); 
+
+    
+        // INPUT:
+        const aa = ClientTypeOut;
+        const bb = ClientDataOut;
+        const cc = ServerDataOut;
+        console.log("ServerDataOut : ", ServerDataOut);
+        console.log("ServerDataOut in form : ", ServerFooter(ServerDataOut)[c]);
+          // a = ClientTypeOut
+        const HF = {
+            ORG: (_b,_c) => [OrgHeader(_b,_c),ClientOrgFooter(_b,_c),ServerFooter(_c)[c]],
+            IP:(_b,_c) => [IPHeader(_b,_c),ClientIPFooter(_b,_c),ServerFooter(_c)[c]],
+            FL:(_b,_c) => [FLHeader(_b,_c),ClientFLFooter(_b,_c),ServerFooter(_c)[c]]       
+        };
+        const HeadFoot = (_a,_b,_c) => HF[_a](_b,_c);
+        //console.log("problem foot : ", HeadFoot(aa,bb,cc));
+    return(
+        <div>
+            <div>{HeadFoot(aa,bb,cc)[0]}</div>
+            <hr/>
+            <div>{HeadFoot(aa,bb,cc)[1]}</div>
+                        <hr/>
+            <div>{HeadFoot(aa,bb,cc)[2]}</div>
+            
+                       
         </div>
     );
-    // IP ---------------------------------------------
-    export const IPHeader = p => (
-        <div> 
-            {ServerData[p.clientType].CompName}, в лице директора {ServerData[p.clientType].FIO},
-            действующего на основании Устава, с одной стороны, именуемое в дальнейшем "Поставщик"
-            и {ClientIPData(p.data).Name}, в лице генерального директора                
-            {ClientIPData(p.data).FIO}, действующего(ей) на основании Устава, именуемое в
-            дальнейшем «Покупатель»,
-        </div>
-        );
-        // FL
-        export const FLHeader = p => (
-            <div> 
-                {ServerData[p.clientType].CompName}, в лице директора
-                {ServerData[p.clientType].FIO}, действующего 
-                на основании Устава, с одной стороны, именуемое в дальнейшем 
-                "Поставщик" и {ClientFLData(p.data).lastName}{ClientFLData(p.data).firstName}
-                {ClientFLData(p.data).midName}, {ClientFLData(p.data).lastName} серия
-                {ClientFLData(p.data).Serial} номер {ClientFLData(p.data).number}, 
-                выдан {ClientFLData(p.data).whoGave} {ClientFLData(p.data).whenGave} код
-                подразделения {ClientFLData(p.data).codeGave}, именуемый(ая) 
-                в дальнейшем «Покупатель»,
-            </div>
-        );
+    };
 
-    // FOOTERS ------------------------------------------------
+    const mapStateToProps = _state => ({
+        store: _state,
+        home: _state.home,
+        formData: _state.formDataNew,
+        dogovorData: _state.dogovorData
+    });
+    const mapDispatchToProps = _dispatch => ({
+        onDogovorData: data => _dispatch(actions.dogovorData(data))
+    });
 
-        // Org ------------------------------------------------
-        export const ClientOrgFooter = p => (
-            <div>
-                Покупатель:{ClientOrgData(p.data).compShortName}<br/>
-                ИНН: {ClientOrgData(p.data).INN}<br/>
-                КПП: {ClientOrgData(p.data).KPP}<br/>
-                ОГРН: {ClientOrgData(p.data).OGRN}<br/>
-                Юр.адрес: {ClientOrgData(p.data).YurAdress}<br/>
-                Факт.адрес: {ClientOrgData(p.data).FactAdress}<br/>
-                Банк: {ClientOrgData(p.data).bankName}<br/>
-                БИК: {ClientOrgData(p.data).BIK}<br/>
-                р/с: {ClientOrgData(p.data).BillOne}<br/>
-                к/с: {ClientOrgData(p.data).BillTwo}<br/>
-                <br/>
-                подписи<br/>
-                <br/>
-                {ClientOrgData(p.data).compShortName}<br/>
-                <br/>
-                _____________/инициалы(Ген. директор {ClientOrgData(p.data).FIO})/<br/>
-                <br/>
-                место печати (м.п.)<br/>
-           </div>
-        );
-        // IP ------------------------------------------------
-        export const ClientIPFooter = p => (
-            <div>
-                Покупатель: {ClientIPData(p.data).Name}<br/>
-                ИНН: {ClientIPData(p.data).INN}<br/>
-                ОГРНИП: {ClientIPData(p.data).OGRNIP}<br/>
-                Факт.адрес: {ClientIPData(p.data).FactAdress}<br/>
-                Банк: {ClientIPData(p.data).bankName}<br/>
-                БИК: {ClientIPData(p.data).BIK}<br/>
-                р/с: {ClientIPData(p.data).BillOne} <br/>
-                к/с: {ClientIPData(p.data).BillTwo}<br/>
-                <br/>
-                подписи<br/>
-                <br/>
-                {ClientIPData.Name}<br/>
-                <br/>
-                _____________/(инициалы {(ClientIPData.FIO)})/<br/>
-                <br/>
-                _____________________________________________________________________________
-            </div>
-        );
-        // FL ----------------------------------------------------------------------------
-        export const ClientFLFooter = p => (
-            <div>
-                Покупатель:<br/>
-                {ClientFLData(p.data).lastName} {ClientFLData(p.data).firstName}
-                {ClientFLData(p.data).midName}<br/>
-                {ClientFLData(p.data).docType} серия {ClientFLData(p.data).Serial}<br/>
-                номер {ClientFLData(p.data).number}<br/>
-                выдан {ClientFLData(p.data).whoGave} {ClientFLData(p.data).whenGave} <br/>
-                код подразделения {ClientFLData(p.data).codeGave}<br/>
-                <br/>
-                подписи<br/>
-                <br/>
-                _____________/(инициалы {ClientFLData(p.data).lastName}
-                {ClientFLData(p.data).firstName} <br/>      
-                {ClientFLData(p.data).midName})/<br/>
-            </div>
-        );
+    export default connect (
+        mapStateToProps,
+        mapDispatchToProps
+    )(HeadFootOut);
 
-        export const setDogType = (_clientType,_serverType,_data) => {
-            switch (_serverType){
-                case ("Org"):
-                    return {
-                        head: <OrgHeader clientType={_clientType} data={_data}/>, 
-                        foot: <ClientOrgFooter data={_data}/>
-                    };
-                case ("IP"):
-                    return {
-                        head: <IPHeader clientType={_clientType} data={_data}/>,
-                        foot: <ClientIPFooter data={_data}/>
-                    };
-                case ("FL"):
-                    return {
-                        head: <FLHeader clientType={_clientType} data={_data}/>, 
-                        foot: <ClientFLFooter data={_data}/>
-                    };
-                default:
-                    return "No information";
-            };
-        }; 
     

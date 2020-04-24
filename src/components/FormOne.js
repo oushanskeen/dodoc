@@ -5,12 +5,10 @@
     import BeautyText from "./BeautyText";
     import {connect} from 'react-redux';
     import { Link } from 'react-router-dom';
-        import {
+    import {
         GlobalStyle,Container,Grid,AreaBox,Text,
         TextBox,Button,ParamBox,naked,link
     } from '../css/style.js'
-
-
 
     const FormOne = ({store,onDataReady,onNewdogData,onDogovorData,dogovorData}) => {
         console.log("store visible in FormOne : ", store);

@@ -2,74 +2,34 @@
     import React from 'react';
     import MontajBody from "./MontajBody";
     import {connect} from 'react-redux';
+    import store from '../store';
+    import * as actions from '../actions';
+    //import store from '../store';
     import { Link } from 'react-router-dom';
     import {
         GlobalStyle,Container,Grid,AreaBox,Text,
         TextBox,Button,ParamBox,naked,link
     } from '../css/style.js';
-    import {
-        dogSampleData,
-        formOrgDataSample,
-        formIPDataSample,
-        formFLDataSample,
-        ServerData} 
-        from "./MontajSampleData";
-    import {
-        dogData,
-        ClientOrgData,
-        ClientIPData,
-        ClientFLData,} 
-        from "./MontajAPI";
-    import {
-        OrgHeader,
-        IPHeader,
-        FLHeader,
-        ClientOrgFooter,
-        ClientIPFooter,
-        ClientFLFooter,
-        setDogType} 
-        from "./HeadFoot";
+    import HeadFootOut from "./HeadFoot";
+    import MontajDefault from "./MontajDefault";
 
     const divStyle = {width:'75vw',wordWrap:'break-word',fontFamily:'Roboto Mono'};
     const headStyle = {textAlign:'center'};
  
-    // HEADER COMPOSER --------------------------------------------------------------------------
-    const MontajHead = () => (
-        <div >
-            <div>{ setDogType("varOne","Org",formOrgDataSample).head }</div>
-            <br/>
-            <div>{ setDogType("varOne","IP",formIPDataSample).head }</div>
-            <br/>
-            <div>{ setDogType("varOne","FL",formFLDataSample).head }</div>
-            <br/>
-            <div>{ setDogType("varTwo","Org",formOrgDataSample).head }</div>
-            <br/>
-            <div>{ setDogType("varTwo","IP",formIPDataSample).head }</div>
-            <br/>
-            <div>{ setDogType("varTwo","FL",formFLDataSample).head }</div>
-            <br/>
-        </div>
-    );
+    
+    // HEADER COMPOSER -------------------------------------------------
+    //const MontajHead = _p => (
+    //    <div>{ setDogType(_p.serverType,_p.clientType).head }</div>
+    //);
+        const MontajHead = () => (
 
-    // FOOTER ELEMENTS -------------------------------------------------------------------------
+            <HeadFootOut/>
 
-    // FOOTER COMPOSER --------------------------------------------------------------------------
-    const MontajFoot = () => (
-        <div style={divStyle}>
-            <div>{ setDogType("varOne","Org",formOrgDataSample).foot }</div>
-            <br/>
-            <div>{ setDogType("varOne","IP",formIPDataSample).foot }</div>
-            <br/>
-            <div>{ setDogType("varOne","FL",formFLDataSample).foot }</div>
-            <br/>
-            <div>{ setDogType("varTwo","Org",formOrgDataSample).foot }</div>
-            <br/>
-            <div>{ setDogType("varTwo","IP",formIPDataSample).foot }</div>
-            <br/>
-            <div>{ setDogType("varTwo","FL",formFLDataSample).foot }</div>
-            <br/>
-        </div>
-    );
+    );  
+    // FOOTER ELEMENTS --------------------------------------------------------
+
+    // FOOTER COMPOSER ----------------------------------------------
+
 
     // "varOne", "IP", formData -> {header,footer}
  
@@ -78,7 +38,7 @@
     //${setDogType(clientType,serverType,data).head}
     //console.log(montaj("varOne","IP",formIPDataSample));
     
-    // OUTPUT ------------------------------------------------------------------------------------------
+    // OUTPUT -----------------------------------------
     const Montaj = ({store,dogovorData}) => (
         <div>
         <GlobalStyle/>
@@ -88,11 +48,13 @@
                     <ParamBox>
                         <TextBox h={"100%"} w={"80%"}>
                             <Text m={"2vmin"} style={divStyle}>
-                                Hello
-                                {console.log("state in montaj : ", store)}
-                                {Object.keys(dogovorData.formData).map(e =>(<div>{dogovorData.formData[e]}</div>))}<br/>
-                                <MontajHead/>
-                                <MontajFoot/>
+                                {/*Object.keys(dogovorData.formData).map(e
+                                 =>(<div>{dogovorData.formData[e]}</div>))}<br/>*/}
+                                {/*JSON.stringify(dogovorData.selectors)*/}<br/>
+                                {/*JSON.stringify(dogovorData.formData)*/}<br/>
+                                {/*JSON.stringify(store.home)*/}
+                                <MontajHead />
+                                {/*<MontajFoot/>*/}
                             </Text>
                         </TextBox>
                     </ParamBox>
