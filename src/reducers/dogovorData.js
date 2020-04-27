@@ -4,7 +4,22 @@ import {
 } from '../constants/actionTypes'
 
 const initialState = (window.Cypress && window.initialState) ||
-state.dogovorData;
+{
+    selectors:{objNameSel:"-",dogTypeSel:"-",sysTypeSel: "-",servTypeSel: "-",clientTypeSel: "-",hub: {}},
+    formData:{
+        NameInformal:"-",
+        lastName:"-",
+        firstName:"-",
+        midName:"-",
+        docType:"-",
+        Serial:"-",
+        number:"-",
+        whoGave:"-",
+        whenGave:"-",
+        codeGave:"-",
+        addressGave:"-"
+    }
+};
 
 export default function(state = initialState,action){
     switch (action.type){

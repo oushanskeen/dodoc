@@ -50,6 +50,7 @@
           ...selection,
           [event.target.name]: event.target.value
         });
+        onDogovorData(output);
         console.log("updateSelection : ", selection);
     }; 
     const updateHub = event => {

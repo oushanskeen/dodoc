@@ -74,6 +74,17 @@
             BIK: "222222222",
             firstBill: "222222222222222222222",
             secondBill: "22222222222222222222222"
-        }    
+        },
+        "-":{
+            CompName:"-",
+            FIO:"-",
+            INN: '-',
+            OGRN: "-",
+            yurAdress: "-", 
+            bank: "-",
+            BIK: "-",
+            firstBill: "-",
+            secondBill: "-"
+        }     
     };
  
