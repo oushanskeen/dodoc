@@ -12,6 +12,7 @@
     import FormTwo from "./FormTwo";
     import FormThree from "./FormThree";
     import Montaj from "./Montaj";
+    import Ownerdic from "./Ownerdic";
     const {newDogGen,nameExtractor} = require("../utils/dognums");
 
     const Home = (
