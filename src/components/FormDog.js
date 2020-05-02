@@ -116,23 +116,7 @@
 	         <option value={e}>{e}</option>)}
 	        </select><br/>
           </label>
-        
-        <label> systems :
-            {systemsDataVector.map(e => 
-                (<div>                    
-                    <input
-                        value={systems.concat(", " + e)}
-                        name="systems"
-                        type="checkbox"
-                        onChange={e => updateFormData(e)}
-                    /><label>{e}</label>
-                </div>)
-             )}<br/> 
-        </label>
 
-          <label> dogName: 
-           <span>generative<br/></span>
-         </label>
 
          <label> zakazchikName :
            <select
@@ -167,6 +151,26 @@
            {owners.map(e => <option value={e}>{e}</option>)}
            </select><br/>
          </label>
+        
+                          <label> dogName: 
+           <span>generative<br/></span>
+         </label>
+
+        
+        <label> systems :
+            {systemsDataVector.map(e => 
+                (<div>                    
+                    <input
+                        value={systems.concat(", " + e)}
+                        name="systems"
+                        type="checkbox"
+                        onChange={e => updateFormData(e)}
+                    /><label>{e}</label>
+                </div>)
+             )}<br/> 
+        </label>
+
+
 
          <label> date : <br/>
            <Input
