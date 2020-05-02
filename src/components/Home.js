@@ -44,7 +44,7 @@
     
     console.log("output : ", output);
 
-//  REDUCERS -----------------------------------------------------------------------------
+//  REDUCERS ---------------------------------------------------------
 
     const updateSelection = event => {
         setSelection({
@@ -67,7 +67,7 @@
             clientTypeSel,
             } = selection;
 
-//  SAMPLE HARDCODED DATA VECTORS -----------------------------------------------------------------------
+//  SAMPLE HARDCODED DATA VECTORS ------------------------------------ 
 
     const objectsDataVector = ["Липки","Лапки","Пипки"];
     const dogovorsDataVector  = [
@@ -195,22 +195,16 @@
                  <AreaBox g={[2,2,6,4]} fd="column" style={naked}>  
                      <TextBox h={"100%"}>
                          <Text m={"2vmin"}>
-                             <ObjectSelector/>
-                             <DogovorSelector/>
-                             <SystemSelector/>
-                             <ServerSelector/>
-                             <ClientSelector/>
+	    		    ЧТО-ТО ТУТ ДОЛЖНО БЫТЬ,<br/>
+	    		    А ПОКА МОЖЕШЬ ПРОЙТИСЬ ПО МЕНЮ
                          </Text>
                      </TextBox>
-                     <button onClick={()=>onDogovorData(output)}>SEND SELECTORS DATA</button>
-                     {/*dataSent==true ? <Dogovors/> : ""*/}
                     
                  </AreaBox>
                  <AreaBox g={[6,2,11,5]} fd="row" style={naked}>
                     <ParamBox>
                         <TextBox h={"100%"}>
                             <Text m={"2vmin"}>
-                                <FormTab/>
                             </Text>
                         </TextBox>
                     </ParamBox>
