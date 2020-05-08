@@ -1,0 +1,57 @@
+Эпик: диспетчер договоров.
+
+1 Стори: выбор из словаря или создание записи фирмы.
+     Для того чтобы посмотреть список и детали записей наших фирм 
+         или создать запись фирмы,
+     В качестве администратора,
+     Я хочу увидеть соответствующие элементы (мэй би).
+     1.1 Сценарий: просмотр списка и деталей записей фирм.                                 
+               Дано: я нахожусь на странице справочника фирм,
+               К вижу  список наших компаний с кнопкой “read”,
+                Когда нажимаю  кнопку “read”, 
+               То вижу детали соответствующей записи о фирме,
+               Acceptance criteria:
+                   Cypress: route,
+                   Route: ‘/ownerdic’,
+                   Model: {id,name,data},
+                   Cypress: initState,
+                   Jest: undefined,
+                   Reducer: initState,
+                   Cypress: ...#component,
+                   Interface:
+                       1  <OwnerDic state/>,
+                       1.1  <Entry ownerdic.name/>,
+                       1.2  <EntryDetails ownerdic.data/>,
+                       1.3  <ReadButton/>
+                   Actions: -.
+     1.2 Сценарий:  создание новой записи фирмы.
+               1.2.1 Сценарий:  тип фирмы выбран. 
+               Дано: я нахожусь на странице справочника фирм,
+               Когда нажимаю кнопку “create”,
+               То появляется меню выбора типа фирмы.
+               Когда выбираю тип фирмы из списка,
+               То появляется соответствующая форма создания 
+                   новой записи фирмы.
+               Когда форма заполнена,
+               И я нажимаю кнопку “submit”,
+               То в списке фирм появляется новая запись.
+               Acceptance criteria:
+                   Cypress: ...#component,
+                   Interface:
+                       1  <AddOwner />
+                       1.1  <AddOwnerButton />
+                       1.2  <Selector dogTypes />
+                       1.3  <FormYL /> | <FormIP /> | <FormFL />,
+                       1.4  <SubmitButton onSubmit />.
+                    Cypress: what if content due to state,
+                   Jest: action, actionCreator,
+                   Actions: OWNER_CREATE,
+                   Jest: reducer,
+                   Reducer: OWNER_CREATE,   
+2 Функция: выбор или создание записи контрагента.
+. . .
+3 Функция: выбор или создание записи объекта.
+. . . 
+4 Функция: создание договора.
+. . . 
+          

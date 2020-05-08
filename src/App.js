@@ -1,11 +1,12 @@
 import React from 'react';
 import { Route, Switch,BrowserRouter as Router,Link } from 'react-router-dom';
 import Home from './components/Home';
-import Montaj from './components/Montaj';
-import Ownerdic from './components/Ownerdic';
-import Agentdic from './components/Agentdic';
-import Dogovordic from './components/Dogovordic';
-import Objectdic from './components/Objectdic';
+import Montaj from './components/MONTAJ/Montaj';
+import Ownerdic from './components/DICTIONARIES/Ownerdic';
+import Agentdic from './components/DICTIONARIES/Agentdic';
+import Dogovordic from './components/DICTIONARIES/Dogovordic';
+import Objectdic from './components/DICTIONARIES/Objectdic';
+import Dogovor from './components/Dogovor';
 
 function App() {
   return (
@@ -41,6 +42,8 @@ function App() {
                     component={Dogovordic} />
                 <Route exact path="/dodoc/objdic" 
                     component={Objectdic} />
+                <Route exact path="/dodoc/dogdic/:dogovor"
+                    component={Dogovor}/>
                 <Route exact path="/dodoc/montaj" 
                     component={Montaj} />           
             </Switch>

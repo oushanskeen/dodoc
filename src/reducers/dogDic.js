@@ -14,18 +14,17 @@ const initialState = (window.Cypress && window.initialState) ||
                 name:"Ноль",
                 data:
                     {
-                        objName:"имя объекта",
                         dogName:"имя договора",
-                        zakazchikName: "имя заказчика",
-                        postavshikName: "имя поставщика",
-                        date: "дата", 
-                        bank: "Сбербанк",
-                        price: "цена",
-                        status: "статус",
-                        paid: "оплачено",
-                        reponsible: "ответственный",
-                        pdfScan: "ссылка на скан договора",
-                        commebt: "комментарий"
+                        date: "дата",
+                        objName:"Липки",
+                        owner: "ИП Попов",
+                        ownerId: 0,
+                        agent: "ООО ПУКИ",
+                        agentId: 0,
+                        dogovorType:"Проектирование",
+                        dogType: "IP",
+                        systems: "1,2,3,4",
+                        price: "цена"
                     }                
             },
             { 
@@ -33,18 +32,17 @@ const initialState = (window.Cypress && window.initialState) ||
                 name:"Ноль+",
                 data:
                     {
-                        objName:"имя объекта +",
-                        dogName:"имя договора +",
-                        zakazchikName: "имя заказчика +",
-                        postavshikName: "имя поставщика +",
-                        date: "дата +", 
-                        bank: "Сбербанк +",
-                        price: "цена +",
-                        status: "статус +",
-                        paid: "оплачено +",
-                        reponsible: "ответственный +",
-                        pdfScan: "ссылка на скан договора +",
-                        commebt: "комментарий +"
+                        dogName:"имя договора",
+                        date: "дата",
+                        objName:"Пипи",
+                        owner: "ООО УКИ",
+                        ownerId: 1,
+                        agent: "ИП Попов",
+                        agentId: 1,
+                        dogovorType:"Поставка",
+                        dogType: "FL",
+                        systems: "1,2",
+                        price: "цена"
                     }                
             }
         ]

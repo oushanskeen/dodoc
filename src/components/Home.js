@@ -8,11 +8,11 @@
     import { Link } from 'react-router-dom';
     import * as actions from '../actions';
     import {connect} from 'react-redux';
-    import FormOne from "./FormOne";
-    import FormTwo from "./FormTwo";
-    import FormThree from "./FormThree";
-    import Montaj from "./Montaj";
-    import Ownerdic from "./Ownerdic";
+    //import FormOne from "./FormOne";
+    //import FormTwo from "./FormTwo";
+    //import FormThree from "./FormThree";
+    //import Montaj from "./Montaj";
+    import Ownerdic from "./DICTIONARIES/Ownerdic";
     const {newDogGen,nameExtractor} = require("../utils/dognums");
 
     const Home = (
@@ -160,7 +160,7 @@
              )}          
         </div>
     );
-
+    /*
     const FormTab = _props => {
         return (clientTypeSel==="организация"
                     ? <FormOne/> 
@@ -171,6 +171,7 @@
                             : "тип контрагента не выбран"
             );
     };
+    */
     const [dataSent,setDataSent] = useState(false);
     const Dogovors = () => (
         <button type="button" disabled="false">
