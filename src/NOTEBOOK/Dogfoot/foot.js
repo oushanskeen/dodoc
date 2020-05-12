@@ -1,4 +1,4 @@
-const assert = require("../../src/utils/assert");
+const assert = require("../../../src/utils/assert");
 //const agentData = require("../SampleData/agentSampleData").asd;
 //console.log(agentData);
 

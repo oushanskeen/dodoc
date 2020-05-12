@@ -5,70 +5,67 @@ import {
 } from '../constants/actionTypes'
 
 const initialState = (window.Cypress && window.initialState) ||
-{dics: 
-  [
-    {
-      id:0,
-      type:"YL",
-      data:
-        {
-          compFullName:"Общество с ограниченной ответственностью 'Умный Климат Инжениринг'",
-          compShortName: "ОOO 'Умный Климат Инжениринг'",
-          FIO:"Лылова Дмитрия Павловича", 
-          INN:"ORGИНН",
-          KPP:"ORGКПП",
-          OGRN:"ORGОГРН",
-          OKPO:"ORGОКРО",
-          GosRegDate:"ORGДАТА ГОС РЕГИСТРАЦИИ",
-          YurAdress:"ORGЮРИДИЧЕСКИЙ АДРЕСС",
-          FactAdress:"ORGФАКТИЧЕСКИЙ АДРЕСС",
-          GenDirector:"ORGГЕН ДИРЕКТОР",
-          Buhgalter:"ORGБУХГАЛТЕР",
-          tel:"ORGТЕЛЕФОН",
-          bankName:"ORGИМЯ БАНКА",
-          BIK:"ORGБИК",
-          BillOne:"ORGРАСЧЁТНЫЙ СЧЁТ",
-          BillTwo:"ORGКОРРЕСПОНДЕНДТСКИЙ СЧЁТ"
-        }
-    },
-    {
-      id:1,
-      type:"IP",
-      data:
-        {
-          Name:"Индивидуальный предприниматель Попов Александр Петрович",
-          FIO:"Попов Александр Петрович",
-          INN:"IPИНН",
-          OGRNIP:"317502700029527",
-          OGRNIPDate:"2 мая 2017",
-          OKPO:"IPОКРО",
-          FactAdress:"IPФАКТИЧЕСКИЙ АДРЕСС",
-          bankName:"IPИМЯ БАНКА",
-          BIK:"IPБИК",
-          BillOne:"IPРАСЧЁТНЫЙ СЧЁТ",
-          BillTwo:"IPКОРЕСПОНДЕНТСКИЙ СЧЁТ"
-        }
-      },
-      {
-        id:2,
-        type:"FL",
-        data:
-          {
-            NameInformal:"FLНЕФОРМАЛЬНОЕ ИМЯ",
-            lastName:"Попов",
-            firstName:"Александр",
-            midName:"Петрович",
-            docType:"паспорт",
-            Serial:"4512",
-            number:"123421",
-            whoGave:"ГУ МВД РОССИИ ПО Г.МОСКВЕ",
-            whenGave:"25.01.2019",
-            codeGave:"770-007",
-            addressGave:"FLГДЕ ВЫДАН"
-          }
-      }
-    ]
-};
+[ 
+  {
+    id:0,
+    type:"YL",
+    name: "OWNER ID:0 TYPE:YL COMP_FULL_NAME",
+    compFullName:"OWNER ID:0 TYPE:YL COMP_FULL_NAME",
+    compShortName: "OWNER ID:0 TYPE:YL COMP_SHORT_NAME",
+    FIO:"OWNER ID:0 TYPE:YL FIO", 
+    INN:"OWNER ID:0 TYPE:YL INN",
+    KPP:"OWNER ID:0 TYPE:YL KPP",
+    OGRN:"OWNER ID:0 TYPE:YL OGRN",
+    OKPO:"OWNER ID:0 TYPE:YL OKPO",
+    GosRegDate:"OWNER ID:0 TYPE:YL GOS_REG_DATE",
+    YurAdress:"OWNER ID:0 TYPE:YL YUR_ADRESS",
+    FactAdress:"OWNER ID:0 TYPE:YL FACT_ADRESS",
+    GenDirector:"OWNER ID:0 TYPE:YL GEN_DIRECTOR",
+    Buhgalter:"OWNER ID:0 TYPE:YL BUHGALTER",
+    tel:"OWNER ID:0 TYPE:YL TEL",
+    bankName:"OWNER ID:0 TYPE:YL BANK_NAME",
+    BIK:"OWNER ID:0 TYPE:YL BIK",
+    RS:"OWNER ID:0 TYPE:YL RS",
+    KS:"OWNER ID:0 TYPE:YL KS",
+    signature: "OWNER ID:0 TYPE:YL SIGNATURE"
+  },
+  {
+    id:1,
+    type:"IP",
+    name: "OWNER ID:1 TYPE:IP FULL_NAME",
+    FullName:"OWNER ID:1 TYPE:IP FULL_NAME",
+    ShortName: "OWNER ID:1 TYPE:IP SHORT_NAME",
+    FIO:"OWNER ID:1 TYPE:IP FIO",
+    INN:"OWNER ID:1 TYPE:IP INN",
+    OGRNIP:"OWNER ID:1 TYPE:IP OGRNIP",
+    OGRNIPDate:"OWNER ID:1 TYPE:IP OGRNIP_DATE",
+    OKPO:"OWNER ID:1 TYPE:IP ОКРО",
+    YurAdress:"OWNER ID:1 TYPE:IP YUR_ADRESS",
+    FactAdress:"OWNER ID:1 TYPE:IP FACT_ADRESS",
+    bankName:"OWNER ID:1 TYPE:IP BANK_NAME",
+    BIK:"OWNER ID:1 TYPE:IP BIK",
+    RS:"OWNER ID:1 TYPE:IP RS",
+    KS:"OWNER ID:1 TYPE:IP KS",
+    signature: "OWNER ID:1 TYPE:IP SIGNATURE"
+  },
+  {
+    id:2,
+    type:"FL",
+    name: "OWNER ID:2 TYPE:FL NAME_INFORMAL",
+    NameInformal:"OWNER ID:2 TYPE:FL NAME_INFORMAL",
+    lastName:"OWNER ID:2 TYPE:FL LAST_NAME",
+    firstName:"OWNER ID:2 TYPE:FL FIRST_NAME",
+    midName:"OWNER ID:2 TYPE:FL MID_NAME",
+    docType:"OWNER ID:2 TYPE:FL DOC_TYPE",
+    Serial:"OWNER ID:2 TYPE:FL SERIAL",
+    number:"OWNER ID:2 TYPE:FL NUMBER",
+    whoGave:"OWNER ID:2 TYPE:FL WHO_GAVE",
+    whenGave:"OWNER ID:2 TYPE:FL WHEN_GAVE",
+    codeGave:"OWNER ID:2 TYPE:FL CODE_GAVE",
+    addressGave:"OWNER ID:2 TYPE:FL ADRESS_GAVE",
+    signature: "OWNER ID:2 TYPE:FL SIGNATURE"
+  }
+];
 
 
 export default function(state = initialState,action){

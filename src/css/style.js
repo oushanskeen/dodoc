@@ -5,6 +5,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     margin: 0px;
     background:white;
+    font-family: 'Roboto Mono', monospace;
   }
 `;
 const Container = styled.div`

@@ -6,6 +6,8 @@ export const OBJDIC_SELECT = "OBJDIC_SELECT";
 export const OBJDIC_CREATE = "OBJDIC_CREATE";
 export const DOGDIC_SELECT = "DOGDIC_SELECT";
 export const DOGDIC_CREATE = "DOGDIC_CREATE";
+export const DOGDIC_UPDATE = "DOGDIC_UPDATE";
+export const DOGDIC_DELETE = "DOGDIC_DELETE";
 
 export const YURLITSO = "YURLITSO";
 export const DOGOVOR_TYPE = "DOGOVOR_TYPE";

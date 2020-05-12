@@ -57,12 +57,12 @@
                   <TextBox w={"80%"}>
                     <Text>
                       <div>СПРАВОЧНИК НАШИХ ОБЪЕКТОВ:</div><br/>
-                      {store.dics.map(e => 
+                      {store.objDic.map(object => 
                         <Article 
-                          key={e.id} 
-                          name={e.name}
-                          content={Object.entries(e.data)
-	                        .map(e => <div>{e[0]} : {e[1]}</div>)} 
+                          key={object.id} 
+                          name={object.name}
+                          content={Object.entries(object)
+	                        .map(record => <div>{record[0]} : {record[1]}</div>)} 
                         />)} 
                       <Selector 
 		                content={majorStore} 
@@ -76,7 +76,7 @@
         );
 
   const mapStateToProps = _state => ({
-    store: _state.objDic,
+    store: _state,
     majorStore: _state
   });
   const mapDispatchToProps = _dispatch => ({

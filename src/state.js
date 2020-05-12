@@ -45,13 +45,38 @@ const FL =
         addressGave:"-"
     };
 const formDefaultData = "formDefaultData";
+let initStateForNewDogovor= {
+      id: "",
+      name: "",
+      date: "",
+      objName: "",
+      objId: "",
+      agentName: "",
+      agentId: "",
+      ownerName:"",
+      ownerId: "",
+      dogovorType: "",
+      systems:"",
+      price:"",
+}; 
+const systemsDataVector = [
+  "вентиляция и кондиционирование",
+  "отопление",
+  "котельная",
+  "водоснабжение и канализация",
+  "ЭОМ",
+  "слаботочные сети",
+  "автоматизация"
+];
+const dogovorTypes = ["Проектирование","Поставка"];
 
 
 const state = 
 {
     hello:"hello",
-    formData: formDefaultData,
-    dogovorData:{},
+    initStateForNewDogovor:initStateForNewDogovor,
+    systemsDataVector:systemsDataVector,
+    dogovorTypes:dogovorTypes,
     dogTypes: {YL:YL,IP:IP,FL:FL}
 };
 

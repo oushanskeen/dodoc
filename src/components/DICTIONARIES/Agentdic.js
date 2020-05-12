@@ -8,10 +8,12 @@
     import FormOneSimp from "../FORMS/FormOneSimp";
     import FormTwoSimp from "../FORMS/FormTwoSimp";
     import FormThreeSimp from "../FORMS/FormThreeSimp";
+    import { Link } from 'react-router-dom';
     import {connect} from 'react-redux';
     import * as actions from '../../actions';
+    
 
-    const Selector = props => {
+    const AddAgent = props => {
         const pool = props.content.home.dogTypes;
         const formSet = 
             {
@@ -24,15 +26,19 @@
         const [newdic,setNewdic] = useState(false);
         return(
             <div>
-                <button onClick={()=>setNewdic(!newdic)}>добавить агента</button>
+                <button onClick={()=>setNewdic(!newdic)}>
+                  добавить агента
+                </button>
                 {newdic===false ? "" : 
-                    <div>
-                        <select onChange={e => setSelect(e.target.value)}>
-                            <option value="-">-------</option>
-                            {Object.entries(pool).map(e => <option value={e[0]}>{e[0]}</option>)}
-                        </select>
-                        {select==="" ? "" : <div> {formSet[select]} </div> }
-                    </div>
+                  <div>
+                    <select onChange={e => setSelect(e.target.value)}>
+                      <option value="-">-------</option>
+                        {Object.entries(pool).map(e => <option value={e[0]}>{e[0]}</option>)}
+                    </select>
+                    {select==="" ? "" : 
+                       <div> {formSet[select]} </div> 
+                    }
+                  </div>
                 }
             </div>
         );
@@ -40,16 +46,40 @@
     const Article = _props => {
         const [fold,setFold] = useState(false);
         const buttonHandler = () => setFold(!fold);
+        console.log("Article prtops: ", _props);
+        /*
+        
+        */
         return (
-            <div>
-                <div>{_props.name}{" "}
-                    <button onClick={buttonHandler}>{fold === false ? "open" : "close"}</button>            
-                </div>
-                {fold === false ? "" : <div>{_props.content}</div>}
-                <br/>
-            </div>        
+          <div>
+            <div>{_props.name}{" "}
+              <button onClick={buttonHandler}>
+                {fold === false ? "open" : "close"}
+              </button>  
+              {/*<button onClick={()=>console.log(_props.id)}>
+                <Link 
+                  to={`/dodoc/dogdic/${_props.id}`}
+                   style={link}
+                >
+                watchme
+                </Link>
+              </button>*/}         
+            </div>
+              {fold === false ? "" : 
+                <div>{_props.content}</div>
+              }<br/>
+          </div>        
         );
-    }
+    };
+    const nameExtractor = _x => {
+        switch (_x.companyType){
+            case "YL" : return _x.compFullName;
+            case "IP" : return _x.FullName;
+            case "FL" : return _x.NameInformal;
+            default: return "unknown";              
+        };
+    };
+    const recordDiv = _x => Object.entries(_x).map(record => <div>{record[0]} : {record[1]}</div>);
     const Agentdic = ({majorStore, store,onAgentDicSelection,onAgentDicCreation}) => (
             <div>
             <GlobalStyle/>
@@ -59,14 +89,16 @@
                         <TextBox w={"80%"}>
                             <Text>
                                 <div>СПРАВОЧНИК НАШИХ КОНТРАГЕНТОВ:</div><br/>
-                                {store.dics.map(e => 
+                                {console.log("store.dics: ", store.dics)}
+                                {store.dics.map(agent => 
                                     <Article 
-                                        key={e.id} 
-                                        name={e.name}
-                                        content={Object.entries(e.data).map(e => <div>{e[0]} : {e[1]}</div>)} 
+                                        key={agent.id} 
+                                        id={agent.id}
+                                        name={nameExtractor(agent.data)}
+                                        content={recordDiv(agent.data)} 
                                     />)
                                 } 
-                             <Selector content={majorStore} action={onAgentDicCreation}/>
+                             <AddAgent content={majorStore} action={onAgentDicCreation}/>
                             </Text>
                         </TextBox>             
                     </AreaBox>

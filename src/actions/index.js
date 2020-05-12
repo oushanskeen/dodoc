@@ -36,6 +36,10 @@ export const dogDicCreate = _data => {
     console.log({type:types.DOGDIC_CREATE,payload:_data});
     return {type:types.DOGDIC_CREATE, payload: _data};
 };
+export const dogDicUpdate = _data => {
+    console.log({type:types.DOGDIC_UPDATE,payload:_data});
+    return {type:types.DOGDIC_UPDATE, payload: _data};
+};
 
 
 

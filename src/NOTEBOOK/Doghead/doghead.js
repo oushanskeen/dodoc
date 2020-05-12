@@ -27,9 +27,9 @@ const sdata = require('../SampleData/sampleData');
 //  3 HEADOUT ---------------------------------------------------------
 //  3.1 headOut
 //  headOut :: ownerOut -> agentOut -> headOut
-    const doghead = ( _store, _owner, _agent, _dogType ) => {
-      const owner = _store.ownerDic.dics[_owner];
-      const agent = _store.agentDic.dics[_agent];
+    const doghead = ( _store, _ownerId, _agentId, _dogType ) => {
+      const owner = _store.ownerDic.dics[_ownerId];
+      const agent = _store.agentDic.dics[_agentId];
       return oOut(owner,_dogType) + aOut(agent,_dogType);;
     };
     //console.log("headOut: ", headOut(sdata.ownerDic.dics[0],sdata.agentDic.dics[0],"Проектирование"));

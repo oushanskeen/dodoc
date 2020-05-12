@@ -4,7 +4,7 @@ const sdata = require('../SampleData/sampleData');
 const yl = require('./foot').yl;
 const ip = require('./foot').ip;
 const fl = require('./foot').fl;
-const assert = require('../../src/utils/assert');
+const assert = require('../../../src/utils/assert');
 
     const footOut = (_data,_holder,_id) => {
       const data = _data[_holder].dics;

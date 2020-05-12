@@ -1,30 +1,28 @@
 const dogTout = require('../dogOut');
 
-      const oyl = (od,dogT) => {
-        // given : input object
-        // when : mapped object
-        let input = {
-          name:od.compFullName,
-          fio:od.FIO,
-          dog:dogTout(dogT)[0]
-        };
-        // then
-        return (  
-          ""+input.name+", в лице генерального директора "+input.fio+
+  const ownerYurlitsoHeadIO = (ownerData,dogovorType) => {
+    let input = {
+      name:ownerData.compFullName,
+      fio:ownerData.FIO,
+      dog:dogTout(dogovorType)[0]
+    };
+    return (  
+      ""+input.name+", в лице генерального директора "+input.fio+
           ", действующего на основании Устава, именуемое в дальнейшем \'"+input.dog+"\', с одной стороны, и ");
       };
 
 //  1.2 ownerIP
 //    ownerIP :: ownerData -> dogovorType -> ownerHead
-      const oip = (od,dogT) => {
+      const ownerIPHeadIO = (ownerData,dogovorType) => {
         // given
         // when
         let input = {
-          name:od.Name,
-          ogrnip:od.OGRNIP,
-          ogrnipDate:od.OGRNIPDate,
-          dog:dogTout(dogT)[0]
+          name:ownerData.FullName,
+          ogrnip:ownerData.OGRNIP,
+          ogrnipDate:ownerData.OGRNIPDate,
+          dog:dogTout(dogovorType)[0]
         };
+        console.log("ownerIPHeadIO: ", input);
         // then
         return (  
           ""+input.name+", действующий на основании свидетельства ОГРНИП "+input.ogrnip+" от "+input.ogrnipDate+", именуемый в дальнейшем \'"+input.dog+"\', с одной стороны, и "
@@ -33,18 +31,18 @@ const dogTout = require('../dogOut');
 
 //  1.3 ownerFL
 //  ownerFL :: ownerData -> dogovorType -> ownerHead
-    const ofl = (od,dogT) => {
+    const ownerFizlitsoHeadIO = (ownerData,dogovorType) => {
       const input = {
-        f:od.lastName,
-        i:od.firstName,
-        o:od.midName,
-        docType:od.docType,
-        docSer:od.Serial,
-        docNum:od.number,
-        docDate:od.whenGave,
-        docWhere:od.whoGave,
-        docWhCode:od.codeGave,
-        dog:dogTout(dogT)[0]
+        f:ownerData.lastName,
+        i:ownerData.firstName,
+        o:ownerData.midName,
+        docType:ownerData.docType,
+        docSer:ownerData.Serial,
+        docNum:ownerData.number,
+        docDate:ownerData.whenGave,
+        docWhere:ownerData.whoGave,
+        docWhCode:ownerData.codeGave,
+        dog:dogTout(dogovorType)[0]
       };
       return (  
         ""+input.f+" "+input.i+" "+input.o+", "+input.docType+" "+
@@ -54,6 +52,6 @@ const dogTout = require('../dogOut');
         input.dog+"\', с одной стороны, и ");
     };
 
-    module.exports.oyl = oyl;
-    module.exports.oip = oip;
-    module.exports.ofl = ofl;
+    module.exports.ownerYurlitsoHeadIO = ownerYurlitsoHeadIO;
+    module.exports.ownerIPHeadIO = ownerIPHeadIO;
+    module.exports.ownerFizlitsoHeadIO = ownerFizlitsoHeadIO;
