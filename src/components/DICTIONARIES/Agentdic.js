@@ -8,6 +8,7 @@
     import FormOneSimp from "../FORMS/FormOneSimp";
     import FormTwoSimp from "../FORMS/FormTwoSimp";
     import FormThreeSimp from "../FORMS/FormThreeSimp";
+    import {DictionaryIO} from "../ELEMENTS/Elements";
     import { Link } from 'react-router-dom';
     import {connect} from 'react-redux';
     import * as actions from '../../actions';
@@ -80,6 +81,24 @@
         };
     };
     const recordDiv = _x => Object.entries(_x).map(record => <div>{record[0]} : {record[1]}</div>);
+    const Agentdic = ({state}) => (
+        <div>
+          <GlobalStyle/>
+          <Container>
+            <Grid>
+              <AreaBox g={[2,2,10,5]} fd="row" style={naked}> 
+                <TextBox w={"80%"}>
+                  <Text>
+                    <div>СПРАВОЧНИК НАШИХ ФИРМ:</div><br/>
+                    <DictionaryIO state={state} dictionaryName={"agentDic"}/>
+                  </Text>
+                </TextBox>             
+              </AreaBox>
+            </Grid>
+          </Container>
+        </div>
+    );
+    /*
     const Agentdic = ({majorStore, store,onAgentDicSelection,onAgentDicCreation}) => (
             <div>
             <GlobalStyle/>
@@ -106,8 +125,10 @@
             </Container>
             </div>
         );
+    */
 
     const mapStateToProps = _state => ({
+        state: _state,
         store: _state.agentDic,
         majorStore: _state
     });

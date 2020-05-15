@@ -54,19 +54,10 @@ const initialState = (window.Cypress && window.initialState) ||
 
 export default function(state = initialState,action){
     switch (action.type){
-        case DOGDIC_SELECT:
-            return {...state,"currentDic":action.payload};
         case DOGDIC_CREATE:
-            console.log("state in dogDic: ", state);
-            console.log("state.dogDic in dogDic: ", state.dogDic);
             return [...state,{...action.payload}];
-            //}; 
-            //return out;
         case DOGDIC_UPDATE:
-            console.log("action.payload.id: ", action.payload.id);
-            console.log("action.payload: ", action.payload);
-            return state.map(e => e.id===action.payload.id ? action.payload :
-                e);
+            return state.map(e => e.id===action.payload.id ? action.payload : e);
         default:        
             return state;
     };

@@ -10,14 +10,7 @@
         TextBox,Button,ParamBox,naked,link
     } from '../../css/style.js'
 
-    const FormOneSimp = _props => {
-    //    console.log("store visible in FormOne : ", store);
-     //   console.log("onDataReady inside form one : ", onDataReady);
-    //const [dataSent,setDataSent] = useState({is:"not ok"});
-    //const [isOk, setIsOk] = useState("isNotOk")
-        
-
-        // _props.action
+    const FormOneSimp = ({onOwnerDicCreation}) => {
 
         const [formData, setFormData] = useState({
             compFullName: "",
@@ -66,8 +59,7 @@
         } = formData;
         const handleSubmit = e => {
             e.preventDefault();
-            //onDogovorData({...dogovorData,formData:formData});
-            _props.action(formData);
+            onOwnerDicCreation(formData);
         };
     return (
         <form>
@@ -266,22 +258,23 @@
         </form>
     );
     };
-    /*
+    
     const mapStateToProps = _state => ({
-        store: _state,
-        dogovorData: _state.dogovorData
+    //    store: _state,
+     //   dogovorData: _state.dogovorData
         //formOneState: _state.form.formOne
     });
     const mapDispatchToProps = _dispatch => ({
         onDataReady: data => _dispatch(actions.formDataNew(data)),
-        onDogovorData: data => _dispatch(actions.dogovorData(data))
+        onDogovorData: data => _dispatch(actions.dogovorData(data)),
+        onOwnerDicCreation: data => _dispatch(actions.ownerDicCreate(data))
     });
 
     export default connect (
         mapStateToProps,
         mapDispatchToProps
-    )(FormOne);  
-    */
-    export default FormOneSimp; 
+    )(FormOneSimp);  
+    
+    //export default FormOneSimp; 
 
     

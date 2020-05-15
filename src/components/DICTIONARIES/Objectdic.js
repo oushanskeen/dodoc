@@ -6,6 +6,7 @@
     TextBox,Button,ParamBox,naked,
     NavbarDropdown,NavbarDropdownContent,link
   } from '../../css/style.js';
+  import {DictionaryIO} from "../ELEMENTS/Elements";
   import FormObj from "../FORMS/FormObj";
   import {connect} from 'react-redux';
   import * as actions from '../../actions';
@@ -44,6 +45,25 @@
             </div>        
         );
     }
+
+    const Objectdic = ({state}) => (
+        <div>
+          <GlobalStyle/>
+          <Container>
+            <Grid>
+              <AreaBox g={[2,2,10,5]} fd="row" style={naked}> 
+                <TextBox w={"80%"}>
+                  <Text>
+                    <div>СПРАВОЧНИК НАШИХ ФИРМ:</div><br/>
+                    <DictionaryIO state={state} dictionaryName={"objDic"}/>
+                  </Text>
+                </TextBox>             
+              </AreaBox>
+            </Grid>
+          </Container>
+        </div>
+    );
+    /*
     const Objectdic =( 
       { majorStore, 
         store,
@@ -73,9 +93,10 @@
               </Grid>
             </Container>
           </div>
-        );
+        );*/
 
   const mapStateToProps = _state => ({
+    state: _state,
     store: _state,
     majorStore: _state
   });

@@ -70,19 +70,8 @@ const initialState = (window.Cypress && window.initialState) ||
 
 export default function(state = initialState,action){
   switch (action.type){
-    case OWNERDIC_SELECT:
-      return {...state,"currentDic":action.payload};
     case OWNERDIC_CREATE:
-      const out = {...state,
-        dics:[...state.dics,
-          {id:(state.dics[state.dics.length-1].id)+1,
-            name:Object.entries(action.payload)[0][1],
-            data:action.payload
-          }
-        ]
-      }; 
-      console.log("OWNERDIC_SELECT out : ", out);
-      return out;
+      return [...state,{...action.payload}];
     default:        
       return state;
     };

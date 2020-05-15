@@ -7,58 +7,37 @@
     NavbarDropdown,NavbarDropdownContent,link
   } from '../../css/style.js';
   import FormDog from "../FORMS/FormDog";
+  import Dogovor from "../Dogovor";
+  import {ShowHideButton,ListOfItemsDiv,ShowDictionaryArticleData} from "../ELEMENTS/Elements";
   import {connect} from 'react-redux';
   import * as actions from '../../actions';
   import { Link,useParams } from 'react-router-dom';
+  import {DictionaryIO} from "../ELEMENTS/Elements";
 
-  //  
-
-
-  const FoldButton = ({setValue,value,name}) => (
-    <button onClick={() => setValue(!value)}>
-      {value === false ? name[0] : name[1]}
-    </button> 
+  const Article = ({state,action,name,content,id}) => (
+    <div>
+        <ShowHideButton header={name} name={["open","close"]} content={content}/>
+        <ShowHideButton header={""} name={["edit","stop"]} content={<FormDog
+                          action={action}
+                          store={state}
+                          dogovorId={id}
+                        />}/>
+        <ShowHideButton header={""} name={["show","hide"]} content={<Dogovor state={state} id={id}/>}/>          
+    </div>
   );
-  const ShowButton = ({goto}) => (
-    <button>
-      <Link to={goto} style={link}>
-        show
-      </Link>
-    </button>
-  );
-  const BipolarButton = ({setValue,value,name}) => (
-    <button onClick={()=>setValue(!value)}>
-      {name}
-    </button>
-  );
-  const Article = ({store,id,rawData,name,createDogovor,updateDogovor}) => {
-    console.log("id in article : ", id);
-    const [fold,setFold] = useState(false);
-    const [edit,setEdit] = useState(false);
-    const [editable,setEditable] = useState(false);
-    return (
-      <div>
-        <div>{name}{" "}
-          <FoldButton setValue={setFold} value={fold} name={["open","close"]}/>
-          <ShowButton goto={`/dodoc/dogdic/${id}`}/>
-          <BipolarButton setValue={setEditable} value={editable} name={"edit"}/>
-        </div>
-            {fold === false ? "" : 
-              <div>
-              
-                    {editable===true 
-                      ? <FormDog
-                          action={updateDogovor}
-                          store={store}
-                          dogovorId={id}/>
-                      : Object.entries(rawData)
-                           .map(e => <div> {e[0]} : {e[1]} </div>)
-                    }
-            </div>}<br/>
-      </div>        
-    );
-  };
-
+  //const ListOfItemsDiv = (list) => (
+  //  Object.entries(list).map(record => <div>{record[0]} : {record[1]}</div>)
+  //);
+  //const DictionaryArticles = ({dictionary,state,action}) => (
+  //  dictionary.map(owner => 
+  //    <Article 
+  //      state={state}
+  //      action={action}
+  //      name={owner.name}
+  //      content={ListOfItemsDiv(owner)} 
+  //      id={owner.id}
+  //    />)          
+  //);
 
   const Selector = ({content,createDogovor}) => {
     console.log("onDogDicCreation in selector: ", createDogovor);
@@ -72,10 +51,29 @@
       </div>
     );
   };
-  
+
+   const Dogovordic = ({state}) => (
+        <div>
+          <GlobalStyle/>
+          <Container>
+            <Grid>
+              <AreaBox g={[2,2,10,5]} fd="row" style={naked}> 
+                <TextBox w={"80%"}>
+                  <Text>
+                    <div>СПРАВОЧНИК НАШИХ ФИРМ:</div><br/>
+                    <DictionaryIO state={state} dictionaryName={"dogDic"}/>
+                  </Text>
+                </TextBox>             
+              </AreaBox>
+            </Grid>
+          </Container>
+        </div>
+    );
+  /*
   const Dogovordic = (
     { majorStore, 
-      store, 
+      state, 
+      dogDic,
       onDogDicSelection, 
       onDogDicCreation,
       onDogDicUpdate
@@ -88,7 +86,8 @@
             <TextBox w={"80%"}>
               <Text>
                 <div>СПРАВОЧНИК НАШИХ ДОГОВОРОВ:</div><br/>
-                 {store.dogDic.map(dogovor => 
+                  <ShowDictionaryArticleData dictionary={dogDic}/>
+                 {/*store.dogDic.map(dogovor => 
                         <Article
                           createDogovor={onDogDicCreation}
                           updateDogovor={onDogDicUpdate} 
@@ -101,12 +100,12 @@
                           content={Object.entries(dogovor)
                           
 	                        .map(record => <div>{record[0]} : {record[1]}</div>)} 
-                        />)} 
-                 <Selector 
+                        />)}*/ 
+                /*{ <Selector 
 	                content={majorStore} 
 	                createDogovor={onDogDicCreation}
-	             />
-
+	             />}*/
+/*
               </Text>
             </TextBox>             
           </AreaBox>
@@ -114,10 +113,11 @@
       </Container>
     </div>
   );
-
+  */
   const mapStateToProps = _state => ({
-    store: _state,
-    majorStore: _state
+    state: _state,
+    majorStore: _state,
+    dogDic: _state.dogDic
   });
   const mapDispatchToProps = _dispatch => ({
     onDogDicSelection: data => _dispatch(actions.dogDicSelect(data)),

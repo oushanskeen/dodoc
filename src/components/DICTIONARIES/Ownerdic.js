@@ -5,67 +5,11 @@
     TextBox,Button,ParamBox,naked,
     NavbarDropdown,NavbarDropdownContent,link
   } from '../../css/style.js';
-  import FormOneSimp from "../FORMS/FormOneSimp";
-  import FormTwoSimp from "../FORMS/FormTwoSimp";
-  import FormThreeSimp from "../FORMS/FormThreeSimp";
+  import {DictionaryIO} from "../ELEMENTS/Elements";
   import {connect} from 'react-redux';
   import * as actions from '../../actions';
-    
-  const Selector = props => {
-  //const pool = props.content.home.dogTypes;
-  const formSet = 
-    {
-      YL:<FormOneSimp action={props.action}/>,
-      IP:<FormTwoSimp action={props.action}/>,
-      FL:<FormThreeSimp action={props.action}/>
-    };
-  const pool = Object.keys(formSet);
-  console.log("pool inowners :", pool);
-  const [select,setSelect] = useState("");
-  console.log("select:", select);
-  const [newdic,setNewdic] = useState(false);
-    return(
-      <div>
-        <button 
-	  onClick={()=>setNewdic(!newdic)}> 
-	    добавить фирму 
-	</button>
-        {newdic===false ? "" : 
-          <div>
-            <select onChange={e => setSelect(e.target.value)}>
-              <option value="-">-------</option>
-              {Object.entries(formSet)
-	        .map(e => <option value={e[0]}>{e[0]}</option>)}
-            </select>
-            {select==="" ? "" : <div> {formSet[select]} </div> }
-          </div>
-        }
-      </div>
-    );
-  };
-  const Article = _props => {
-    const [fold,setFold] = useState(false);
-    const buttonHandler = () => setFold(!fold);
-    return (
-      <div>
-        <div>{_props.name}{" "}
-          <button 
-	    onClick={buttonHandler}
-	  >
-	    {fold === false ? "open" : "close"}
-	  </button>            
-        </div>
-        {fold === false ? "" : <div>{_props.content}</div>}
-        <br/>
-      </div>        
-    );
-  }
-  const Ownerdic = (
-    { majorStore, 
-      store,
-      onOwnerDicSelection,
-      onOwnerDicCreation
-    }) => (
+
+  const Ownerdic = ({state}) => (
     <div>
       <GlobalStyle/>
       <Container>
@@ -74,18 +18,7 @@
             <TextBox w={"80%"}>
               <Text>
                 <div>СПРАВОЧНИК НАШИХ ФИРМ:</div><br/>
-                {store.ownerDic.map(owner => 
-                  <Article 
-                   key={owner.id} 
-                   name={owner.name}
-                   content={Object.entries(owner)
-	             .map(record => <div>{record[0]} : {record[1]}</div>)} 
-                  />)
-                } 
-                <Selector 
-	          content={majorStore} 
-	          action={onOwnerDicCreation}
-	        />
+                <DictionaryIO state={state} dictionaryName={"ownerDic"}/>
               </Text>
             </TextBox>             
           </AreaBox>
@@ -94,16 +27,8 @@
     </div>
   );
 
-  const mapStateToProps = _state => ({
-    store: _state,
-    majorStore: _state
-  });
-  const mapDispatchToProps = _dispatch => ({
-    onOwnerDicSelection: 
-      data => _dispatch(actions.ownerDicSelect(data)),
-    onOwnerDicCreation: 
-      data => _dispatch(actions.ownerDicCreate(data))
-  });
+  const mapStateToProps = _state => ({ state: _state });
+  const mapDispatchToProps = _dispatch => ({ });
   export default connect (
     mapStateToProps,
     mapDispatchToProps

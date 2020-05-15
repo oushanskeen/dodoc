@@ -9,18 +9,11 @@
       NavbarDropdown,NavbarDropdownContent,link
     } from '../css/style.js';
     const makeDogovorHeadIO = require
-      ('../NOTEBOOK/Doghead/makeDogovorHeadIO');
-    //const dogfoot = require('../NOTEBOOK/Dogfoot/footOut');
-    const dicData = (_state,_dicName,_id) => _state[_dicName].dics.filter(e => e.id===_id)[0].data
+        ('../NOTEBOOK/Doghead/makeDogovorHeadIO');
+    //const dicData = (_state,_dicName,_id) => _state[_dicName].dics.filter(e => e.id===_id)[0].data
 
-    const Dogovor = ({state,store}) => {
-//    console.log("state in dogovor: ", state);
+    const Dogovor = ({state,id}) => {
       let {dogovor} = useParams();
-//  Get proper dogovor data
-    //const dicData = (_dicName, _id) => 
-    
-    console.log("makeDogovorHeadIO:", makeDogovorHeadIO(state,dogovor));
-
       return(
         <div onLoad={console.log(`dogovorId: ${dogovor}`)}>
         <GlobalStyle/>
@@ -33,7 +26,7 @@
                    {/*{dogHeadOut}*/}
                   </div>
                   <div>makeDogovorHeadIO<br/>
-                    {makeDogovorHeadIO(state,dogovor)}
+                    {makeDogovorHeadIO(state,id)}
                   </div>
 
                   <div><br/>
@@ -52,12 +45,6 @@
   const mapStateToProps = _state => ({
     state: _state,
     store: _state.dogDic.dics,
-    //dic: _state.dogDic.dics,
-    //owner: _state.ownerDic,
-    //agent: _state.agentDic,
-    //home: _state.home,
-    //formData: _state.formDataNew,
-    //dogovorData: _state.dogovorData
   });
   const mapDispatchToProps = _dispatch => ({
     //onDogovorData: data => _dispatch(actions.dogovorData(data)),
