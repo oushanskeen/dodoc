@@ -1,7 +1,9 @@
 //import {state} from '../state.js';
 import {
     OWNERDIC_SELECT,
-    OWNERDIC_CREATE
+    OWNERDIC_CREATE,
+    OWNERDIC_UPDATE,
+    OWNERDIC_DELETE
 } from '../constants/actionTypes'
 
 const initialState = (window.Cypress && window.initialState) ||
@@ -67,11 +69,17 @@ const initialState = (window.Cypress && window.initialState) ||
   }
 ];
 
+//---------------------------------------------------------------------
 
 export default function(state = initialState,action){
   switch (action.type){
     case OWNERDIC_CREATE:
       return [...state,{...action.payload}];
+    case OWNERDIC_UPDATE:
+      return state.map(e => 
+        e.id===action.payload.id ? action.payload : e);
+    case OWNERDIC_DELETE:
+      return state.filter(e => e.id != action.payload);
     default:        
       return state;
     };

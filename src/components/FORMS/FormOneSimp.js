@@ -10,91 +10,135 @@
         TextBox,Button,ParamBox,naked,link
     } from '../../css/style.js'
 
-    const FormOneSimp = ({onOwnerDicCreation}) => {
+    const FormOneSimp =
+    ({formName,ownerId,agentId,state,
+      onOwnerDicCreate,onOwnerDicUpdate,
+      onAgentDicCreate,onAgentDicUpdate}) => {
+        console.log("formName in FormOneSimp :", formName);
 
-        const [formData, setFormData] = useState({
-            compFullName: "",
-            compShortName: "",
-            INN: "",
-            KPP:"",
-            OGRN:"",
-            OKPO:"",
-            GosRegDate:"",
-            YurAdress:"",
-            FactAdress:"",
-            GenDirector:"",
-            Buhgalter:"",
-            tel:"",
-            bankName:"",
-            BIK:"",
-            BillOne:"",
-            BillTwo:""
+    // state,formName,ownerId,agentId    
+    const actorId = 
+    formName => {
+        switch(formName){
+            case "ownerDic": return ownerId;
+            case "agentDic": return agentId;
+            default: return "no actor id";
+            };
+            };
+    const importData = 
+    (formName, actorId) => ({
+        actorData:
+            state[formName]
+            .filter(e => e.id===actorId)[0],
+        actorName: 
+            state[formName]
+            .map(actor => actor.name),
+        initStateForNewActor:
+            state.home.initStateForNewActor("YL")
         });
-        const updateFormData = event => {
-            setFormData({
-              ...formData,
-              [event.target.name]: event.target.value
+    const currentImportData = 
+    () => (
+        importData(
+            formName,
+            actorId(formName))
+            );
+    const [formData, setFormData] = useState(
+        {...(actorId(formName) === undefined 
+            ? {...currentImportData().initStateForNewActor} 
+            : currentImportData().actorData)
+            }     
+            );
+    const updateFormData = 
+    event => {
+        setFormData({
+            ...formData,
+            [event.target.name]: event.target.value
             });
-            //setDataSent("OK");
-            //console.log("form data : ", formData);
-        }
-        const 
-        { 
-            compFullName, 
-            compShortName,
-            INN,
-            KPP,
-            OGRN,
-            OKPO,
-            GosRegDate,
-            YurAdress,
-            FactAdress,
-            GenDirector,
-            Buhgalter,
-            tel,
-            bankName,
-            BIK,
-            BillOne,
-            BillTwo
-        } = formData;
-        const handleSubmit = e => {
-            e.preventDefault();
-            onOwnerDicCreation(formData);
-        };
+            };
+    const handleSubmit = 
+    e => {
+        e.preventDefault();
+        if(formName==="ownerDic"){
+            if(ownerId === undefined){ 
+                onOwnerDicCreate(formData)
+                }else{
+                onOwnerDicUpdate(formData)
+                }
+                }
+        else{
+        if(formName==="agentDic"){
+             if(agentId === undefined){
+                onAgentDicCreate(formData)
+                }else{
+                onAgentDicUpdate(formData)
+                }
+                }
+                }              
+                };
+    const Id = 
+    () => {
+        console.log("formData in formDog: ", formData.id);
+        return (typeof formData.id==="number" 
+            ? formData.id 
+            : state[formName][state[formName].length-1].id+1
+            );  
+            };
+    const Name = 
+    () => {
+       // console.log("state[formName]:", state[formName]);
+        console.log("fprmData: ", formData);
+        return (formData.name==="" 
+            ? formData.compShortName
+            : state[formName]
+              .filter(e => e.name===formData.name)[0].name
+        ); 
+    };
+      const handleSaveCountedData =
+      ()=> 
+          setFormData({...formData,
+            id:Id(),
+            name:Name()
+        });
+    const SaveButton = () => {
+        return <button onClick={handleSaveCountedData}>Save</button>    
+    };
+
     return (
         <form>
             <br/>
                 <label> Полное название организации : <br/>
                     <Input
                         id="compFullName"
-                        value= {compFullName}
+                        value= {formData.compFullName}
                         onChange={e => updateFormData(e)}
                         placeholder=" Полное название организации "
                         type="text"
                         name="compFullName"
                         required
                         maxlength="120"
-                    /><br/>
-               </label>
+                        />
+                        <br/>
+                        </label>
                <label> Краткое название организации : <br/>
                     <Input
                         id="compShortName"
-                        value= {compShortName}
+                        value= {formData.compShortName}
                         onChange={e => updateFormData(e)}
                         placeholder=" Краткое название организации "
                         type="text"
                         name="compShortName"
                         required
                         maxlength="120"
-                    /><br/>
-               </label>
+                        />
+                        <br/>
+                        </label>
                <label> ИНН : <br/>
                     <Input
                         id="INN"
-                        value= {INN}
+                        value= {formData.INN}
                         onChange={e => updateFormData(e)}
                         placeholder=" ИНН "
-                        type="number"
+                        type="text"
                         name="INN"
                         required
                         minlength="10"
@@ -104,7 +148,7 @@
                <label> КПП : <br/>
                     <Input
                         id="KPP"
-                        value= {KPP}
+                        value= {formData.KPP}
                         onChange={e => updateFormData(e)}
                         placeholder=" КПП "
                         type="text"
@@ -115,10 +159,10 @@
                <label> ОГРН : <br/>
                     <Input
                         id="OGRN"
-                        value= {OGRN}
+                        value= {formData.OGRN}
                         onChange={e => updateFormData(e)}
                         placeholder=" ОГРН "
-                        type="number"
+                        type="text"
                         name="OGRN"
                         required
                         minlength="13"
@@ -128,10 +172,10 @@
                <label> ОКПО : <br/>
                     <Input
                         id="OKPO"
-                        value= {OKPO}
+                        value= {formData.OKPO}
                         onChange={e => updateFormData(e)}
                         placeholder=" ОКПО "
-                        type="number"
+                        type="text"
                         name="OKPO"
                         required
                         minlength="8"
@@ -141,7 +185,7 @@
                <label> Дата государственной регистрации : <br/>
                     <Input
                         id="GosRegDate"
-                        value= {GosRegDate}
+                        value= {formData.GosRegDate}
                         onChange={e => updateFormData(e)}
                         placeholder=" Дата государственной регистрации "
                         type="text"
@@ -152,7 +196,7 @@
                <label> Юридический адрес : <br/>
                     <Input
                         id="YurAdress"
-                        value= {YurAdress}
+                        value= {formData.YurAdress}
                         onChange={e => updateFormData(e)}
                         placeholder=" Юридический адрес "
                         type="text"
@@ -163,7 +207,7 @@
                <label> Фактический адрес : <br/>
                     <Input
                         id="FactAdress"
-                        value= {FactAdress}
+                        value= {formData.FactAdress}
                         onChange={e => updateFormData(e)}
                         placeholder=" Фактический адрес "
                         type="text"
@@ -174,7 +218,7 @@
                <label> Ген. директор (ФИО) : <br/>
                     <Input
                         id="GenDirector"
-                        value= {GenDirector}
+                        value= {formData.GenDirector}
                         onChange={e => updateFormData(e)}
                         placeholder=" Ген. директор (ФИО) "
                         type="text"
@@ -185,7 +229,7 @@
                <label> Бухгалтер (ФИО) : <br/>
                     <Input
                         id="Buhgalter"
-                        value= {Buhgalter}
+                        value= {formData.Buhgalter}
                         onChange={e => updateFormData(e)}
                         placeholder=" Бухгалтер (ФИО) "
                         type="text"
@@ -196,7 +240,7 @@
                <label> телефон : <br/>
                     <Input
                         id="tel"
-                        value= {tel}
+                        value= {formData.tel}
                         onChange={e => updateFormData(e)}
                         placeholder=" телефон "
                         type="text"
@@ -210,7 +254,7 @@
                <label> Наименование банка : <br/>
                    <Input
                        id="bankName"
-                       value= {bankName}
+                       value= {formData.bankName}
                        onChange={e => updateFormData(e)}
                        placeholder=" Наименование банка "
                        type="text"
@@ -221,7 +265,7 @@
                <label> БИК : <br/>
                    <Input
                        id="BIK"
-                       value= {BIK}
+                       value= {formData.BIK}
                        onChange={e => updateFormData(e)}
                        placeholder=" BIK "
                        type="text"
@@ -231,43 +275,46 @@
                </label>
                <label> Расчетный счёт : <br/>
                    <Input
-                       id="BillOne"
-                       value= {BillOne}
+                       id="RS"
+                       value= {formData.RS}
                        onChange={e => updateFormData(e)}
                        placeholder=" Расчетный счёт "
                        type="text"
-                       name="BillOne"
+                       name="RS"
                        required
                    /><br/>
                </label>
                <label> Корр. счёт : <br/>
                    <Input
-                       id="BillTwo"
-                       value= {BillTwo}
+                       id="KS"
+                       value= {formData.KS}
                        onChange={e => updateFormData(e)}
                        placeholder=" Корр. счёт "
                        type="text"
-                       name="BillTwo"
+                       name="KS"
                        required
                    /><br/>
                </label><br/>
 
              <button onClick={handleSubmit}>Submit</button>
-  
+                <SaveButton/>
              
         </form>
     );
     };
     
     const mapStateToProps = _state => ({
-    //    store: _state,
-     //   dogovorData: _state.dogovorData
-        //formOneState: _state.form.formOne
+        state: _state    
     });
     const mapDispatchToProps = _dispatch => ({
-        onDataReady: data => _dispatch(actions.formDataNew(data)),
-        onDogovorData: data => _dispatch(actions.dogovorData(data)),
-        onOwnerDicCreation: data => _dispatch(actions.ownerDicCreate(data))
+        onOwnerDicCreate: 
+            data => _dispatch(actions.ownerDicCreate(data)),
+        onOwnerDicUpdate: 
+            data => _dispatch(actions.ownerDicUpdate(data)),
+        onAgentDicCreate: 
+            data => _dispatch(actions.agentDicCreate(data)),
+        onAgentDicUpdate: 
+            data => _dispatch(actions.agentDicUpdate(data))
     });
 
     export default connect (

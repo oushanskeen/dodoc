@@ -12,7 +12,7 @@ const assert = require('../../../../src/utils/assert');
 
   const makeAgentHeadIO = (agentData,dogovorType) => {
     console.log("makeAgentHeadIO: ", agentData, dogovorType);
-    switch(agentData.companyType){
+    switch(agentData.type){
       case "YL": 
         return agentYurlitsoHeadIO(agentData,dogovorType);
       case "IP": 

@@ -1,14 +1,14 @@
-import React from 'react';
-import {Yl} from "./foot";
+//import React from 'react';
+//import {Yl} from "./foot";
 ////sample data
 const sdata = require('../SampleData/sampleData');
 // processors
-//const yl = require('./foot').yl;
+const yl = require('./foot').yl;
 
 //const ip = require('./foot').ip;
 //const fl = require('./foot').fl;
 const assert = require('../../../src/utils/assert');
-/*
+
     const footOut = (state,id) => {
       console.log("state in footOut: ", state);
       console.log("id in footOut: ", id);
@@ -27,7 +27,7 @@ const assert = require('../../../src/utils/assert');
             console.log("actorData: ", actorData);
             switch(actorData.type){
             case "YL": 
-                return <Yl data={actorData}/>;
+                return yl(actorData);
             //case "IP": return Ip(actorData);
             //case "FL": return Fl(actorData);
             default: return "who cares";
@@ -38,7 +38,7 @@ const assert = require('../../../src/utils/assert');
       //console.log("foouOut: ", out)     
       return out; 
     };
-*/
+
 //console.log("footOut(asd.yl,0):",footOut(asd.yl,0));
 /*
 assert(
@@ -59,7 +59,9 @@ assert(
     "Заказчик: Иночкин Игорь Владимирович паспорт серия 4519 номер 022226 выдан: ГУ МВД РОССИИ ПО Г.МОСКВЕ дата выдачи: 25.01.2019 код подразделения: 770-045 Иночкин И.В."
 );
 */
-const makeDogovorFootIO = () => {
-    return "cat in the jar"
-    };
-    module.exports = makeDogovorFootIO;
+//const makeDogovorFootIO = () => {
+    //return "cat in the jar"
+    //};
+    //module.exports = makeDogovorFootIO;
+    module.exports = footOut
+

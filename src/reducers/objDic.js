@@ -1,7 +1,9 @@
 //import {state} from '../state.js';
 import {
     OBJDIC_SELECT,
-    OBJDIC_CREATE
+    OBJDIC_CREATE,
+    OBJDIC_UPDATE,
+    OBJDIC_DELETE
 } from '../constants/actionTypes'
 
 const initialState = (window.Cypress && window.initialState) ||
@@ -41,16 +43,12 @@ export default function(state = initialState,action){
         case OBJDIC_SELECT:
             return {...state,"currentDic":action.payload};
         case OBJDIC_CREATE:
-            const out = {...state,
-                dics:[...state.dics,
-                    {id:(state.dics[state.dics.length-1].id)+1,
-                     name:Object.entries(action.payload)[0][1],
-                     data:action.payload
-                    }
-                ]
-            }; 
-            console.log("OBJDIC_SELECT out : ", out);
-            return out;
+           return [...state,{...action.payload}];
+        case OBJDIC_UPDATE:
+            return state.map(e => 
+                e.id===action.payload.id ? action.payload : e);
+        case OBJDIC_DELETE:
+            return state.filter(e => e.id != action.payload);
         default:        
             return state;
     };

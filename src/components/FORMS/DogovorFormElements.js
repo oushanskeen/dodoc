@@ -68,31 +68,55 @@ export const DogovorTypeSelect = ({importData,formData,updateFormData}) => (
 	        </select><br/>
           </label>
     );
-export const SystemsSelect = ({importData,formData,updateFormData}) => (
+const delDoub = (string,val) => {
+//const magic = (string,val) => {
+  const stroke = string.split(",");
+  return (
+    stroke.includes(val)
+    ? stroke.filter(e => e!==val).join()
+    :  stroke.concat(val).join()
+  );
+//};
+};
+export const SystemsSelect =  
+  ({importData,formData,updateFormData}) => {
+    const handleChange = event => {
+      return (
+        {target:
+          {name:event.target.name,
+           value:delDoub(formData.systems,event.target.value)}
+        });
+    };
+    return (
         <label> systems :
-            {importData.systemsDataVector.map(e => 
-                (<div>                    
-                    <input
-                        value={formData.systems}
-                        name="systems"
-                        type="checkbox"
-                        onChange={e => updateFormData(e)}
-                    /><label>{e}</label>
-                </div>)
-             )}<br/> 
+          {importData.systemsDataVector.map((e,i) =>
+            <div>
+              <input
+                checked={formData.systems
+                  .split(",").includes(e)?"yes":""
+                } 
+                value={e}           
+                type="checkbox" 
+                name="systems" 
+                onChange={e => updateFormData(handleChange(e))}
+              />
+              <label for={e}>{e}</label>
+            </div>
+          )}<br/> 
         </label>
-    ); 
+  )
+  }; 
 export const PriceInput = ({formData,updateFormData}) => (
-                 <label> price : <br/>
-           <Input
-             id="price"
-             value= {formData.price}
-             onChange={e => updateFormData(e)}
-             placeholder=" price "
-             type="text"
-             name="price"
-             required
-           /><br/>
-         </label>
-    );
+  <label> price : <br/>
+    <Input
+      id="price"
+      value= {formData.price}
+      onChange={e => updateFormData(e)}
+      placeholder=" price "
+      type="text"
+      name="price"
+      required
+    /><br/>
+  </label>
+);
 export const SubmitButton = ({handleSubmit}) => (<button onClick={handleSubmit}>Submit</button>);

@@ -8,9 +8,12 @@
       TextBox,Button,ParamBox,naked,
       NavbarDropdown,NavbarDropdownContent,link
     } from '../css/style.js';
+    import {DogovorFoot} from "./DogovorFoot"; 
     const makeDogovorHeadIO = require
         ('../NOTEBOOK/Doghead/makeDogovorHeadIO');
-    //const dicData = (_state,_dicName,_id) => _state[_dicName].dics.filter(e => e.id===_id)[0].data
+    const makeDogovorFootIO = require
+	("../NOTEBOOK/Dogfoot/makeDogovorFootIO");
+    
 
     const Dogovor = ({state,id}) => {
       let {dogovor} = useParams();
@@ -19,22 +22,21 @@
         <GlobalStyle/>
         <Container>
           <Grid>
-            <AreaBox g={[2,2,11,5]} fd="column" style={naked}>
+	      <AreaBox g={[2,2,10,5]} fd="row" style={naked}>
               <TextBox h={"100%"} w={"auto%"}>
                 <Text m={"2vmin"}>
-                  <div>
-                   {/*{dogHeadOut}*/}
-                  </div>
-                  <div>makeDogovorHeadIO<br/>
+                  <div>{state.dogDic.filter(e=>e.id===id)[0].name}<br/>
+	               {state.dogDic.filter(e=>e.id===id)[0].date}<br/>
                     {makeDogovorHeadIO(state,id)}
-                  </div>
+              <DogovorFoot state={state} id={id}/>    
+	      </div>
 
                   <div><br/>
 
                   </div>
                 </Text>
               </TextBox>
-            </AreaBox>
+	      </AreaBox>
           </Grid>
         </Container>
         </div>

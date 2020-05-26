@@ -11,41 +11,6 @@
   import {connect} from 'react-redux';
   import * as actions from '../../actions';
 
-  const Selector = props => {
-    const pool = props.content.home.dogTypes;
-    const formSet = <FormObj action={props.action}/>
-    const [select,setSelect] = useState("");
-    //console.log("select:", select);
-    const [newdic,setNewdic] = useState(false);
-    return(
-      <div>
-       <button 
-         onClick={()=>setNewdic(!newdic)}
-       >
-         добавить объект
-       </button>
-         {newdic===false ? "" : formSet}
-       </div>
-    );
-  };
-  const Article = _props => {
-    const [fold,setFold] = useState(false);
-    const buttonHandler = () => setFold(!fold);
-    return (
-      <div>
-        <div>{_props.name}{" "}
-          <button 
-            onClick={buttonHandler}
-	  >
-		        {fold === false ? "open" : "close"}
-		    </button>            
-                </div>
-                {fold === false ? "" : <div>{_props.content}</div>}
-                <br/>
-            </div>        
-        );
-    }
-
     const Objectdic = ({state}) => (
         <div>
           <GlobalStyle/>
@@ -54,8 +19,12 @@
               <AreaBox g={[2,2,10,5]} fd="row" style={naked}> 
                 <TextBox w={"80%"}>
                   <Text>
-                    <div>СПРАВОЧНИК НАШИХ ФИРМ:</div><br/>
-                    <DictionaryIO state={state} dictionaryName={"objDic"}/>
+                    <div>СПРАВОЧНИК НАШИХ ОБЪЕКТОВ:</div><br/>
+                    <DictionaryIO 
+                        state={state} 
+                        dictionaryName={"objDic"}
+                        buttons={["details","edit","delete"]}
+                        />
                   </Text>
                 </TextBox>             
               </AreaBox>
@@ -63,52 +32,17 @@
           </Container>
         </div>
     );
-    /*
-    const Objectdic =( 
-      { majorStore, 
-        store,
-        onObjDicSelection,
-        onObjDicCreation}) => (
-          <div>
-          <GlobalStyle/>
-            <Container>
-              <Grid>
-                <AreaBox g={[2,2,10,5]} fd="row" style={naked}> 
-                  <TextBox w={"80%"}>
-                    <Text>
-                      <div>СПРАВОЧНИК НАШИХ ОБЪЕКТОВ:</div><br/>
-                      {store.objDic.map(object => 
-                        <Article 
-                          key={object.id} 
-                          name={object.name}
-                          content={Object.entries(object)
-	                        .map(record => <div>{record[0]} : {record[1]}</div>)} 
-                        />)} 
-                      <Selector 
-		                content={majorStore} 
-		                action={onObjDicCreation}/>
-                    </Text>
-                  </TextBox>             
-                </AreaBox>
-              </Grid>
-            </Container>
-          </div>
-        );*/
-
+    
   const mapStateToProps = _state => ({
-    state: _state,
-    store: _state,
-    majorStore: _state
+    state: _state
   });
   const mapDispatchToProps = _dispatch => ({
-    onObjDicSelection: data => _dispatch(actions.objDicSelect(data)),
-    onObjDicCreation: data => _dispatch(actions.objDicCreate(data))
+    //onObjDicSelection: data => _dispatch(actions.objDicSelect(data)),
+    //onObjDicCreation: data => _dispatch(actions.objDicCreate(data))
   });
 
   export default connect (
     mapStateToProps,
     mapDispatchToProps
   )(Objectdic);
-
-  //export default Ownerdic;
 

@@ -1,6 +1,6 @@
    
   // FormDog.js
-  import React, {useState} from 'react';
+  import React, {useState,useEffect} from 'react';
   import {Input} from '../../css/style.js';
   import * as actions from '../../actions';
   import {
@@ -20,10 +20,14 @@
       TextBox,Button,ParamBox,naked,link
   } from '../../css/style.js'
 
-  const FormDog = ({store,dogovorId,action}) => {
+  const FormDog = (
+    { store,    
+      dogovorId,
+      onDogovorDicCreate,
+      onDogovorDicUpdate }) => {
 
-    // IMPORTS ----------------------------------------------------------------    
-
+// --------------------------------------------------------------------
+    // IMPORTS --------------------------------------------------------
     const importData = {
       dogovor: store.dogDic.filter(e => e.id===dogovorId)[0],
       owners: store.ownerDic.map(owner => owner.name),
@@ -33,6 +37,7 @@
       dogovorTypes: store.home.dogovorTypes,
       initStateForNewDogovor: store.home.initStateForNewDogovor
     };
+    console.log("formDog importData: ", importData);
 
     // FORM STATE MANAGEMENT ----------------------------------------------------
 
@@ -42,12 +47,17 @@
             : importData.dogovor)
         }
     );
+
     console.log("formData: ", formData);
-    const updateFormData = event => {
+    const UpdateFormData = event => {
+      console.log("event.target.name: ", event.target.name);
+      console.log("event.target.value: ", event.target.value);
+      console.log("formData: ", formData);
         setFormData({
             ...formData,
             [event.target.name]: event.target.value
         });
+       
     };
 
     // CALCULATED DATA FOR THE FORM --------------------------------------------
@@ -63,6 +73,7 @@
     };
     //console.log("Today: ", Today());
     const Id = () => {
+        console.log("formData in formDog: ", formData.id);
         return (typeof formData.id==="number" 
             ? formData.id 
             : store.dogDic[store.dogDic.length-1].id+1
@@ -76,10 +87,7 @@
     };
     //console.log("ID count: ", Id());
     const ObjectId = () => {
-        
-        return(//formData.objName ?
-            //formData.objName : 
-            store.objDic.filter(e => e.name===formData.objName)[0].id);
+        return(store.objDic.filter(e => e.name===formData.objName)[0].id);
     };
     console.log("objId in DormDog: ", formData.objId);
     //console.log("ObjectId: ", ObjectId());
@@ -90,13 +98,16 @@
     //console.log("AfentId: ", AgentId());
     const OwnerId = () => {
         return store.ownerDic.filter(e => e.name===formData.ownerName)[0].id;  
-    };
-    //console.log("FormData: ", formData);
-    const handleSubmit = e => {
-        e.preventDefault();
-        action(formData);
-    };
-    const handleSaveCountedData =()=> setFormData({...formData,
+  };
+  //console.log("FormData: ", formData);
+  const handleSubmit = e => {
+  e.preventDefault();
+    ( dogovorId === undefined 
+      ? onDogovorDicCreate(formData)
+      : onDogovorDicUpdate(formData)
+    )
+  };
+  const handleSaveCountedData =()=> setFormData({...formData,
             id:Id(),
             name:Name(),
             date:Today(),
@@ -108,22 +119,23 @@
         return <button onClick={handleSaveCountedData}>Save</button>    
     };
     // FORM ELEMENTS ----------------------------------------------------------
-    
-
     return (
       <form><br/>
-          <ObjectSelect importData={importData} formData={formData} updateFormData={updateFormData}/>
-          <AgentSelect importData={importData} formData={formData} updateFormData={updateFormData}/>
-          <OwnerSelect importData={importData} formData={formData} updateFormData={updateFormData}/>
-          <DogovorTypeSelect importData={importData} formData={formData} updateFormData={updateFormData}/>
-          <SystemsSelect importData={importData} formData={formData} updateFormData={updateFormData}/>
-          <PriceInput formData={formData} updateFormData={updateFormData}/><br/>
+          <ObjectSelect 
+            importData={importData} formData={formData} updateFormData={UpdateFormData}/>
+          <AgentSelect importData={importData} formData={formData} updateFormData={UpdateFormData}/>
+          <OwnerSelect importData={importData} formData={formData} updateFormData={UpdateFormData}/>
+          <DogovorTypeSelect importData={importData} formData={formData} updateFormData={UpdateFormData}/>
+          <SystemsSelect importData={importData} formData={formData} updateFormData={UpdateFormData}/>
+          <PriceInput formData={formData} updateFormData={UpdateFormData}/><br/>
           <SubmitButton handleSubmit={handleSubmit}/>
           <SaveButton/>
       </form>
-    );
-  };
-  /*
+    )
+    };
+
+  
+  
   const mapStateToProps = _state => ({
     store: _state,
     dogovorData: _state.dogovorData
@@ -131,14 +143,18 @@
   });
   const mapDispatchToProps = _dispatch => ({
     onDataReady: data => _dispatch(actions.formDataNew(data)),
-    onDogovorData: data => _dispatch(actions.dogovorData(data))
+    onDogovorData: data => _dispatch(actions.dogovorData(data)),
+    onDogovorDicCreate: 
+      data => _dispatch(actions.dogDicCreate(data)),
+    onDogovorDicUpdate:
+      data => _dispatch(actions.dogDicUpdate(data))
   });
 
   export default connect (
     mapStateToProps,
     mapDispatchToProps
-  )(FormOne);  
-  */
-  export default FormDog; 
+  )(FormDog);  
+  
+  //export default FormDog; 
 
     

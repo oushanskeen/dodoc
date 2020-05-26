@@ -11,28 +11,59 @@
     TextBox,Button,ParamBox,naked,link
   } from '../../css/style.js'
 
-  const FormObj = _props => {
-    const [formData, setFormData] = useState({
-      name: "",
-      adress: "",
-      contacts: "",
-      workRegime:""
-    });
+  const FormObj =
+  ({onObjDicCreate,onObjDicUpdate,objectId,state}) => {
+    const importData = {
+      objectData:state.objDic.filter(e => e.id===objectId)[0],
+      objectName: state.objDic.map(object => object.name),
+      initStateForNewObject: state.home.initStateForNewObject
+    };
+    console.log("objDog importData: ", importData);
+    
+    //const [formData, setFormData] = useState({
+    //  name: "",
+    // adress: "",
+    //  contacts: "",
+    //  workRegime:""
+    //});
+    const [formData, setFormData] = useState(
+        {...(objectId === undefined 
+            ? {...importData.initStateForNewObject} 
+            : importData.objectData)
+        }
+    );
     const updateFormData = event => {
       setFormData({
         ...formData,
         [event.target.name]: event.target.value
       });
     };
-    const 
-      { name,
-        adress,
-        contacts,
-        workRegime,
-      } = formData;
+    
+//  Calculated Data
+    
+    const Id = () => {
+        console.log("formData in formDog: ", formData.id);
+        return (typeof formData.id==="number" 
+            ? formData.id 
+            : state.objDic[state.objDic.length-1].id+1
+        );  
+    };  
+      const handleSaveCountedData =()=> setFormData({...formData,
+            id:Id()
+        });
+    const SaveButton = () => {
+        return <button onClick={handleSaveCountedData}>Save</button>    
+    };  
+
+// --------------------------------------------------------------------
+
     const handleSubmit = e => {
       e.preventDefault();
-      _props.action(formData);
+      ( objectId === undefined 
+        ? onObjDicCreate(formData)
+        : onObjDicUpdate(formData)
+      );
+    //onObjDicCreate(formData);
     };
     return (
       <form>
@@ -40,7 +71,7 @@
           <label> name <br/>
             <Input
               id="name"
-              value= {name}
+              value= {formData.name}
               onChange={e => updateFormData(e)}
               placeholder=" name"
               type="text"
@@ -52,7 +83,7 @@
           <label> adress: <br/>
             <Input
               id="adress"
-              value= {adress}
+              value= {formData.adress}
               onChange={e => updateFormData(e)}
               placeholder=" adress "
               type="text"
@@ -63,12 +94,12 @@
           </label>
 	 <label> Contact: <br/>
             <Input
-              id="contacts"
-              value= {contacts}
+              id="contactsFIO"
+              value= {formData.contactsFIO}
               onChange={e => updateFormData(e)}
               placeholder=" FIO role ?contacts "
               type="text"
-              name="contacts"
+              name="contactsFIO"
               required
               maxlength="120"
             /><br/>
@@ -77,10 +108,10 @@
           <label> workRegime : <br/>
             <Input
               id="workRegime"
-              value= {workRegime}
+              value= {formData.workRegime}
               onChange={e => updateFormData(e)}
               placeholder=" workRegime "
-              type="number"
+              type="text"
               name="workRegime"
               required
               minlength="8"
@@ -88,22 +119,28 @@
             /><br/>
           </label>
           <button onClick={handleSubmit}>Submit</button>
+          <SaveButton/>
         </form>
       );
     };
-    /*
+    
   const mapStateToProps = _state => ({
+    state: _state,
     store: _state,
-    dogovorData: _state.dogovorData
+    //dogovorData: _state.dogovorData
     //formOneState: _state.form.formOne
   });
   const mapDispatchToProps = _dispatch => ({
     onDataReady: data => _dispatch(actions.formDataNew(data)),
-    onDogovorData: data => _dispatch(actions.dogovorData(data))
+    onDogovorData: data => _dispatch(actions.dogovorData(data)),
+    onObjDicCreate: 
+        data => _dispatch(actions.objDicCreate(data)),
+    onObjDicUpdate: 
+        data => _dispatch(actions.objDicUpdate(data))
   });
   export default connect (
     mapStateToProps,
     mapDispatchToProps
-  )(FormOne);  
-  */
-  export default FormObj; 
+  )(FormObj);  
+  
+ // export default FormObj; 

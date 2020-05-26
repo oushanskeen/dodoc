@@ -1,14 +1,16 @@
 //import {state} from '../state.js';
 import {
     AGENTDIC_SELECT,
-    AGENTDIC_CREATE
+    AGENTDIC_CREATE,
+    AGENTDIC_UPDATE,
+    AGENTDIC_DELETE
 } from '../constants/actionTypes'
 
 const initialState = (window.Cypress && window.initialState) ||
 [
   {
     id:0,
-    companyType:"YL",
+    type:"YL",
     name: "AGENT ID:0 TYPE:YL COMP_FULL_NAME",
     compFullName:"AGENT ID:0 TYPE:YL COMP_FULL_NAME",
     compShortName: "AGENT ID:0 TYPE:YL COMP_SHORT_NAME",
@@ -31,7 +33,7 @@ const initialState = (window.Cypress && window.initialState) ||
   },               
   { 
     id:1,
-    companyType:"IP",
+    type:"IP",
     name: "AGENT ID:1 TYPE:IP FULL_NAME",
     FullName:"AGENT ID:1 TYPE:IP FULL_NAME",
     ShortName: "AGENT ID:1 TYPE:IP SHORT_NAME",
@@ -50,7 +52,7 @@ const initialState = (window.Cypress && window.initialState) ||
   },
   {
     id:2,
-    companyType:"FL",
+    type:"FL",
     name: "AGENT ID:2 TYPE:FL NAME_INFORMAL",
     NameInformal:"AGENT ID:2 TYPE:FL NAME_INFORMAL",
     lastName:"AGENT ID:2 TYPE:FL LAST_NAME",
@@ -73,17 +75,12 @@ export default function(state = initialState,action){
         case AGENTDIC_SELECT:
             return {...state,"currentDic":action.payload};
         case AGENTDIC_CREATE:
-            const out = {...state,
-                dics:[...state.dics,
-                    {id:(state.dics[state.dics.length-1].id)+1,
-                     name:Object.entries(action.payload)[0][1],
-                     //name:action.payload,
-                     data:action.payload
-                    }
-                ]
-            }; 
-            console.log("AGENTDIC_SELECT out : ", out);
-            return out;
+            return [...state,{...action.payload}];
+        case AGENTDIC_UPDATE:
+            return state.map(e => 
+                e.id===action.payload.id ? action.payload : e);
+        case AGENTDIC_DELETE:
+            return state.filter(e => e.id != action.payload);
         default:        
             return state;
     };

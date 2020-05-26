@@ -1,5 +1,8 @@
 const YL =
     {
+        id:"",
+        name:"",
+        type:"YL",
         compFullName: "-",
         compShortName: "-",
         INN: "-",
@@ -14,11 +17,14 @@ const YL =
         tel:"-",
         bankName:"-",
         BIK:"-",
-        BillOne:"-",
-        BillTwo:"-"
+        RS:"-",
+        KS:"-"
     }
 const IP= 
     {
+        id:"",
+        name:"",
+        type:"IP",
         Name: "-",
         FIO: "-",
         INN: "-",
@@ -27,11 +33,14 @@ const IP=
         FactAdress:"-",
         bankName:"-",
         BIK:"-",
-        BillOne:"-",
-        BillTwo:"-"
+        RS:"-",
+        KS:"-"
     };
 const FL = 
     {
+        id:"",
+        name:"",
+        type:"FL",
         NameInformal: "-",
         lastName: "-",
         firstName: "-",
@@ -59,9 +68,27 @@ let initStateForNewDogovor= {
       systems:"",
       price:"",
 }; 
+let initStateForNewActor = actorType => {
+    switch (actorType){
+        case "YL":
+            return YL;
+        case "IP":
+            return IP;
+        case "FL":
+            return FL;
+        default:
+            return "pardon, have no idea about actor type"    
+    };
+};
+let initStateForNewObject= {
+      id:"-",
+      name: "-",
+      adress: "-",
+      contactsFIO: "-",
+      workRegime:"-"
+}; 
 const systemsDataVector = [
-  "вентиляция и кондиционирование",
-  "отопление",
+  "вентиляция и кондиционирование","отопление",
   "котельная",
   "водоснабжение и канализация",
   "ЭОМ",
@@ -69,15 +96,20 @@ const systemsDataVector = [
   "автоматизация"
 ];
 const dogovorTypes = ["Проектирование","Поставка"];
+const companyTypes = ["YL","IP","FL"];
 
 
 const state = 
 {
     hello:"hello",
     initStateForNewDogovor:initStateForNewDogovor,
+    initStateForNewObject:initStateForNewObject,
     systemsDataVector:systemsDataVector,
     dogovorTypes:dogovorTypes,
-    dogTypes: {YL:YL,IP:IP,FL:FL}
+    dogTypes: {YL:YL,IP:IP,FL:FL},
+    initStateForNewActor:initStateForNewActor,
+    initStateForNewObject:initStateForNewObject,
+    companyTypes:companyTypes
 };
 
 export {state};

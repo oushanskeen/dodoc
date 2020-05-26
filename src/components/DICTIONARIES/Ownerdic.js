@@ -18,7 +18,11 @@
             <TextBox w={"80%"}>
               <Text>
                 <div>СПРАВОЧНИК НАШИХ ФИРМ:</div><br/>
-                <DictionaryIO state={state} dictionaryName={"ownerDic"}/>
+                <DictionaryIO 
+                    state={state} 
+                    dictionaryName={"ownerDic"}
+                    buttons={["details","edit","delete"]}
+                    />
               </Text>
             </TextBox>             
           </AreaBox>
