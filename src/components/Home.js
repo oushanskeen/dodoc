@@ -1,5 +1,6 @@
    
     import React, {useState,useEffect} from 'react';
+    import Beautiful from "./Beautiful";
     import {
         GlobalStyle,Container,Grid,AreaBox,Text,
         TextBox,Button,ParamBox,naked,
@@ -14,6 +15,7 @@
     //import Montaj from "./Montaj";
     import Ownerdic from "./DICTIONARIES/Ownerdic";
     const {newDogGen,nameExtractor} = require("../utils/dognums");
+
 
     const Home = (
         {
@@ -206,6 +208,7 @@
                     <ParamBox>
                         <TextBox h={"100%"}>
                             <Text m={"2vmin"}>
+                                <Beautiful/>
                             </Text>
                         </TextBox>
                     </ParamBox>

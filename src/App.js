@@ -7,10 +7,13 @@ import Agentdic from './components/DICTIONARIES/Agentdic';
 import Dogovordic from './components/DICTIONARIES/Dogovordic';
 import Objectdic from './components/DICTIONARIES/Objectdic';
 import Dogovor from './components/Dogovor';
+import { ThemeProvider } from 'styled-components';
+import theme from './theme';
 
 function App() {
   return (
     <main className="container" >
+        <ThemeProvider theme={theme}>
             <Router>
               <div>
                 <ul>
@@ -49,6 +52,7 @@ function App() {
             </Switch>
            </div>
         </Router>
+        </ThemeProvider>
     </main>
   );
 }
