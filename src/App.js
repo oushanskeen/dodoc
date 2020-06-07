@@ -7,8 +7,10 @@ import Agentdic from './components/DICTIONARIES/Agentdic';
 import Dogovordic from './components/DICTIONARIES/Dogovordic';
 import Objectdic from './components/DICTIONARIES/Objectdic';
 import Dogovor from './components/Dogovor';
-import { ThemeProvider } from 'styled-components';
-import theme from './theme';
+import { ThemeProvider } from 'emotion-theming';
+//import theme from '@rebass/preset';
+import theme from './theme.js';
+
 
 function App() {
   return (

@@ -14,6 +14,7 @@
     //import FormThree from "./FormThree";
     //import Montaj from "./Montaj";
     import Ownerdic from "./DICTIONARIES/Ownerdic";
+    import PopUpModal from './PopUpModal';
     const {newDogGen,nameExtractor} = require("../utils/dognums");
 
 
@@ -189,7 +190,6 @@
      
    
 //  OUTPUT COMPONENT ------------------------------------------
-
     const Basic = () => (
         <div>
         <GlobalStyle/>
@@ -198,6 +198,10 @@
                  <AreaBox g={[2,2,6,4]} fd="column" style={naked}>  
                      <TextBox h={"100%"}>
                          <Text m={"2vmin"}>
+                        <PopUpModal 
+                          name={'simpleModal'} 
+                          data={'hello me data'}
+                        />
 	    		    ЧТО-ТО ТУТ ДОЛЖНО БЫТЬ,<br/>
 	    		    А ПОКА МОЖЕШЬ ПРОЙТИСЬ ПО МЕНЮ
                          </Text>
