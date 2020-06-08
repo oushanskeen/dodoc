@@ -3,6 +3,7 @@ import { selectForm } from "../FORMS/selectForm";
 import DeleteButtonEmptyDiv from "./DeleteButton";
 import Dogovor from "../Dogovor";
 import PopUpModal from '../PopUpModal';
+import { Button } from 'rebass';
 
 //  CONTENT -----------------------------------------------------------
 
@@ -45,9 +46,9 @@ export const ShowHideButton = ({
   //console.log("content: ", content);
   return (
     <span>
-      <button onClick={() => setShowHide(!showHide)}>
+      <Button bg='two' onClick={() => setShowHide(!showHide)}>
         {showHide === false ? name[0] : name[1]}
-      </button>
+      </Button>
       {showHide === false ? "" : content}
     </span>
   );
