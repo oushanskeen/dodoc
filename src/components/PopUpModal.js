@@ -5,10 +5,10 @@ import useModal from '../useModal';
 const PopUpModal = ({name, data}) => {
   const { isShowing, toggle } = useModal(false);
   return (
-    <>
+    <div>
       <button onClick={toggle}>{name}</button>
       <Modal isShowing={isShowing} hide={toggle} data={data}/>
-    </>
+    </div>
   );
 }
 
