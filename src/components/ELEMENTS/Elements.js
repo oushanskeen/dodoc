@@ -132,8 +132,8 @@ export const CreateDictionaryArticle = ({ dictionaryName, selectForm }) => {
 };
 const ShowPrintReadyDogovor = ({ state, id }) => {
   return (
-    <ShowHideButton
-      name={["show beauty", "hide beauty"]}
+    <PopUpWindow
+      name="show beauty"
       content={<Dogovor state={state} id={id} />}
     />
   );

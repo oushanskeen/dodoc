@@ -43,13 +43,15 @@ const FormObj = ({ onObjDicCreate, onObjDicUpdate, objectId, state }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
+    console.log('form content:', e.target);
+  !e.target.checkValidity() &&
     objectId === undefined
       ? onObjDicCreate(formData)
       : onObjDicUpdate(formData);
     //onObjDicCreate(formData);
   };
   return (
-    <form>
+    <form onSubmit={handleSubmit} noValidate>
       <br />
       <label>
         {" "}
@@ -113,7 +115,8 @@ const FormObj = ({ onObjDicCreate, onObjDicUpdate, objectId, state }) => {
         />
         <br />
       </label>
-      <Button bg='two' onClick={handleSubmit}>Submit</Button>
+      <Button bg='two' 
+      >Submit</Button>
       <SaveButton />
     </form>
   );

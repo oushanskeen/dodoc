@@ -31,7 +31,7 @@ const ModalDiv = styled.div`
   position: relative;
   margin: 1.75rem auto;
   border-radius: 3px;
-  max-width: 500px;
+  max-width: 800px;
   padding: 2rem;
 `
 
