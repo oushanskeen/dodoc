@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { selectForm } from "../FORMS/selectForm";
 import DeleteButtonEmptyDiv from "./DeleteButton";
 import Dogovor from "../Dogovor";
-import PopUpModal from '../PopUpModal';
-import { Button } from 'rebass';
+import PopUpModal from "../PopUpModal";
+import { Button, Flex } from "rebass";
+import { Select } from '@rebass/forms';
+import { DicBar, NewDic} from "../BeautyList";
 
 //  CONTENT -----------------------------------------------------------
 
@@ -30,12 +32,10 @@ import { Button } from 'rebass';
 // : ..., a -> (div a -> click -> "")
 // : ..., a -> (""    -> click -> div a)
 
-export const PopUpWindow =  ({
-  name = ['show', 'hide'],
-  content = 'content'
-}) => (
-  <PopUpModal name={name} data={content} />
-);
+export const PopUpWindow = ({
+  name = ["show", "hide"],
+  content = "content"
+}) => <PopUpModal name={name} data={content} />;
 
 export const ShowHideButton = ({
   name = ["show", "hide"],
@@ -46,7 +46,7 @@ export const ShowHideButton = ({
   //console.log("content: ", content);
   return (
     <span>
-      <Button bg='two' onClick={() => setShowHide(!showHide)}>
+      <Button bg="two" onClick={() => setShowHide(!showHide)}>
         {showHide === false ? name[0] : name[1]}
       </Button>
       {showHide === false ? "" : content}
@@ -60,7 +60,7 @@ export const ShowHideButton = ({
 // : ["a","b"] -> ("" -> click -> div a) -> div a div b
 const DetailsButton = ({ owner }) => (
   <PopUpWindow
-    name={'details'}
+    name={"details"}
     content={Object.entries(owner).map(record => (
       <div>
         {record[0]} : {record[1]}
@@ -74,7 +74,7 @@ const DetailsButton = ({ owner }) => (
 //   -> ShowHideButton -> EditFoldableDiv
 const EditButton = ({ owner, dictionaryName }) => (
   <PopUpWindow
-    name='edit'
+    name="edit"
     content={
       <div>
         {console.log(
@@ -99,12 +99,12 @@ export const Selector = ({ selectForm, dictionaryName }) => {
   const [select, setSelect] = useState("");
   return (
     <div>
-      <select onChange={e => setSelect(e.target.value)}>
+      <Select onChange={e => setSelect(e.target.value)}>
         <option value="-">-------</option>
         {Object.entries(selectForm(dictionaryName, select).formDic).map(e => (
           <option value={e[0]}>{e[0]}</option>
         ))}
-      </select>
+      </Select>
       <div>
         {select === "" ? (
           ""
@@ -118,8 +118,8 @@ export const Selector = ({ selectForm, dictionaryName }) => {
 
 export const CreateDictionaryArticle = ({ dictionaryName, selectForm }) => {
   return (
-    <ShowHideButton
-      name={["создать договор", "скрыть"]}
+    <PopUpWindow
+      name='создать запись'
       content={
         selectForm(dictionaryName).types[0] === "def" ? (
           selectForm(dictionaryName).form
@@ -150,26 +150,32 @@ const buttonSet = (state, owner, dictionaryName) => ({
 // buttonSet -> div buttonSet
 // : ["read","update"] -> <DetailsButton/><EditButton/>
 // : ["delete"] -> <DeleteButton/>
-export const ShowDictionaryArticleData = ({ state, dictionaryName, buttons }) =>
+export const ShowDictionaryArticleData = 
+({ state, dictionaryName, buttons }) =>
   state[dictionaryName].map(owner => (
-    <div>
-      {owner.name}
-      {buttons.map(e => buttonSet(state, owner, dictionaryName)[e])}
-    </div>
+      <DicBar
+        barName={owner.name}
+        buttonsBar={buttons.map(e => buttonSet(state, owner, dictionaryName)[e])}
+      />
   ));
 
 // DicitonaryIO :: state -> dicName ->
 // HidableDivWithFormSelector+DictMappedToHidableDiv
-export const DictionaryIO = ({ state, dictionaryName, buttons }) => (
+export const DictionaryIO = 
+({ state, dictionaryName, buttons, welcome }) => (
   <div>
+    <NewDic
+      data={[welcome,
+      <CreateDictionaryArticle
+        dictionaryName={dictionaryName}
+        selectForm={selectForm}
+      />]
+      }
+    />
     <ShowDictionaryArticleData
       dictionaryName={dictionaryName}
       state={state}
       buttons={buttons}
-    />
-    <CreateDictionaryArticle
-      dictionaryName={dictionaryName}
-      selectForm={selectForm}
     />
   </div>
 );

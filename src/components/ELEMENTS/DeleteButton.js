@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../actions";
 import { Button } from "rebass";
+import { DicButton } from '../BeautyList';
 
 // --------------------------------------------------------------------
 
@@ -36,7 +37,8 @@ const DeleteButtonEmptyDiv = ({
 
   return (
     <Button
-      bg="two"
+      bg='two'
+      px={4}
       onClick={() => {
         if (
           window.confirm(
@@ -45,9 +47,7 @@ const DeleteButtonEmptyDiv = ({
         )
           dicDelete(dictionaryName);
       }}
-    >
-      delete
-    </Button>
+    >delete</Button> 
   );
 };
 const mapStateToProps = _state => ({});
