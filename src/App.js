@@ -18,21 +18,13 @@ import { ThemeProvider } from "emotion-theming";
 import theme from "./theme.js";
 import { createGlobalStyle } from "styled-components";
 import { BeautyList, NavBar } from "./components/BeautyList";
-import { Flex, Box, Text } from "rebass";
+import { Flex, Box, Text } from 'rebass';
 const GlobalStyles = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
   body{
     font-family: 'Roboto', sans-serif;
   }
 `;
-
-const links = [
-  ["/dodoc", "DoDoc"],
-  ["/dodoc/ownerdic", "owners"],
-  ["/dodoc/agentdic", "agents"],
-  ["/dodoc/objdic", "objects"],
-  ["/dodoc/dogdic", "dogovors"]
-];
 
 function App() {
   return (
@@ -41,21 +33,25 @@ function App() {
       <ThemeProvider theme={theme}>
         <Router>
           <div>
-            <Flex height="90px"
-                bg="seven"
-                alignItems="center"
-                justifyContent="space-around"
+            <Flex height='90px' color='white'>
+              <Box width={1/6} bg='seven' pl={4} pt={4}>
+                DoDoc
+              </Box >
+              <Flex width={4/6} bg='seven' alignItems='center'
+                justifyContent='space-between'
               >
-                {console.log(links)}
-                {links.map(e => (
-                  <NavLink
-                    to={e[0]}
-                    style={{ textDecoration: "none", color: "LightGrey" }}
-                    activeStyle={{ fontWeight: "bold", color: "white" }}
-                  >
-                    {e[1]}
-                  </NavLink>
-                ))}
+                <NavLink to="/dodoc/ownerdic"
+                  style={{textDecoration: 'none', color: 'LightGrey'}}
+                  activeStyle={{fontWeight:'bold', color:'white'}}
+                >
+            
+                  owners
+                </NavLink>
+                <NavLink to="/dodoc/agentdic">agents</NavLink>
+                <NavLink to="/dodoc/objdic">objects</NavLink>
+                <NavLink to="/dodoc/dogdic">dogovors</NavLink>
+              </Flex>
+              <Box width={1/6} bg='seven'/>
             </Flex>
             <Switch id="main">
               <Route exact path="/dodoc/" component={Home} />
