@@ -41,10 +41,11 @@ function App() {
               <div>
                 <div>
                 <Link to="/dodoc/someplace">realOwnerLink</Link>
-              
                 <Link to="/dodoc/ownerdic">realOwnerdic</Link>
+                <Link to="/dodoc/agentdic">realagentdic</Link>
+                <Link to="/dodoc/objdic">realobjdic</Link>
+                <Link to="/dodoc/dogdic">realdogdic</Link>
                 </div>
-                <NavBar data={endpoints} />
             <Switch id="main">
                 <Route exact path="/dodoc/someplace"
                     component={Someplace} />
