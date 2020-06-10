@@ -28,6 +28,9 @@ const endpoints =
     {name: 'dogovors', path: "/dodoc/dogdic", component: Dogovordic},
   ];
 
+const Someplace = () => (
+  <div>ma name some place</div>
+);
 
 function App() {
   return (
@@ -36,8 +39,11 @@ function App() {
         <ThemeProvider theme={theme}>
             <Router>
               <div>
+                <Link to="/dodoc/someplace">realOwnerLink</Link>
                 <NavBar data={endpoints} />
             <Switch id="main">
+                <Route exact path="/dodoc/someplace"
+                    component={Someplace} />
                 <Route exact path="/dodoc/" 
                     component={Home} />
                 <Route exact path="/dodoc/ownerdic" 
