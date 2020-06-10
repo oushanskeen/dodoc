@@ -39,7 +39,11 @@ function App() {
         <ThemeProvider theme={theme}>
             <Router>
               <div>
+                <div>
                 <Link to="/dodoc/someplace">realOwnerLink</Link>
+              
+                <Link to="/dodoc/ownerdic">realOwnerdic</Link>
+                </div>
                 <NavBar data={endpoints} />
             <Switch id="main">
                 <Route exact path="/dodoc/someplace"
