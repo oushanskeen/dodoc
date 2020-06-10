@@ -19,7 +19,8 @@ const initialState = (window.Cypress && window.initialState) || [
     agentId: 0,
     dogovorType: "Договор проектирования",
     systems: "вентиляция и кондиционирование",
-    price: "DOGOVOR ID:0 PRICE"
+    price: '200 (двести рублей)',
+    srokDeistviya: '15-апреля-2019 / 15-августа-2019'
   },
   {
     id: 1,
@@ -33,7 +34,8 @@ const initialState = (window.Cypress && window.initialState) || [
     agentId: 1,
     dogovorType: "Договор поставки",
     systems: "вентиляция и кондиционирование,отопление",
-    price: "DOGOVOR ID:1 PRICE"
+    price: "300 (триста рублей)",
+    srokDeistviya: '14-мая-2018 / 14-сентября-2018'
   },
   {
     id: 2,
@@ -47,11 +49,12 @@ const initialState = (window.Cypress && window.initialState) || [
     agentId: 2,
     dogovorType: "Договор поставки",
     systems: "вентиляция и кондиционирование,отопление,котельная",
-    price: "DOGOVOR ID:2 PRICE"
+    price: "400 (четыреста рублей)",
+    srokDeistviya: '4-января-2020 / 4-апреля-2020'
   }
 ];
 
-//---------------------------------------------------------------------
+//--------------------------------------------------------------------
 
 export default function(state = initialState, action) {
   switch (action.type) {

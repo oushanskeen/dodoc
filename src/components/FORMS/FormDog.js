@@ -41,7 +41,7 @@ const FormDog = ({
       : importData.dogovor)
   });
 
-  console.log("formData: ", formData);
+  console.log("formData in dogovor: ", formData);
   const UpdateFormData = event => {
     console.log("event.target.name: ", event.target.name);
     console.log("event.target.value: ", event.target.value);
@@ -54,12 +54,12 @@ const FormDog = ({
 
   // CALCULATED DATA FOR THE FORM --------------------------------------------
 
-  const Today = () => {
+  const Today = (addDuration=0) => {
     var today = new Date();
     var date =
       today.getFullYear() +
       "-" +
-      (today.getMonth() + 1) +
+      (today.getMonth() + 1 + addDuration) +
       "-" +
       today.getDate();
     //return date;
@@ -95,6 +95,9 @@ const FormDog = ({
   const OwnerId = () => {
     return store.ownerDic.filter(e => e.name === formData.ownerName)[0].id;
   };
+  const srokDeistviya = () => {
+    return `${Today()} / ${Today(4)}`
+  };
   //console.log("FormData: ", formData);
   const handleSubmit = e => {
     e.preventDefault();
@@ -110,7 +113,8 @@ const FormDog = ({
       date: Today(),
       objId: ObjectId(),
       agentId: AgentId(),
-      ownerId: OwnerId()
+      ownerId: OwnerId(),
+      srokDeistviya: srokDeistviya()
     })
   
     console.log('fromData on Save: ', formData);
