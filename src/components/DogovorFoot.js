@@ -18,8 +18,8 @@ export const DogovorFoot = ({ state, id }) => {
   const agentData = state.agentDic.filter(e => e.id === agentId)[0];
   const dogType= dogovorData[0].dogovorType;
   const dogTypeMap = {
-    'Проектирование': ['Заказчик', 'Исполнитель'],
-    'Поставка': ['Покупатель','Поставщик']
+    'Договор проектирования': ['Заказчик', 'Исполнитель'],
+    'Договор поставки': ['Покупатель','Поставщик']
   };
   const extractData = (actorData, dogType) => {
     console.log('dogovorTypea:', dogType);

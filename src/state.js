@@ -95,7 +95,10 @@ const systemsDataVector = [
   "слаботочные сети",
   "автоматизация"
 ];
-const dogovorTypes = ["Проектирование","Поставка"];
+const dogovorTypes = [
+  "Договор проектирования",
+  "Договор поставки",
+];
 const companyTypes = ["YL","IP","FL"];
 
 

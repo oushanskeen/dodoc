@@ -1,7 +1,8 @@
 // FormDog.js
 import React, { useState, useEffect } from "react";
 import * as actions from "../../actions";
-import { Button } from 'rebass';
+import { Button } from "rebass";
+import { makeNewDogovorName } from '../../utils/nameGen';
 import {
   ObjectSelect,
   AgentSelect,
@@ -75,7 +76,10 @@ const FormDog = ({
   };
   const Name = () => {
     return formData.name === ""
-      ? "NAME"
+     // ? "NAME"
+      ? makeNewDogovorName(
+        store.dogDic.filter(e => e.dogovorType === formData.dogovorType)[0].name
+      )
       : store.dogDic.filter(e => e.name === formData.name)[0].name;
   };
   //console.log("ID count: ", Id());
@@ -107,9 +111,15 @@ const FormDog = ({
       objId: ObjectId(),
       agentId: AgentId(),
       ownerId: OwnerId()
-    });
+    })
+  
+    console.log('fromData on Save: ', formData);
   const SaveButton = () => {
-    return <Button bg='two' onClick={handleSaveCountedData}>Save</Button>;
+    return (
+      <Button bg="two" onClick={handleSaveCountedData}>
+        Save
+      </Button>
+    );
   };
   // FORM ELEMENTS ----------------------------------------------------------
   return (

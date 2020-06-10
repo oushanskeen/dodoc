@@ -6,6 +6,7 @@ import {
   naked
 } from "../css/style.js";
 import { DogovorFoot } from "./DogovorFoot";
+import { MontajBody } from './MONTAJ/MontajBody';
 const makeDogovorHeadIO = require("../NOTEBOOK/Doghead/makeDogovorHeadIO");
 
 const Dogovor = ({ state, id }) => {
@@ -20,6 +21,18 @@ const Dogovor = ({ state, id }) => {
           {state.dogDic.filter(e => e.id === id)[0].date}
         </Flex>
         {makeDogovorHeadIO(state, id)}
+        { <MontajBody 
+            data={{
+              price: ['200','двести рублей'],
+              srokDeystviya: {
+                start: 'segodnjya',
+                end: 'zavtra',
+              },
+              clientAdress: 'clientAdress',
+              systems: ['one','two','three'],
+            }}
+          /> 
+        }
         <DogovorFoot state={state} id={id} />
       </div>
     </Box>
