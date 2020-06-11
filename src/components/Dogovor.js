@@ -22,7 +22,10 @@ const Dogovor = ({ state, id }) => {
   console.log('currentDog: ', currentDog);
   console.log('currentObject adress: ', currentObject.adress);
   return (
-    <Box fontSize={1} onLoad={console.log(`dogovorId: ${dogovor}`)}>
+    <Box 
+      fontSize={1} 
+      p={3}
+      onLoad={console.log(`dogovorId: ${dogovor}`)}>
         <Button
           bg={editable===false ? 'one' : 'five' }
           mb={3}
