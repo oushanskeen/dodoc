@@ -63,8 +63,12 @@ function App() {
                 >dogovors</NavLink>
               </Flex>
             <Switch id="main">
-              <Route exact path="/dodoc/" component={Home} />
-              <Route exact path="/dodoc/ownerdic" component={Ownerdic} />
+              <Route exact path="/dodoc/">
+                <Home/>
+              </Route>
+              <Route exact path="/dodoc/ownerdic">
+                <Ownerdic />
+              </Route>
               <Route exact path="/dodoc/agentdic" component={Agentdic} />
               <Route exact path="/dodoc/dogdic" component={Dogovordic} />
               <Route exact path="/dodoc/objdic" component={Objectdic} />
