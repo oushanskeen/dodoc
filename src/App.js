@@ -32,7 +32,6 @@ function App() {
     <main className="container">
       <GlobalStyles />
       <ThemeProvider theme={theme}>
-        <Router>
           <div>
             <HashRouter basename='/dodoc'>
               <Flex 
@@ -64,7 +63,6 @@ function App() {
                   activeStyle={{fontWeight:'bold', color:'white'}}
                 >dogovors</NavLink>
               </Flex>
-            </HashRouter>
             <Switch id="main">
               <Route exact path="/">
                 <Home/>
@@ -81,8 +79,8 @@ function App() {
               <Route exact path="/dodoc/montaj" component={Montaj} />
               <Route exact path="/dodoc/beautylist" component={BeautyList} />
             </Switch>
+          </HashRouter>
           </div>
-        </Router>
       </ThemeProvider>
     </main>
   );
