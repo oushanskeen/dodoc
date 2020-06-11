@@ -17,12 +17,14 @@ const ModalOverlay = styled.div`
 const modalOverlay = {
   position: 'fixed',
   top: 0,
+  margin: '30px',
   left: 0,
   zIndex: 1040,
   width: '100wv',
   height: '100vh',
+  minHeight: '300px',
   backgroundColor: '#000',
-  opacity: '.5',
+  opacity: '0.96'
 }
 
 const ModalWrapper = styled.div`
@@ -38,11 +40,11 @@ const ModalWrapper = styled.div`
 `
 const modalWrapper = {
   position: 'fixed',
-  top: 0,
+  top: 50,
   left: 0,
   zIndex: 1050,
   width: '100%',
-  height: '100%',
+  minHeight: '500px',
   overflowX: 'hidden',
   overflowY: 'auto',
   outline: 0,
@@ -63,7 +65,7 @@ const modalDiv = {
   margin: '1.75rem auto',
   borderRadius: '3px',
   maxWidth: '800px',
-  padding: '2rem',
+  padding: '8rem',
 };
 const ModalHeader = styled.div `
   display: flex;
@@ -98,19 +100,20 @@ const modalData = (
   <p> Hello, I am a modal...</p>
 );
 export const Modal = ({ isShowing, hide, data}) => isShowing ? ReactDOM.createPortal(
-  <React.Fragment>
-    <div style={modalOverlay}/>
-    <div style={modalWrapper} role="dialog">
-      <div style={modalDiv}>
-        <ModalHeader>
-          <ModalCloseButton onClick={hide}>
-            <span>&times;</span>
-          </ModalCloseButton>
-        </ModalHeader>
+  <>
+    <div style={modalOverlay}>
+      <div style={modalWrapper} role="dialog">
+        <div style={modalDiv}>
+          <ModalHeader>
+            <ModalCloseButton onClick={hide}>
+              <span>&times;</span>
+            </ModalCloseButton>
+          </ModalHeader>
           {data}
+        </div>
       </div>
     </div>
-  </React.Fragment>, document.getElementById('root')
+  </>, document.getElementById('root')
 ) : null;
 
 //export default Modal;
