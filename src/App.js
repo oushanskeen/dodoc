@@ -66,10 +66,10 @@ function App() {
               <Route exact path="/dodoc/">
                 <Home/>
               </Route>
-              <Route exact path="/dodoc/ownerdic">
+              <Route path="/dodoc/ownerdic">
                 <Ownerdic />
               </Route>
-              <Route exact path="/dodoc/agentdic" component={Agentdic} />
+              <Route path="/dodoc/agentdic" component={Agentdic} />
               <Route exact path="/dodoc/dogdic" component={Dogovordic} />
               <Route exact path="/dodoc/objdic" component={Objectdic} />
               <Route exact path="/dodoc/dogdic/:dogovor" component={Dogovor} />
