@@ -33,26 +33,35 @@ function App() {
       <ThemeProvider theme={theme}>
         <Router>
           <div>
-            <Flex height='90px' color='white'>
-              <Box width={1/6} bg='seven' pl={4} pt={4}>
-                DoDoc
-              </Box >
-              <Flex width={4/6} bg='seven' alignItems='center'
-                justifyContent='space-between'
+              <Flex 
+                width='100%' 
+                height='90px'
+                bg='seven' 
+                color='white'
+                alignItems='center'
+                justifyContent='space-around' 
               >
+                <NavLink to="/dodoc"
+                  style={{textDecoration: 'none', color: 'LightGrey'}}
+                  activeStyle={{fontWeight:'bold', color:'white'}}
+                >DoDoc</NavLink>
                 <NavLink to="/dodoc/ownerdic"
                   style={{textDecoration: 'none', color: 'LightGrey'}}
                   activeStyle={{fontWeight:'bold', color:'white'}}
-                >
-            
-                  owners
-                </NavLink>
-                <NavLink to="/dodoc/agentdic">agents</NavLink>
-                <NavLink to="/dodoc/objdic">objects</NavLink>
-                <NavLink to="/dodoc/dogdic">dogovors</NavLink>
+                > owners</NavLink>
+                <NavLink to="/dodoc/agentdic"
+                  style={{textDecoration: 'none', color: 'LightGrey'}}
+                  activeStyle={{fontWeight:'bold', color:'white'}}
+                >agents</NavLink>
+                <NavLink to="/dodoc/objdic"
+                  style={{textDecoration: 'none', color: 'LightGrey'}}
+                  activeStyle={{fontWeight:'bold', color:'white'}}
+                >objects</NavLink>
+                <NavLink to="/dodoc/dogdic"
+                  style={{textDecoration: 'none', color: 'LightGrey'}}
+                  activeStyle={{fontWeight:'bold', color:'white'}}
+                >dogovors</NavLink>
               </Flex>
-              <Box width={1/6} bg='seven'/>
-            </Flex>
             <Switch id="main">
               <Route exact path="/dodoc/" component={Home} />
               <Route exact path="/dodoc/ownerdic" component={Ownerdic} />
