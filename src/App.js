@@ -34,7 +34,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <Router>
           <div>
-            <HashRouter basename='/dodoc/'>
+            <HashRouter basename='/dodoc'>
               <Flex 
                 width='100%' 
                 height='90px'
@@ -66,7 +66,7 @@ function App() {
               </Flex>
             </HashRouter>
             <Switch id="main">
-              <Route exact path="/dodoc/">
+              <Route exact path="/">
                 <Home/>
               </Route>
               <Route path="/ownerdic">
