@@ -67,20 +67,20 @@ const ModalButtonDefault = styled.div`
 const modalData = (
   <p> Hello, I am a modal...</p>
 );
-const Modal = ({ isShowing, hide, data}) => isShowing ? ReactDOM.createPortal(
+export const Modal = ({ isShowing, hide, data}) => isShowing ? ReactDOM.createPortal(
   <React.Fragment>
     <ModalOverlay/>
-    <ModalWrapper aria-modal aria-hidden tabIndex={-1} role="dialog">
+    <ModalWrapper role="dialog">
       <ModalDiv>
         <ModalHeader>
-          <ModalCloseButton data-dismiss="modal" aria-label="Close" onClick={hide}>
-            <span aria-hidden="true">&times;</span>
+          <ModalCloseButton onClick={hide}>
+            <span>&times;</span>
           </ModalCloseButton>
         </ModalHeader>
           {data}
       </ModalDiv>
     </ModalWrapper>
-  </React.Fragment>, document.body
+  </React.Fragment>, document.getElementById('root')
 ) : null;
 
-export default Modal;
+//export default Modal;

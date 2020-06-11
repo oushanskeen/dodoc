@@ -1,5 +1,5 @@
 import React from 'react';
-import Modal from '../Modal';
+import { Modal } from '../Modal';
 import useModal from '../useModal';
 import { Button } from 'rebass';
 import {DicButton } from './BeautyList';

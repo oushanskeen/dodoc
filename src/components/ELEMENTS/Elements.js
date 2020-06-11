@@ -3,7 +3,7 @@ import { selectForm } from "../FORMS/selectForm";
 import DeleteButtonEmptyDiv from "./DeleteButton";
 import Dogovor from "../Dogovor";
 import PopUpModal from "../PopUpModal";
-import { Button, Flex } from "rebass";
+import { Button, Flex, Modal } from "rebass";
 import { Select } from '@rebass/forms';
 import { DicBar, NewDic} from "../BeautyList";
 
