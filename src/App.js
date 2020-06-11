@@ -3,7 +3,8 @@ import {
   Route,
   Switch,
   BrowserRouter as Router,
-  NavLink
+  NavLink,
+  HashRouter
 } from "react-router-dom";
 import Home from "./components/Home";
 import Montaj from "./components/MONTAJ/Montaj";
@@ -33,6 +34,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <Router>
           <div>
+            <HashRouter basename='/dodoc/'>
               <Flex 
                 width='100%' 
                 height='90px'
@@ -41,7 +43,7 @@ function App() {
                 alignItems='center'
                 justifyContent='space-around' 
               >
-                <NavLink to="/dodoc"
+                <NavLink to="/dodoc/"
                   style={{textDecoration: 'none', color: 'LightGrey'}}
                   activeStyle={{fontWeight:'bold', color:'white'}}
                 >DoDoc</NavLink>
@@ -62,6 +64,7 @@ function App() {
                   activeStyle={{fontWeight:'bold', color:'white'}}
                 >dogovors</NavLink>
               </Flex>
+            </HashRouter>
             <Switch id="main">
               <Route exact path="/dodoc/">
                 <Home/>
