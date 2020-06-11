@@ -43,11 +43,11 @@ function App() {
                 alignItems='center'
                 justifyContent='space-around' 
               >
-                <NavLink to="/dodoc/"
+                <NavLink to="/"
                   style={{textDecoration: 'none', color: 'LightGrey'}}
                   activeStyle={{fontWeight:'bold', color:'white'}}
                 >DoDoc</NavLink>
-                <NavLink to="/dodoc/ownerdic"
+                <NavLink to="/ownerdic"
                   style={{textDecoration: 'none', color: 'LightGrey'}}
                   activeStyle={{fontWeight:'bold', color:'white'}}
                 > owners</NavLink>
@@ -69,7 +69,7 @@ function App() {
               <Route exact path="/dodoc/">
                 <Home/>
               </Route>
-              <Route path="/dodoc/ownerdic">
+              <Route path="/ownerdic">
                 <Ownerdic />
               </Route>
               <Route path="/dodoc/agentdic">
