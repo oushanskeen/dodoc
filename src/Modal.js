@@ -44,6 +44,7 @@ const modalWrapper = {
   left: 0,
   zIndex: 1050,
   width: '100%',
+  height: '100%',
   minHeight: '500px',
   overflowX: 'hidden',
   overflowY: 'auto',
@@ -101,7 +102,7 @@ const modalData = (
 );
 export const Modal = ({ isShowing, hide, data}) => isShowing ? ReactDOM.createPortal(
   <>
-    <div style={modalOverlay}>
+    <div style={modalOverlay}/>
       <div style={modalWrapper} role="dialog">
         <div style={modalDiv}>
           <ModalHeader>
@@ -112,7 +113,6 @@ export const Modal = ({ isShowing, hide, data}) => isShowing ? ReactDOM.createPo
           {data}
         </div>
       </div>
-    </div>
   </>, document.getElementById('root')
 ) : null;
 
