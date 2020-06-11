@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
+import { Flex, Box } from 'rebass';
+import {background, opacity} from 'styled-system';
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -12,6 +14,16 @@ const ModalOverlay = styled.div`
   background-color: #000;
   opacity: .5;
 `;
+const modalOverlay = {
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  zIndex: 1040,
+  width: '100wv',
+  height: '100vh',
+  backgroundColor: '#000',
+  opacity: '.5',
+}
 
 const ModalWrapper = styled.div`
   position: fixed;
@@ -24,7 +36,17 @@ const ModalWrapper = styled.div`
   overflow-y: auto;
   outline: 0;
 `
-
+const modalWrapper = {
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  zIndex: 1050,
+  width: '100%',
+  height: '100%',
+  overflowX: 'hidden',
+  overflowY: 'auto',
+  outline: 0,
+};
 const ModalDiv = styled.div`
   z-index: 100;
   background: white;
@@ -34,7 +56,15 @@ const ModalDiv = styled.div`
   max-width: 800px;
   padding: 2rem;
 `
-
+const modalDiv = {
+  zIndex: 100,
+  background: 'white',
+  position: 'relative',
+  margin: '1.75rem auto',
+  borderRadius: '3px',
+  maxWidth: '800px',
+  padding: '2rem',
+};
 const ModalHeader = styled.div `
   display: flex;
   justify-content: flex-end;
@@ -69,17 +99,17 @@ const modalData = (
 );
 export const Modal = ({ isShowing, hide, data}) => isShowing ? ReactDOM.createPortal(
   <React.Fragment>
-    <ModalOverlay/>
-    <ModalWrapper role="dialog">
-      <ModalDiv>
+    <div style={modalOverlay}/>
+    <div style={modalWrapper} role="dialog">
+      <div style={modalDiv}>
         <ModalHeader>
           <ModalCloseButton onClick={hide}>
             <span>&times;</span>
           </ModalCloseButton>
         </ModalHeader>
           {data}
-      </ModalDiv>
-    </ModalWrapper>
+      </div>
+    </div>
   </React.Fragment>, document.getElementById('root')
 ) : null;
 
