@@ -33,7 +33,7 @@ function App() {
       <GlobalStyles />
       <ThemeProvider theme={theme}>
           <div>
-            <HashRouter basename='/dodoc'>
+            <HashRouter >
               <Flex 
                 width='100%' 
                 height='90px'
@@ -42,11 +42,11 @@ function App() {
                 alignItems='center'
                 justifyContent='space-around' 
               >
-                <NavLink to="/"
+                <NavLink to="/dodoc"
                   style={{textDecoration: 'none', color: 'LightGrey'}}
                   activeStyle={{fontWeight:'bold', color:'white'}}
                 >DoDoc</NavLink>
-                <NavLink to="/ownerdic"
+                <NavLink to="/dodoc/ownerdic"
                   style={{textDecoration: 'none', color: 'LightGrey'}}
                   activeStyle={{fontWeight:'bold', color:'white'}}
                 > owners</NavLink>
@@ -64,10 +64,10 @@ function App() {
                 >dogovors</NavLink>
               </Flex>
             <Switch id="main">
-              <Route exact path="/">
+              <Route exact path="/dodoc">
                 <Home/>
               </Route>
-              <Route path="/ownerdic">
+              <Route path="/dodoc/ownerdic">
                 <Ownerdic />
               </Route>
               <Route path="/dodoc/agentdic">
