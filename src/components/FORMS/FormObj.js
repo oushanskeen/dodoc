@@ -36,15 +36,17 @@ const FormObj = ({ onObjDicCreate, onObjDicUpdate, objectId, state }) => {
   };
   const handleSaveCountedData = () => setFormData({ ...formData, id: Id() });
   const SaveButton = () => {
+    console.log('formData on saveButton: ', formData);
     return <Button bg='two' onClick={handleSaveCountedData}>Save</Button>;
   };
 
   // --------------------------------------------------------------------
 
   const handleSubmit = e => {
+    console.log('handleSubmitEmitted');
     e.preventDefault();
     console.log('form content:', e.target);
-  !e.target.checkValidity() &&
+//  !e.target.checkValidity() &&
     objectId === undefined
       ? onObjDicCreate(formData)
       : onObjDicUpdate(formData);

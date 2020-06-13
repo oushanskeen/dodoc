@@ -8,6 +8,7 @@
     "@rebass/forms": "^4.0.6",
     "@rebass/preset": "^4.0.5",
     "emotion-theming": "^10.0.27",
+    "puppeteer": "^3.3.0",
     "react": "^16.11.0",
     "react-confirm-alert": "^2.6.1",
     "react-dom": "^16.11.0",
