@@ -52,14 +52,14 @@ const FormTwoSimp = ({
     //ownerId===undefined || agentId===undefined
     if (formName === "ownerDic") {
       if (ownerId === undefined) {
-        onOwnerDicCreate(formData);
+        onOwnerDicCreate({...formData, id: Id(), name: Name()});
       } else {
         onOwnerDicUpdate(formData);
       }
     } else {
       if (formName === "agentDic") {
         if (agentId === undefined) {
-          onAgentDicCreate(formData);
+          onAgentDicCreate({...formData, id: Id(), name: Name()});
         } else {
           onAgentDicUpdate(formData);
         }
@@ -78,11 +78,6 @@ const FormTwoSimp = ({
     return formData.name === ""
       ? formData.Name
       : state[formName].filter(e => e.name === formData.name)[0].name;
-  };
-  const handleSaveCountedData = () =>
-    setFormData({ ...formData, id: Id(), name: Name() });
-  const SaveButton = () => {
-    return <Button bg='two' onClick={handleSaveCountedData}>Save</Button>;
   };
 
   //console.log("store in formTwo : ", store)
@@ -234,7 +229,6 @@ const FormTwoSimp = ({
       </label>
       <br />
       <Button bg='two' onClick={handleSubmit}>Submit</Button>
-      <SaveButton />
     </form>
   );
 };

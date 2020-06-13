@@ -75,10 +75,11 @@ const FormDog = ({
       : store.dogDic[store.dogDic.length - 1].id + 1;
   };
   const Name = () => {
+    console.log('formData name in name generator: ', formData.name);
     return formData.name === ""
      // ? "NAME"
       ? makeNewDogovorName(
-        store.dogDic.filter(e => e.dogovorType === formData.dogovorType)[0].name
+        store.dogDic.filter(e => e.dogovorType === formData.dogovorType).pop().name
       )
       : store.dogDic.filter(e => e.name === formData.name)[0].name;
   };
@@ -102,28 +103,17 @@ const FormDog = ({
   const handleSubmit = e => {
     e.preventDefault();
     dogovorId === undefined
-      ? onDogovorDicCreate(formData)
+      ? onDogovorDicCreate(
+        {...formData,
+          id: Id(),
+          name: Name(),
+          date: Today(),
+          objId: ObjectId(),
+          agentId: AgentId(),
+          ownerId: OwnerId(),
+          srokDeistviya: srokDeistviya()
+        })
       : onDogovorDicUpdate(formData);
-  };
-  const handleSaveCountedData = () =>
-    setFormData({
-      ...formData,
-      id: Id(),
-      name: Name(),
-      date: Today(),
-      objId: ObjectId(),
-      agentId: AgentId(),
-      ownerId: OwnerId(),
-      srokDeistviya: srokDeistviya()
-    })
-  
-    console.log('fromData on Save: ', formData);
-  const SaveButton = () => {
-    return (
-      <Button bg="two" onClick={handleSaveCountedData}>
-        Save
-      </Button>
-    );
   };
   // FORM ELEMENTS ----------------------------------------------------------
   return (
@@ -157,7 +147,6 @@ const FormDog = ({
       <PriceInput formData={formData} updateFormData={UpdateFormData} />
       <br />
       <SubmitButton handleSubmit={handleSubmit} />
-      <SaveButton />
     </form>
   );
 };

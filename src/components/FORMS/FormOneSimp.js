@@ -49,14 +49,14 @@ const FormOneSimp = ({
     e.preventDefault();
     if (formName === "ownerDic") {
       if (ownerId === undefined) {
-        onOwnerDicCreate(formData);
+        onOwnerDicCreate({...formData, id: Id(), name: Name()});
       } else {
         onOwnerDicUpdate(formData);
       }
     } else {
       if (formName === "agentDic") {
         if (agentId === undefined) {
-          onAgentDicCreate(formData);
+          onAgentDicCreate({...formData, id: Id(), name: Name()});
         } else {
           onAgentDicUpdate(formData);
         }
@@ -75,11 +75,6 @@ const FormOneSimp = ({
     return formData.name === ""
       ? formData.compShortName
       : state[formName].filter(e => e.name === formData.name)[0].name;
-  };
-  const handleSaveCountedData = () =>
-    setFormData({ ...formData, id: Id(), name: Name() });
-  const SaveButton = () => {
-    return <Button bg='two'onClick={handleSaveCountedData}>Save</Button>;
   };
 
   return (
@@ -323,7 +318,6 @@ const FormOneSimp = ({
       </label>
       <br />
       <Button bg='two' onClick={handleSubmit}>Submit</Button>
-      <SaveButton />
     </form>
   );
 };

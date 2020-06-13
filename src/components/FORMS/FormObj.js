@@ -34,11 +34,6 @@ const FormObj = ({ onObjDicCreate, onObjDicUpdate, objectId, state }) => {
       ? formData.id
       : state.objDic[state.objDic.length - 1].id + 1;
   };
-  const handleSaveCountedData = () => setFormData({ ...formData, id: Id() });
-  const SaveButton = () => {
-    console.log('formData on saveButton: ', formData);
-    return <Button bg='two' onClick={handleSaveCountedData}>Save</Button>;
-  };
 
   // --------------------------------------------------------------------
 
@@ -48,8 +43,9 @@ const FormObj = ({ onObjDicCreate, onObjDicUpdate, objectId, state }) => {
     console.log('form content:', e.target);
 //  !e.target.checkValidity() &&
     objectId === undefined
-      ? onObjDicCreate(formData)
+      ? onObjDicCreate({...formData, id: Id()})
       : onObjDicUpdate(formData);
+    return null;
     //onObjDicCreate(formData);
   };
   return (
@@ -117,9 +113,8 @@ const FormObj = ({ onObjDicCreate, onObjDicUpdate, objectId, state }) => {
         />
         <br />
       </label>
-      <Button bg='two' 
+      <Button bg='two' type='submit' 
       >Submit</Button>
-      <SaveButton />
     </form>
   );
 };

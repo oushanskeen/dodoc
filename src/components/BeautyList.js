@@ -95,7 +95,7 @@ export const NewDic = ({data}) => (
 
 export const DicBar = ({ barName, buttonsBar }) => (
   <Flex bg="one" width={2 / 3} m={"auto"} p={0}>
-    <Box bg="zero" width={"80%"} p={3}>
+    <Box bg="zero" width={"83%"} p={3}>
       {barName}
     </Box>
     {buttonsBar}

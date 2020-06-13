@@ -4,6 +4,13 @@ import styled from 'styled-components';
 import { Flex, Box } from 'rebass';
 import {background, opacity} from 'styled-system';
 
+const handleEnterDown = event => {
+  console.log('something happens');
+  if (event.keyCode === 27) {
+     console.log('enter pressed');
+  }
+};
+
 const ModalOverlay = styled.div`
   position: fixed;
   top: 0;
@@ -104,7 +111,7 @@ export const Modal = ({ isShowing, hide, data}) => isShowing ? ReactDOM.createPo
   <>
     <div style={modalOverlay}/>
       <div style={modalWrapper} role="dialog">
-        <div style={modalDiv}>
+        <div style={modalDiv} tabIndex='0' onKeyDown={e => e.keyCode === 27 ? hide() : console.log('notenter')}>
           <ModalHeader>
             <ModalCloseButton onClick={hide}>
               <span>&times;</span>
