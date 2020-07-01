@@ -151,13 +151,15 @@ const buttonSet = (state, owner, dictionaryName) => ({
 // : ["read","update"] -> <DetailsButton/><EditButton/>
 // : ["delete"] -> <DeleteButton/>
 export const ShowDictionaryArticleData = 
-({ state, dictionaryName, buttons }) =>
-  state[dictionaryName].map(owner => (
+({ state, dictionaryName, buttons }) => {
+  if (state[dictionaryName].data === undefined){return  <></>}
+ return (
+  state[dictionaryName].data.map(owner => (
       <DicBar
         barName={owner.name}
         buttonsBar={buttons.map(e => buttonSet(state, owner, dictionaryName)[e])}
       />
-  ));
+  )))};
 
 // DicitonaryIO :: state -> dicName ->
 // HidableDivWithFormSelector+DictMappedToHidableDiv

@@ -16,6 +16,7 @@ const FormOneSimp = ({
   onAgentDicUpdate
 }) => {
   console.log("formName in FormOneSimp :", formName);
+  console.log("state in FormOneSimp: ", state);
 
   // state,formName,ownerId,agentId
   const actorId = formName => {
@@ -29,8 +30,8 @@ const FormOneSimp = ({
     }
   };
   const importData = (formName, actorId) => ({
-    actorData: state[formName].filter(e => e.id === actorId)[0],
-    actorName: state[formName].map(actor => actor.name),
+    actorData: state[formName].data.filter(e => e.id === actorId)[0],
+    actorName: state[formName].data.map(actor => actor.name),
     initStateForNewActor: state.home.initStateForNewActor("YL")
   });
   const currentImportData = () => importData(formName, actorId(formName));
@@ -39,6 +40,9 @@ const FormOneSimp = ({
       ? { ...currentImportData().initStateForNewActor }
       : currentImportData().actorData)
   });
+  console.log("form data in formOneSimpo.owner somp:",
+    formData
+  )
   const updateFormData = event => {
     setFormData({
       ...formData,
@@ -64,17 +68,27 @@ const FormOneSimp = ({
     }
   };
   const Id = () => {
-    console.log("formData in formDog: ", formData.id);
-    return typeof formData.id === "number"
-      ? formData.id
-      : state[formName][state[formName].length - 1].id + 1;
+    //console.log("formData in formDog: ", formData.id);
+    console.log("formData for Id: ", formData);
+    console.log("formData for Id: ", formData.id);
+    console.log(
+        'typeof formData.id === "number"',
+        typeof formData.id === "number"
+    );
+    //console.log()
+    return Date.now(); 
+      //typeof formData.id === "number"
+      //? formData.id
+      //: state[formName].data.length == 0
+      //  ? 0
+      //  : state[formName].data[state[formName].data.length - 1].id + 1;
   };
   const Name = () => {
     // console.log("state[formName]:", state[formName]);
-    console.log("fprmData: ", formData);
+    //console.log("fprmData: ", formData);
     return formData.name === ""
       ? formData.compShortName
-      : state[formName].filter(e => e.name === formData.name)[0].name;
+      : state[formName].data.filter(e => e.name === formData.name)[0].name;
   };
 
   return (

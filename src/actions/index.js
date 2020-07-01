@@ -1,7 +1,9 @@
 
 
     import * as types from "../constants/actionTypes";
-
+//import {errors} from "puppeteer";
+import axios from 'axios';
+import { store } from '../index';
 
 //  CONTENT -----------------------------------------------------------
 
@@ -22,7 +24,7 @@
 
 
 //  OWNER DIC ---------------------------------------------------------
-
+/*
     // "a" -> {type:"OWNERDIC_SELECT", payload:"a"};
     export const ownerDicSelect = 
     _data => {
@@ -47,7 +49,7 @@
         console.log({type:types.OWNERDIC_DELETE,payload:_data});
         return {type:types.OWNERDIC_DELETE, payload: _data};
         };
-
+*/
 
 //  AGENT DIC ---------------------------------------------------------
 
@@ -130,8 +132,218 @@
         return {type:types.DOGDIC_DELETE, payload: _data};
         };
 
-// MISC- HAVE NO IDEA WHAT FOR ----------------------------------------
+// ASYNC SAMPLE ------------------------------------------------------------------
 
+// export const FETCH_SAMPLE_STARTED = "FETCH_SAMPLE_STARTED";
+const fetchSampleStarted = 
+() => {
+  console.log({ type: types.FETCH_SAMPLE_STARTED });
+  return {type: types.FETCH_SAMPLE_STARTED}
+}
+const  fetchSampleSuccess = 
+(data) => {
+  console.log({type: types.FETCH_SAMPLE_SUCCESS, payload: data});
+  return {type: types.FETCH_SAMPLE_SUCCESS, payload: data}
+}
+const fetchSampleFailed = 
+(error) => {
+  console.log({type: types.FETCH_SAMPLE_FAILED, payload: error});
+  return {type: types.FETCH_SAMPLE_FAILED, payload: error}
+}
+export const fetchSample = (data) => {
+  return (dispatch) => {
+    dispatch(fetchSampleStarted(data));
+    axios.get('http://142.93.173.95:4001/owners')
+      .then(
+        res => dispatch(fetchSampleSuccess(res.data))
+      )
+      .catch(err =>
+        dispatch(fetchSampleFailed(err.message))
+      )
+  }
+}
+
+// GET OWNER ----------------------------------------------------------
+const getOwnerStarted = 
+(data) => {
+  console.log({ type: types.GET_OWNER_STARTED, payload: data });
+  return {type: types.GET_OWNER_STARTED}
+}
+const getOwnerSuccess = 
+(data) => {
+  console.log({type: types.GET_OWNER_SUCCESS, payload: data});
+  return {type: types.GET_OWNER_SUCCESS, payload: data}
+}
+const getOwnerFailed = 
+(error) => {
+  console.log({type: types.GET_OWNER_FAILED, payload: error});
+  return {type: types.GET_OWNER_FAILED, payload: error}
+}
+export const getOwner = (data) => {
+  return (dispatch) => {
+    console.log("GET ACTION INITIATED");
+    dispatch(getOwnerStarted(data));
+    //axios.post('http://142.93.173.95:4001/owners',{...data})
+//    const allowed = ["id","name","type","compFullName","compShortName",
+//      "INN","KPP","OGRN","OKPO","GosRegGate"
+//    ];
+//    const filtered = (raw) => {
+//      Object.keys(raw)
+//      .filter(key => allowed.includes(key))
+//      .reduce((obj, key) => {
+//        obj[key] = raw[key];
+//        return obj;
+//      }, {});
+//    };
+    axios.get('http://localhost:4001/owners',{...data})
+      .then(
+        res => dispatch(getOwnerSuccess(res.data))
+      )
+      .catch(err =>
+        dispatch(getOwnerFailed(err.message))
+      )
+  }
+}
+
+// POST OWNER ---------------------------------------------------------
+const postOwnerStarted = 
+(data) => {
+  console.log({ type: types.POST_OWNER_STARTED, payload: data });
+  return {type: types.POST_OWNER_STARTED}
+}
+const postOwnerSuccess = 
+(data) => {
+  console.log({type: types.POST_OWNER_SUCCESS, payload: data});
+  return {type: types.POST_OWNER_SUCCESS, payload: data}
+}
+const postOwnerFailed = 
+(error) => {
+  console.log({type: types.POST_OWNER_FAILED, payload: error});
+  return {type: types.POST_OWNER_FAILED, payload: error}
+}
+export const postOwner = (data) => {
+  return (dispatch) => {
+    console.log("POST ACTION INITIATED");
+    dispatch(postOwnerStarted(data));
+    const allowed = ["id","name","type","compFullName","compShortName",
+      "INN","KPP","OGRN","OKPO","GosRegDate","YurAdress","FactAdress",
+      "GenDirector","Buhgalter","tel","bankName","BIK","RS","KS"
+    ];
+    const filtered = (raw) => {
+      return Object.keys(raw)
+      .filter(key => allowed.includes(key))
+      .reduce((obj, key) => {
+        obj[key] = raw[key];
+        return obj;
+      }, {});
+    };
+    //axios.post('http://142.93.173.95:4001/owners',{...data})
+    axios.post('http://localhost:4001/owners',{...data})
+      .then(
+        //res => dispatch(postOwnerSuccess(filtered(res.data)))
+        res => dispatch(postOwnerSuccess(filtered(res.data)))
+      )
+      .catch(err =>
+        dispatch(postOwnerFailed(err.message))
+      )
+  }
+}
+// PUT OWNER ----------------------------------------------------------
+const putOwnerStarted = 
+(data) => {
+  console.log({ type: types.PUT_OWNER_STARTED, payload: data });
+  return {type: types.PUT_OWNER_STARTED}
+}
+const putOwnerSuccess = 
+(data) => {
+  console.log({type: types.PUT_OWNER_SUCCESS, payload: data});
+  return {type: types.PUT_OWNER_SUCCESS, payload: data}
+}
+const putOwnerFailed = 
+(error) => {
+  console.log({type: types.PUT_OWNER_FAILED, payload: error});
+  return {type: types.PUT_OWNER_FAILED, payload: error}
+}
+export const putOwner = (data) => {
+  return (dispatch) => {
+    console.log("PUT ACTION INITIATED");
+    dispatch(putOwnerStarted(data));
+    //axios.post('http://142.93.173.95:4001/owners',{...data})
+    axios.put('http://localhost:4001/owners',{...data})
+      .then(
+        res => dispatch(putOwnerSuccess(res.data))
+      )
+      .catch(err =>
+        dispatch(putOwnerFailed(err.message))
+      )
+  }
+}
+// DELETE OWNER -----------------------------------------------------
+  const deleteOwnerStarted = 
+  (data) => {
+    console.log({ type: types.DELETE_OWNER_STARTED, payload: data });
+    return {type: types.DELETE_OWNER_STARTED, payload: data}
+  }
+  const deleteOwnerSuccess = 
+  (data) => {
+    console.log({type: types.DELETE_OWNER_SUCCESS, payload: data});
+    return {type: types.DELETE_OWNER_SUCCESS, payload: data}
+  }
+  const deleteOwnerFailed = 
+  (error) => {
+    console.log({type: types.DELETE_OWNER_FAILED, payload: error});
+    return {type: types.DELETE_OWNER_FAILED, payload: error}
+  }
+  export const deleteOwner = 
+  (data) => {
+    return (dispatch) => {
+    console.log("DELETE ACTION INITIATED");
+    console.log("data in delete: ", data);
+    dispatch(deleteOwnerStarted(data));
+    //axios.post('http://142.93.173.95:4001/owners',{...data})
+    axios.delete('http://localhost:4001/owners',
+        {data:{id:data}}
+     // {data:{id: 1000}}
+    )
+      .then(
+        res => dispatch(deleteOwnerSuccess(res.data))
+      )
+      .catch(err =>
+        dispatch(deleteOwnerFailed(err.message))
+      )
+    }
+  }
+//  OWNER DIC ---------------------------------------------------------
+
+// "a" -> {type:"OWNERDIC_SELECT", payload:"a"};
+  export const ownerDicSelect = 
+  _data => {
+     console.log({type:types.OWNERDIC_SELECT,payload:_data});
+     return {type:types.OWNERDIC_SELECT, payload: _data};
+  };
+  // "a" -> {type:"OWNERDIC_CREATE", payload:"a"};
+  export const ownerDicCreate = 
+  _data => {
+    store.dispatch(postOwner(_data));
+    console.log({type:types.OWNERDIC_CREATE,payload:_data});
+    return {type:types.OWNERDIC_CREATE, payload: _data};
+  };
+  // "a" -> {type:"OWNERDIC_UPDATE", payload:"a"};
+  export const ownerDicUpdate = 
+  _data => {
+    store.dispatch(putOwner(_data));
+    console.log({type:types.OWNERDIC_UPDATE,payload:_data});
+    return {type:types.OWNERDIC_UPDATE, payload: _data};
+  };
+  // "a" -> {type:"OWNERDIC_DELETE", payload:"a"};
+  export const ownerDicDelete = 
+  _data => {
+    store.dispatch(deleteOwner(_data));
+    console.log({type:types.OWNERDIC_DELETE,payload:_data});
+    return {type:types.OWNERDIC_DELETE, payload: _data};
+  };
+
+// MISC- HAVE NO IDEA WHAT FOR ----------------------------------------
     // "a" -> {type:"DOGDIC_SELECT", payload:"a"}
     export const dogovorData = 
     _data => {

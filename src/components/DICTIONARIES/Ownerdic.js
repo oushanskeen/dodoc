@@ -1,6 +1,7 @@
 import React  from "react";
 import { DictionaryIO } from "../ELEMENTS/Elements";
 import { connect } from "react-redux";
+import * as actions from '../../actions/index';
 
 const Ownerdic = ({ state }) => (
     <DictionaryIO
@@ -12,7 +13,9 @@ const Ownerdic = ({ state }) => (
 );
 
 const mapStateToProps = _state => ({ state: _state });
-const mapDispatchToProps = _dispatch => ({});
+const mapDispatchToProps = _dispatch => ({
+  onGetOwner: (() => _dispatch(actions.getOwner()))()
+});
 export default connect(mapStateToProps, mapDispatchToProps)(Ownerdic);
 
 //export default Ownerdic;

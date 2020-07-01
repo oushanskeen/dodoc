@@ -1,14 +1,27 @@
 //import {state} from '../state.js';
+import {store} from '../index';
 import {
     OWNERDIC_SELECT,
     OWNERDIC_CREATE,
     OWNERDIC_UPDATE,
-    OWNERDIC_DELETE
+    OWNERDIC_DELETE,
+    GET_OWNER_STARTED,
+    GET_OWNER_SUCCESS,
+    GET_OWNER_FAILED,
+    POST_OWNER_STARTED,
+    POST_OWNER_SUCCESS,
+    POST_OWNER_FAILED,
+    PUT_OWNER_STARTED,
+    PUT_OWNER_SUCCESS,
+    PUT_OWNER_FAILED
 } from '../constants/actionTypes'
-
+import * as actionTypes from '../constants/actionTypes';
+import * as actions from '../actions/index';
 const initialState = (window.Cypress && window.initialState) ||
-[ 
-  {
+{data:[],
+ /* 
+  [ 
+    {
     id:0,
     type:"YL",
     name: "OWNER ID:0 TYPE:YL COMP_FULL_NAME",
@@ -67,20 +80,91 @@ const initialState = (window.Cypress && window.initialState) ||
     addressGave:"OWNER ID:2 TYPE:FL ADRESS_GAVE",
     signature: "OWNER ID:2 TYPE:FL SIGNATURE"
   }
-];
+  ],
+ */ 
+  ownerIsLoading: false,
+  error:"",
+
+};
 
 //---------------------------------------------------------------------
 
 export default function(state = initialState,action){
   switch (action.type){
     case OWNERDIC_CREATE:
-      return [...state,{...action.payload}];
+      return {
+        ...state//,
+      //   data: [...state.data,{...action.payload}],
+      };
     case OWNERDIC_UPDATE:
-      return state.map(e => 
-        e.id===action.payload.id ? action.payload : e);
+      return {...state};
+      //return state.data.map(e => 
+      //  e.id===action.payload.id ? action.payload : e);
     case OWNERDIC_DELETE:
-      return state.filter(e => e.id != action.payload);
-    default:        
+      return state.data.filter(e => 
+        e.id != action.payload);
+    case GET_OWNER_STARTED:
+      return {
+        data:[...state.data],
+        ownerIsLoading: true
+      };
+    case GET_OWNER_SUCCESS:
+      return {
+        data:[...state.data,
+          ...action.payload
+        ],
+        ownerIsLoading: false,
+        error: null,
+      };
+    case GET_OWNER_FAILED:
+      return {
+        data:[...state.data],
+        ownerIsLoading: false,
+        error: action.payload.error
+      };
+    case POST_OWNER_STARTED:
+      return {
+        data:[...state.data],
+        ownerIsLoading: true
+      };
+    case POST_OWNER_SUCCESS:
+      return {
+        data:[
+          ...state.data,
+          {...action.payload}
+        ],
+        ownerIsLoading: false,
+        error: null,
+      };
+    case POST_OWNER_FAILED:
+      return {
+        data:[...state.data],
+        ownerIsLoading: false,
+        error: action.payload.error
+      };
+    case PUT_OWNER_STARTED:
+      return {
+        data:[...state.data],
+        ownerIsLoading: true
+      };
+    case PUT_OWNER_SUCCESS:
+      return {
+        data:
+      // [...state.data,
+      //   {...action.payload}
+      //  ],
+        state.data.map(e => 
+          e.name===action.payload.name ? action.payload : e),
+        ownerIsLoading: false,
+        error: null,
+      };
+    case PUT_OWNER_FAILED:
+      return {
+        data:[...state.data],
+        ownerIsLoading: false,
+        error: action.payload.error
+    };
+ default:        
       return state;
     };
 };
