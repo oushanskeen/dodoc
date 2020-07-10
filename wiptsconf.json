@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "checkJs": false,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react"
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "src/**/*.wip.ts",
+    "src/**/*.wip.tsx",
+    "src/**/*.wip.js",
+    "src/**/wip/*.ts",
+    "src/**/wip/*.js",
+    "src/**/WIP/*.ts",
+    "src/**/WIP/*.js"
+    
+  ],
+  "noImplicitAny":false
+}

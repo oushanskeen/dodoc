@@ -25,10 +25,16 @@ const DeleteButtonEmptyDiv = ({
         onAgentDelete(dogovorId);
         break;
       case "objDic":
-        onObjDelete(dogovorId);
+        onObjDelete({
+          dicName: "objects",
+          dicData: dogovorId
+        });
         break;
       case "dogDic":
-        onDogDelete(dogovorId);
+        onDogDelete({
+          dicName: "dogovors",
+          dicData: dogovorId
+        });
         break;
       default:
         console.log("nothing to delete");
@@ -55,7 +61,7 @@ const mapDispatchToProps = _dispatch => ({
   onDelete: data => _dispatch(actions.dogDicDelete(data)),
   onOwnerDelete: data => _dispatch(actions.ownerDicDelete(data)),
   onAgentDelete: data => _dispatch(actions.agentDicDelete(data)),
-  onObjDelete: data => _dispatch(actions.objDicDelete(data)),
+  onObjDelete: data => _dispatch(actions.objectDicDelete(data)),
   onDogDelete: data => _dispatch(actions.dogDicDelete(data))
 });
 export default connect(

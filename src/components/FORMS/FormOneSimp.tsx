@@ -5,6 +5,53 @@ import { Button } from 'rebass';
 import * as actions from "../../actions";
 import { connect } from "react-redux";
 
+
+type DicRecord = {
+    data:[
+      {
+        id: number,
+        name: string
+      }
+    ]
+};
+
+type OrgType = "YL" | "FL" | "IP";
+  type State = {
+    home: {initStateForNewActor: (name: OrgType) => Object},
+    ownerDic: DicRecord,
+    agentDic: DicRecord,
+    objDic: DicRecord,
+    dogDic: DicRecord
+  };
+type FormName = "ownerDic" | "agentDic" | "objDic" | "dogDic";
+type FormData = 
+{
+  id: number,
+  name: string,
+  type: string,
+  compFullName: string,
+  compShortName: string,
+  INN: string,
+  KPP: string,
+  OGRN: string,
+  OKPO: string,
+  GosRegDate: string,
+  YurAdress: string,
+  FactAdress: string,
+  GenDirector: string,
+  Buhgalter: string,
+  tel: string,
+  bankName: string,
+  BIK: string,
+  RS: string,
+  KS: string
+};
+ type SetFormData = (x:Object) => FormData;
+  type CurrentImportData = {
+    actorData: Object,
+    actorName: Array<string>,
+    initStateForNewActor: Object,
+  };
 const FormOneSimp = ({
   formName,
   ownerId,
@@ -14,58 +61,45 @@ const FormOneSimp = ({
   onOwnerDicUpdate,
   onAgentDicCreate,
   onAgentDicUpdate
-}) => {
-  console.log("formName in FormOneSimp :", formName);
-  console.log("state in FormOneSimp: ", state);
-
+}:{
+  formName?: FormName,
+  ownerId?: number,
+  agentId?: number,
+  state?: State,
+  onOwnerDicCreate?: (data:Object) => Object,
+  onOwnerDicUpdate?: (data:Object) => Object,
+  onAgentDicCreate?: (data:Object) => Object,
+  onAgentDicUpdate?: (data:Object) => Object
+}): JSX.Element => {
   // state,formName,ownerId,agentId
-  const actorId = formName => {
-    switch (formName) {
-      case "ownerDic":
-        return ownerId;
-      case "agentDic":
-        return agentId;
-      default:
-        return "no actor id";
+  const importData = (formName:FormName, actorId:number):CurrentImportData => {
+    return {
+      actorData: state[formName].data.filter((e) => e.id === actorId)[0],
+      actorName: state[formName].data.map((actor) => actor.name),
+      initStateForNewActor: state.home.initStateForNewActor("YL")
     }
-  };
-  const importData = (formName, actorId) => ({
-    actorData: state[formName].data.filter(e => e.id === actorId)[0],
-    actorName: state[formName].data.map(actor => actor.name),
-    initStateForNewActor: state.home.initStateForNewActor("YL")
-  });
-  const currentImportData = () => importData(formName, actorId(formName));
-  const [formData, setFormData] = useState({
+    };
+  const actorId = (formName: FormName): number => formName === "ownerDic" ? ownerId : agentId;
+  const currentImportData = ():CurrentImportData => importData(formName, actorId(formName));
+  let [formData, setFormData] = useState({
     ...(actorId(formName) === undefined
       ? { ...currentImportData().initStateForNewActor }
       : currentImportData().actorData)
-  });
-  console.log("form data in formOneSimpo.owner somp:",
-    formData
-  )
-  const updateFormData = event => {
+    });
+  const updateFormData = (event: React.SyntheticEvent):void => {
+    let target = event.target as HTMLInputElement;
     setFormData({
       ...formData,
-      [event.target.name]: event.target.value
+      [target.name]: target.value
     });
-  };
-  const handleSubmit = e => {
+    };
+  const handleSubmit = (e: React.SyntheticEvent):Object|undefined => {
     e.preventDefault();
     if (formName === "ownerDic") {
       if (ownerId === undefined) {
-        onOwnerDicCreate({
-         // dicName: "owners",
-         // dicData: {
-            ...formData, id: Id(), name: Name()
-         // }
-        });
+        onOwnerDicCreate({...formData, id: Id(), name: Name()});
       } else {
-        onOwnerDicUpdate({
-          //dicName: "owners",
-          //dicData: {
-            ...formData
-          //}
-        });
+        onOwnerDicUpdate({...formData});
       }
     } else {
       if (formName === "agentDic") {
@@ -75,42 +109,23 @@ const FormOneSimp = ({
           onAgentDicUpdate(formData);
         }
       }
-    }
-  };
-  const Id = () => {
-    //console.log("formData in formDog: ", formData.id);
-    console.log("formData for Id: ", formData);
-    console.log("formData for Id: ", formData.id);
-    console.log(
-        'typeof formData.id === "number"',
-        typeof formData.id === "number"
-    );
-    //console.log()
-    return Date.now(); 
-      //typeof formData.id === "number"
-      //? formData.id
-      //: state[formName].data.length == 0
-      //  ? 0
-      //  : state[formName].data[state[formName].data.length - 1].id + 1;
-  };
-  const Name = () => {
-    // console.log("state[formName]:", state[formName]);
-    //console.log("fprmData: ", formData);
-    return formData.name === ""
-      ? formData.compShortName
-      : state[formName].data.filter(e => e.name === formData.name)[0].name;
-  };
-
-  return (
-    <form>
-      <br />
+    };
+    return;
+    };
+  const Id = ():number => Date.now(); 
+  const Name = (_formData:FormData) => {
+    return _formData.name === ""
+      ? _formData.compShortName
+      : state[formName].data.filter(e => e.name === _formData.name)[0].name;
+    };
+  const CompFullName = ({_formData}:{_formData:any}):JSX.Element => (
       <label>
         {" "}
         Полное название организации : <br />
         <Input
           id="compFullName"
-          value={formData.compFullName}
-          onChange={e => updateFormData(e)}
+          value={_formData.compFullName}
+          onChange={(e:any) => updateFormData(e)}
           placeholder=" Полное название организации "
           type="text"
           name="compFullName"
@@ -119,6 +134,11 @@ const FormOneSimp = ({
         />
         <br />
       </label>
+  );
+  return (
+    <form>
+      <br />
+      <CompFullName _formData={formData}/>
       <label>
         {" "}
         Краткое название организации : <br />
@@ -343,17 +363,17 @@ const FormOneSimp = ({
       <br />
       <Button bg='two' onClick={handleSubmit}>Submit</Button>
     </form>
-  );
+    );
 };
 
-const mapStateToProps = _state => ({
+const mapStateToProps = (_state: State) => ({
   state: _state
 });
-const mapDispatchToProps = _dispatch => ({
-  onOwnerDicCreate: data => _dispatch(actions.ownerDicCreate(data)),
-  onOwnerDicUpdate: data => _dispatch(actions.ownerDicUpdate(data)),
-  onAgentDicCreate: data => _dispatch(actions.agentDicCreate(data)),
-  onAgentDicUpdate: data => _dispatch(actions.agentDicUpdate(data))
+const mapDispatchToProps = (_dispatch: any):Object => ({
+  onOwnerDicCreate: (data:Object):Object => _dispatch(actions.ownerDicCreate(data)),
+  onOwnerDicUpdate: (data:Object):Object => _dispatch(actions.ownerDicUpdate(data)),
+  onAgentDicCreate: (data:Object):Object => _dispatch(actions.agentDicCreate(data)),
+  onAgentDicUpdate: (data:Object):Object => _dispatch(actions.agentDicUpdate(data))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormOneSimp);

@@ -10,7 +10,7 @@ import {
     from "./MontajSampleData";
 import {ClientDataORG,ClientDataIP,ClientDataFL} from '../FORMS/FormMap';
 import {OrgHeader,IPHeader,FLHeader,ClientOrgFooter,ClientIPFooter,ClientFLFooter,ServerFooter} from '../WIP//HsFs';
-import * as actions from '../../actions';
+import * as actions from '../../actions/index';
 //import store from '../store';
 import {connect} from 'react-redux';
 import assert from "../../utils/assert";

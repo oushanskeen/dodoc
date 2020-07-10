@@ -11,7 +11,7 @@ import Montaj from "./components/MONTAJ/Montaj";
 import Ownerdic from "./components/DICTIONARIES/Ownerdic";
 import Agentdic from "./components/DICTIONARIES/Agentdic";
 import Dogovordic from "./components/DICTIONARIES/Dogovordic";
-import Objectdic from "./components/DICTIONARIES/Objectdic";
+import Objectdic from "./components/DICTIONARIES/Objectdic.tsx";
 import Dogovor from "./components/Dogovor";
 //import BeautyList from './components/BeautyList';
 import { ThemeProvider } from "emotion-theming";

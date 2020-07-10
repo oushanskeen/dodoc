@@ -1,7 +1,7 @@
 import React from "react";
 import { DictionaryIO } from "../ELEMENTS/Elements";
 import { connect } from "react-redux";
-import * as actions from "../../actions";
+import * as actions from "../../actions/index";
 
 const Agentdic = ({ state }) => (
     <DictionaryIO
@@ -16,8 +16,7 @@ const mapStateToProps = _state => ({
   state: _state
 });
 const mapDispatchToProps = _dispatch => ({
-  onAgentDicSelection: data => _dispatch(actions.agentDicSelect(data)),
-  onAgentDicCreation: data => _dispatch(actions.agentDicCreate(data))
+  onGetAgent: (() => _dispatch(actions.getAgent('agents')))()
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Agentdic);

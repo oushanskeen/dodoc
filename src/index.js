@@ -9,7 +9,9 @@ import App from './App';
 import thunk from 'redux-thunk';
 
 export const store = createStore(reducer, applyMiddleware(thunk));
-//console.log("store while initialise in index.js : ", //store.getState());
+console.log("store while initialise in index.js : ", 
+  store.getState()
+);
 
 ReactDOM.render(
     <Provider store={store}>

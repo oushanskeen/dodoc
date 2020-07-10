@@ -128,8 +128,8 @@ const mapStateToProps = _state => ({
 const mapDispatchToProps = _dispatch => ({
   onDataReady: data => _dispatch(actions.formDataNew(data)),
   onDogovorData: data => _dispatch(actions.dogovorData(data)),
-  onObjDicCreate: data => _dispatch(actions.objDicCreate(data)),
-  onObjDicUpdate: data => _dispatch(actions.objDicUpdate(data))
+  onObjDicCreate: data => _dispatch(actions.objectDicCreate(data)),
+  onObjDicUpdate: data => _dispatch(actions.objectDicUpdate(data))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(FormObj);
 

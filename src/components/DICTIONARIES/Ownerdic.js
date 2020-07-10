@@ -14,7 +14,7 @@ const Ownerdic = ({ state }) => (
 
 const mapStateToProps = _state => ({ state: _state });
 const mapDispatchToProps = _dispatch => ({
-  onGetOwner: (() => _dispatch(actions.getOwner()))()
+  onGetOwner: (() => _dispatch(actions.getOwner('owners')))()
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Ownerdic);
 

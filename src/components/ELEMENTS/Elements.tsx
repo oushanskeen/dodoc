@@ -3,39 +3,18 @@ import { selectForm } from "../FORMS/selectForm";
 import DeleteButtonEmptyDiv from "./DeleteButton";
 import Dogovor from "../Dogovor";
 import PopUpModal from "../PopUpModal";
-import { Button, Flex, Modal } from "rebass";
+import { Button, Flex } from "rebass";
 import { Select } from '@rebass/forms';
 import { DicBar, NewDic} from "../BeautyList";
-
-//  CONTENT -----------------------------------------------------------
-
-//  0.0 PopUpWindow ::  PopUpModal -> content -> PopUpWindow
-//  0.1 ShowHideButton :: ... -> content -> FoldableDiv
-//      : ..., a -> (div a -> click -> "")
-//      : ..., a -> (""    -> click -> div a)
-//  0.2 DetailsButton ::
-//      ^ShowHideButton -> data -> DetailsFoldableDiv
-//      : ["a","b"] -> (div a -> click -> "") -> ""
-//      : ["a","b"] -> ("" -> click -> div a) -> div a div b
-//  0.3 EditButton ::
-//      ^ShowHideButton -> ^formManager ->
-//      dictionaryName  -> EditFoldableDiv
-//  0.4 DeleteButton::
-//      ^ShowHideButton -> dictionaryName -> articleId -> dictionary
-//      : {1:"a",2:"b"} -> 2 -> {1:"a"}
-//  0.5 ButtonSetSelector :: buttonSet -> div buttonSet
-//      : ["read","update"] -> <DetailsButton/> <EditButton/>
-//      : ["delete"] -> <DeleteButton/>
-
-//  0.1
-// ShowHideButton :: ... -> content -> FoldableDiv
-// : ..., a -> (div a -> click -> "")
-// : ..., a -> (""    -> click -> div a)
-
-export const PopUpWindow = ({
-  name = ["show", "hide"],
-  content = "content"
-}) => <PopUpModal name={name} data={content} />;
+import {SelectForm, FormName } from '../FORMS/selectForm';
+//  CONTENT ----------------------------------------------------------
+// @ts-ignore
+export const PopUpWindow = (
+  {name, content}:
+  { name: string | string[], 
+    content: string | Array<JSX.Element> | JSX.Element
+  }):JSX.Element => 
+    <PopUpModal name={name || ["show","hide"]} data={content || "content"} />;
 
 export const ShowHideButton = ({
   name = ["show", "hide"],
@@ -58,7 +37,7 @@ export const ShowHideButton = ({
 //   data -> ShowHideButton -> DetailsFoldableDiv
 // : ["a","b"] -> (div a -> click -> "") -> ""
 // : ["a","b"] -> ("" -> click -> div a) -> div a div b
-const DetailsButton = ({ owner }) => (
+const DetailsButton = ({ owner } : {owner:{}}):JSX.Element => (
   <PopUpWindow
     name={"details"}
     content={Object.entries(owner).map(record => (
@@ -72,16 +51,13 @@ const DetailsButton = ({ owner }) => (
 // EditButton ::
 //   formManager -> dictionaryName
 //   -> ShowHideButton -> EditFoldableDiv
-const EditButton = ({ owner, dictionaryName }) => (
+type DictionaryName = "ownerDic"|"agentDic"|"objDic"|"dogDic";
+const EditButton = ({ owner, dictionaryName}:
+  {owner:any, dictionaryName:FormName}):JSX.Element => (
   <PopUpWindow
     name="edit"
     content={
       <div>
-        {console.log(
-          "edit button owner,dictionaryName: ",
-          owner,
-          dictionaryName
-        )}
         {selectForm(dictionaryName, owner.type, owner.id).form}
       </div>
     }
@@ -90,20 +66,27 @@ const EditButton = ({ owner, dictionaryName }) => (
 //  0.4
 // DeleteButton :: dictionaryName -> articleId -> dictionary
 // : {1:"a",2:"b"} -> 2 -> {1:"a"}
-const DeleteButton = ({ id, dictionaryName }) => (
+const DeleteButton = ({ id, dictionaryName }:{id:number,dictionaryName:FormName}):JSX.Element => (
   <DeleteButtonEmptyDiv dogovorId={id} dictionaryName={dictionaryName} />
 );
 
 // Selector :: formMananger -> dictName -> FormSelector
-export const Selector = ({ selectForm, dictionaryName }) => {
-  const [select, setSelect] = useState("");
+export const Selector = (
+  { selectForm, dictionaryName }:
+  {selectForm: SelectForm, dictionaryName:DictionaryName}
+  ):JSX.Element => {
+  const [select, setSelect] = useState("def");
+  const some = selectForm(dictionaryName, select).formDic;
   return (
     <div>
-      <Select onChange={e => setSelect(e.target.value)}>
+      <Select 
+        onChange={e => setSelect(e.target.value)}
+      >
         <option value="-">-------</option>
-        {Object.entries(selectForm(dictionaryName, select).formDic).map(e => (
-          <option value={e[0]}>{e[0]}</option>
-        ))}
+        { 
+          Object.entries(some)
+          .map(e => <option value={ e[0] }> { e[0] } </option>)
+        }
       </Select>
       <div>
         {select === "" ? (
@@ -116,7 +99,8 @@ export const Selector = ({ selectForm, dictionaryName }) => {
   );
 };
 
-export const CreateDictionaryArticle = ({ dictionaryName, selectForm }) => {
+export const CreateDictionaryArticle = (
+  { dictionaryName, selectForm }:{dictionaryName:string,selectForm:any}):JSX.Element => {
   return (
     <PopUpWindow
       name='создать запись'
@@ -130,7 +114,7 @@ export const CreateDictionaryArticle = ({ dictionaryName, selectForm }) => {
     />
   );
 };
-const ShowPrintReadyDogovor = ({ state, id }) => {
+const ShowPrintReadyDogovor = ({ state, id }:{state:{}, id:number}):JSX.Element => {
   return (
     <PopUpWindow
       name="show beauty"

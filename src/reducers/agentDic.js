@@ -3,11 +3,24 @@ import {
     AGENTDIC_SELECT,
     AGENTDIC_CREATE,
     AGENTDIC_UPDATE,
-    AGENTDIC_DELETE
+    AGENTDIC_DELETE,
+    GET_AGENT_STARTED,
+    GET_AGENT_SUCCESS,
+    GET_AGENT_FAILED,
+    POST_AGENT_STARTED,
+    POST_AGENT_SUCCESS,
+    POST_AGENT_FAILED,
+    PUT_AGENT_STARTED,
+    PUT_AGENT_SUCCESS,
+    PUT_AGENT_FAILED,
+    DELETE_AGENT_STARTED,
+    DELETE_AGENT_SUCCESS,
+    DELETE_AGENT_FAILED,
 } from '../constants/actionTypes'
 
 const initialState = (window.Cypress && window.initialState) ||
-[
+{data:[],
+  /*
   {
     id:0,
     type:"YL",
@@ -67,22 +80,71 @@ const initialState = (window.Cypress && window.initialState) ||
     addressGave:"AGENT ID:2 TYPE:FL ADRESS_GAVE",
     signature: "AGENT ID:2 TYPE:FL SIGNATURE"
   }
-];
+  */
+  agentIsLoading: false,
+  error: ""
+};
 
 
 export default function(state = initialState,action){
-    switch (action.type){
-        case AGENTDIC_SELECT:
-            return {...state,"currentDic":action.payload};
-        case AGENTDIC_CREATE:
-            return [...state,{...action.payload}];
-        case AGENTDIC_UPDATE:
-            return state.map(e => 
-                e.id===action.payload.id ? action.payload : e);
-        case AGENTDIC_DELETE:
-            return state.filter(e => e.id != action.payload);
-        default:        
-            return state;
+  switch (action.type){
+    case AGENTDIC_CREATE:
+    case AGENTDIC_UPDATE:
+    case AGENTDIC_DELETE:
+        return { ...state };
+    case GET_AGENT_STARTED:
+    case POST_AGENT_STARTED:
+    case PUT_AGENT_STARTED:
+    case DELETE_AGENT_STARTED:
+      console.log('state in agents: ', state);
+      return {
+        data: [...state.data],
+        agentIsLoading: true
+      };
+    case GET_AGENT_SUCCESS:
+      return {
+        data: [...action.payload],
+        agentIsLoading: false,
+        error: null
+      };
+    case POST_AGENT_SUCCESS:
+      return {
+        data: [...state.data, {...action.payload}],
+        agentIsLoading: false,
+        error: null
     };
+    case GET_AGENT_FAILED:
+    case POST_AGENT_FAILED:
+    case PUT_AGENT_FAILED:
+    case DELETE_AGENT_FAILED:
+      console.log(
+        "action.payload in agents failes: ",
+        action.payload
+      );
+      return {
+        data: [...state.data,],
+        agentIsLoading: false,
+        error: [action.payload.error, action.payload]
+      };
+    case PUT_AGENT_SUCCESS:
+      console.log("PUT_AGENT_SUCCESS ready to change state");
+      return {
+        data: state.data.map(e =>
+          e.name === action.payload.name
+          ? action.payload
+          : e
+        ),
+        agentIsLoading: false,
+        error: null
+      };
+    case DELETE_AGENT_SUCCESS:
+      return {...state,
+        data: state.data.filter(e =>
+          e.id !== action.payload.message
+        )
+      };
+    default:        
+      return state;
+   };
 };
 

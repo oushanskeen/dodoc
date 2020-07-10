@@ -13,7 +13,13 @@ import {
     POST_OWNER_FAILED,
     PUT_OWNER_STARTED,
     PUT_OWNER_SUCCESS,
-    PUT_OWNER_FAILED
+    PUT_OWNER_FAILED,
+    DELETE_OWNER_STARTED,
+    DELETE_OWNER_SUCCESS,
+    DELETE_OWNER_FAILED,
+    GET_DIC_STARTED,
+    GET_DIC_SUCCESS,
+    GET_DIC_FAILED
 } from '../constants/actionTypes'
 import * as actionTypes from '../constants/actionTypes';
 import * as actions from '../actions/index';
@@ -84,7 +90,6 @@ const initialState = (window.Cypress && window.initialState) ||
  */ 
   ownerIsLoading: false,
   error:"",
-
 };
 
 //---------------------------------------------------------------------
@@ -101,68 +106,57 @@ export default function(state = initialState,action){
       //return state.data.map(e => 
       //  e.id===action.payload.id ? action.payload : e);
     case OWNERDIC_DELETE:
-      return state.data.filter(e => 
-        e.id != action.payload);
+      return {...state}
+      //return state.data.filter(e => 
+      //  e.id != action.payload);
     case GET_OWNER_STARTED:
+    case POST_OWNER_STARTED:
+    case PUT_OWNER_STARTED:
+    case DELETE_OWNER_STARTED:
+      console.log("Something started in OWNERDIC");
+      console.log("state in owner: ", state);
       return {
         data:[...state.data],
         ownerIsLoading: true
       };
     case GET_OWNER_SUCCESS:
       return {
-        data:[...state.data,
-          ...action.payload
-        ],
+        data:[...action.payload],
         ownerIsLoading: false,
         error: null,
-      };
-    case GET_OWNER_FAILED:
-      return {
-        data:[...state.data],
-        ownerIsLoading: false,
-        error: action.payload.error
-      };
-    case POST_OWNER_STARTED:
-      return {
-        data:[...state.data],
-        ownerIsLoading: true
       };
     case POST_OWNER_SUCCESS:
-      return {
-        data:[
-          ...state.data,
-          {...action.payload}
-        ],
+      return{
+        data: [...state.data, {...action.payload}],
         ownerIsLoading: false,
         error: null,
-      };
+    };
+    case GET_OWNER_FAILED:
     case POST_OWNER_FAILED:
+    case PUT_OWNER_FAILED:
+    case DELETE_OWNER_FAILED:
+    //  console.log(
+    //    "action.payload in owner failed: ", action.payload
+    //  );
       return {
         data:[...state.data],
         ownerIsLoading: false,
-        error: action.payload.error
-      };
-    case PUT_OWNER_STARTED:
-      return {
-        data:[...state.data],
-        ownerIsLoading: true
+        error: [action.payload.error, action.payload]
       };
     case PUT_OWNER_SUCCESS:
       return {
-        data:
-      // [...state.data,
-      //   {...action.payload}
-      //  ],
-        state.data.map(e => 
-          e.name===action.payload.name ? action.payload : e),
+        data: state.data.map(e => 
+          e.name===action.payload.name 
+          ? action.payload : 
+          e
+        ),
         ownerIsLoading: false,
         error: null,
       };
-    case PUT_OWNER_FAILED:
-      return {
-        data:[...state.data],
-        ownerIsLoading: false,
-        error: action.payload.error
+    case DELETE_OWNER_SUCCESS:
+      return {...state,
+        data:state.data.filter(e => 
+          e.id !== action.payload.message)
     };
  default:        
       return state;

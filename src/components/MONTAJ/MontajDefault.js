@@ -33,7 +33,8 @@
         //dogovorData: _state.dogovorData
     });
     const mapDispatchToProps = _dispatch => ({
-        onDogovorData: data => _dispatch(actions.dogovorData(data))
+        //onDogovorData: data => _dispatch(actions.dogovorData(data))
+      //onDogovorData: data => edata: data}
     });
 
     export default connect (
