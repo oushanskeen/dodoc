@@ -13,17 +13,17 @@ const getOwnerStarted =(data) => {
   return {type: types.GET_OWNER_STARTED};
   };
 const getOwnerSuccess = (data) => {
-  console.log({type: types.GET_OWNER_SUCCESS, payload: data});
+  console.log(`GET_OWNER_SUCCESS with data: ${data}`);
   return {type: types.GET_OWNER_SUCCESS, payload: data};
   };
 const getOwnerFailed = (error) => {
-  console.log({type: types.GET_OWNER_FAILED, payload: error});
+  console.log(`GET_OWNER_FAILED with error ${error}`);
   return {type: types.GET_OWNER_FAILED, payload: error};
   };
 export const getOwner = (data) => {
   return (dispatch) => {
     console.log("GET ACTION INITIATED");
-    dispatch(getOwnerStarted());
+    dispatch(getOwnerStarted(data));
     axios
       .get(`http://localhost:4001/owners`)
       .then(res => dispatch(getOwnerSuccess(res.data)))

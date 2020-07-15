@@ -8,15 +8,79 @@ import { Select } from '@rebass/forms';
 import { DicBar, NewDic} from "../BeautyList";
 
 import typeCheck from '../../utils/typeCheck';
+import objDic from "../../reducers/objDic";
 
-const ObjModel = {
-  //id:"number",
-  id: "string",
+const YL = {
+  id:"string",
   name:"string",
-  adress:"string",
-  contactsFIO:"string",
-  workRegime:"string"
+  type:"string",
+  compFullName:"string",
+  compShortName:"string",
+  INN:"string",
+  KPP:"string",
+  OGRN:"string",
+  OKPO:"string",
+  GosRegDate:"string",
+  YurAdress:"string",
+  FactAdress:"string",
+  GenDirector:"string",
+  Buhgalter:"string",
+  tel:"string",
+  bankName:"string",
+  BIK:"string",
+  RS:"String",
+  KS:"string"
 };
+const IP = {
+  id:"string",
+  name:"string",
+  type:"string",
+  Name:"string",
+  FIO:"string",
+  INN:"string",
+  OGRNIP:"string",
+  OKPO:"string",
+  FactAdress:"string",
+  bankName:"string",
+  BIK:"string",
+  RS:"String",
+  KS:"string"
+};
+const FL = {
+  id:"string",
+  name:"string",
+  type:"string",
+  NameInformal:"string",
+  lastName:"string",
+  midName:"string",
+  docType:"string",
+  Serial:"string",
+  number:"string",
+  whoGave:"string",
+  whenGave:"string",
+  codeGave:"string",
+  addressGave:"string",
+};
+const DicModel = {
+  ownerDic:{
+    YL:YL,
+    IP:IP,
+    FL:FL
+  },
+  agentDic:{
+    YL:YL,
+    IP:IP,
+    FL:FL
+  },
+  objDic:{
+    id: "string",
+    name:"string",
+    adress:"string",
+    contactsFIO:"string",
+    workRegime:"string"
+  }
+}
+
 
 
 //  CONTENT -----------------------------------------------------------
@@ -192,12 +256,39 @@ export const ShowDictionaryArticleData =
 // HidableDivWithFormSelector+DictMappedToHidableDiv
 export const DictionaryIO = 
 ({ state, dictionaryName, buttons, welcome }) => {
-  const dicData = state.objDic.data;
-  const isObjData = dicData.map(e => typeCheck(ObjModel,e)
-    ).filter(el => el.status === true).length > 0;
-  const typeCheckLog = dicData.map(e => typeCheck(ObjModel,e));
-  console.log("typeCheckLog: ", typeCheckLog);
-  console.log("isObjData: ", isObjData);
+  const dicData = state[dictionaryName].data;
+  console.log(`DICTIONARYNAME: ${dictionaryName}`);
+  const validModel = (dicName, modelsDic) => (dicData) => {
+    switch(dicName){
+      case "ownerDic":
+      case "agentDic":
+        console.log(`
+          1 dicName: ${dicName},
+          1 modelsDic: ${JSON.stringify(modelsDic)},
+          1 dicData: ${JSON.stringify(dicData)}
+        return dicData["type"];
+        `);
+        return dicData["type"];
+      case "objDic":
+      case "dogDic":
+        console.log(`
+          2 dicName: ${dicName},
+          2 modelsDic: ${JSON.stringify(modelsDic)},
+          2 dicData: ${JSON.stringify(dicData)}
+        `);
+        //return modelsDic[dicName];
+      default:
+        return "pardon, unknown typeCheck error";
+    } 
+  }; 
+  //const isObjData = dicData.map(e => typeCheck(ObjModel,e)
+  //  ).filter(el => el.status === true).length > 0;
+    //const isDicData = dicData.map(e => 
+    //  typeCheck(validModel(dictionaryName,DicModel)(e),e)
+    //  ).filter(el => el.status === true).length > 0;
+  //const typeCheckLog = dicData.map(e => typeCheck(ObjModel,e));
+  //console.log("typeCheckLog: ", typeCheckLog);
+  //console.log("isObjData: ", isObjData);
     return (
       <>
         {console.log("STATE IN DICTIONARY IO: ", state)}
@@ -209,7 +300,8 @@ export const DictionaryIO =
           />]}
         />
         <>
-          { !isObjData
+          { false//!isDicData
+            //!isValid
             ? <></>
             : <ShowDictionaryArticleData
                 dictionaryName={dictionaryName}

@@ -20,6 +20,8 @@ import theme from "./theme.js";
 import { createGlobalStyle } from "styled-components";
 import { BeautyList, NavBar } from "./components/BeautyList";
 import { Flex, Box, Text } from 'rebass';
+import * as actions from './actions/index';
+import { connect } from "react-redux";
 const GlobalStyles = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
   body{
@@ -86,4 +88,15 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (_state) => ({
+  state: _state
+});
+const mapDispatchToProps = (_dispatch) => ({
+  onGetOwner: (()=>_dispatch(actions.getOwner('owner')))(),
+  onGetAgent: (()=>_dispatch(actions.getAgent('agent')))(),
+  onGetObject: (()=>_dispatch(actions.getObject('object')))(),
+  onGetDogovor: (()=>_dispatch(actions.getDogovor('dogovor')))()
+}) 
+
+export default connect(mapStateToProps,mapStateToProps)(App);
+//export default App;

@@ -1,41 +1,41 @@
 const YL =
-    {
-        id:"",
-        name:"",
-        type:"YL",
-        compFullName: "-",
-        compShortName: "-",
-        INN: "-",
-        KPP:"-",
-        OGRN:"-",
-        OKPO:"-",
-        GosRegDate:"-",
-        YurAdress:"-",
-        FactAdress:"-",
-        GenDirector:"-",
-        Buhgalter:"-",
-        tel:"-",
-        bankName:"-",
-        BIK:"-",
-        RS:"-",
-        KS:"-"
-    }
+  {
+    id:"",
+    name:"",
+    type:"YL",
+    compFullName: "-",
+    compShortName: "-",
+    INN: "-",
+    KPP:"-",
+    OGRN:"-",
+    OKPO:"-",
+    GosRegDate:"-",
+    YurAdress:"-",
+    FactAdress:"-",
+    GenDirector:"-",
+    Buhgalter:"-",
+    tel:"-",
+    bankName:"-",
+    BIK:"-",
+    RS:"-",
+    KS:"-"
+  }
 const IP= 
-    {
-        id:"",
-        name:"",
-        type:"IP",
-        Name: "-",
-        FIO: "-",
-        INN: "-",
-        OGRNIP:"-",
-        OKPO:"-",
-        FactAdress:"-",
-        bankName:"-",
-        BIK:"-",
-        RS:"-",
-        KS:"-"
-    };
+  {
+    id:"",
+    name:"",
+    type:"IP",
+    Name: "-",
+    FIO: "-",
+    INN: "-",
+    OGRNIP:"-",
+    OKPO:"-",
+    FactAdress:"-",
+    bankName:"-",
+    BIK:"-",
+    RS:"-",
+    KS:"-"
+  };
 const FL = 
     {
         id:"",

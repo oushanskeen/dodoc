@@ -17,9 +17,9 @@ import {
     DELETE_OWNER_STARTED,
     DELETE_OWNER_SUCCESS,
     DELETE_OWNER_FAILED,
-    GET_DIC_STARTED,
-    GET_DIC_SUCCESS,
-    GET_DIC_FAILED
+    //GET_DIC_STARTED,
+    //GET_DIC_SUCCESS,
+    //GET_DIC_FAILED
 } from '../constants/actionTypes'
 import * as actionTypes from '../constants/actionTypes';
 import * as actions from '../actions/index';
@@ -92,19 +92,19 @@ const initialState = (window.Cypress && window.initialState) ||
   error:"",
 };
 
+const trimMongoReturn = (obj) => {
+  const trimmed = {...obj};
+  delete trimmed['_id'];
+  delete trimmed['__v'];
+  return trimmed;
+};
+
 //---------------------------------------------------------------------
 
 export default function(state = initialState,action){
   switch (action.type){
     case OWNERDIC_CREATE:
-      return {
-        ...state//,
-      //   data: [...state.data,{...action.payload}],
-      };
     case OWNERDIC_UPDATE:
-      return {...state};
-      //return state.data.map(e => 
-      //  e.id===action.payload.id ? action.payload : e);
     case OWNERDIC_DELETE:
       return {...state}
       //return state.data.filter(e => 
@@ -113,8 +113,8 @@ export default function(state = initialState,action){
     case POST_OWNER_STARTED:
     case PUT_OWNER_STARTED:
     case DELETE_OWNER_STARTED:
-      console.log("Something started in OWNERDIC");
-      console.log("state in owner: ", state);
+     // console.log("Something started in OWNERDIC");
+     // console.log("state in owner: ", state);
       return {
         data:[...state.data],
         ownerIsLoading: true
@@ -127,7 +127,7 @@ export default function(state = initialState,action){
       };
     case POST_OWNER_SUCCESS:
       return{
-        data: [...state.data, {...action.payload}],
+        data: [...state.data, {...trimMongoReturn(action.payload)}],
         ownerIsLoading: false,
         error: null,
     };
@@ -147,7 +147,7 @@ export default function(state = initialState,action){
       return {
         data: state.data.map(e => 
           e.name===action.payload.name 
-          ? action.payload : 
+          ? {...trimMongoReturn(action.payload)} : 
           e
         ),
         ownerIsLoading: false,
