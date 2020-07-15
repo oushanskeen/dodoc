@@ -7,6 +7,7 @@ import { store } from '../index';
 import * as owner from './owner';
 import * as agent from './agent';
 import * as object from './object';
+import * as dogovor from './dogovor';
 //  CONTENT -----------------------------------------------------------
 
 //  OWNER DIC
@@ -18,37 +19,37 @@ import * as object from './object';
 //  OBJECT DIC 
 //      objDicSelect :: "a" -> {type:"OBJDIC_SELECT", payload:"a"}
 //      objDicCreate :: "a" -> {type:"OBJDIC_CREATE", payload:"a"}
-//  DOGOVOR DIC
-//      dogDicSelect :: "a" -> {type:"DOGDIC_SELECT", payload:"a"};
-//      dogDicCreate :: "a" -> {type:"DOGDIC_CREATE", payload:"a"}
-//      dogDicUpdate :: "a" -> {type:"DOGDIC_UPDATE", payload:"a"}
-//      dogDicDelete :: "a" -> {type:"DOGDIC_DELETE", payload:"a"}
+//  DOGOVOROVOR DIC
+//      dogDicSelect :: "a" -> {type:"DOGOVORDIC_SELECT", payload:"a"};
+//      dogDicCreate :: "a" -> {type:"DOGOVORDIC_CREATE", payload:"a"}
+//      dogDicUpdate :: "a" -> {type:"DOGOVORDIC_UPDATE", payload:"a"}
+//      dogDicDelete :: "a" -> {type:"DOGOVORDIC_DELETE", payload:"a"}
 
 
-//  DOGOVOR DIC -----------------------------------------------------
-    // "a" -> {type:"DOGDIC_SELECT", payload:"a"};
+//  DOGOVOROVOR DIC -----------------------------------------------------
+    // "a" -> {type:"DOGOVORDIC_SELECT", payload:"a"};
     export const dogDicSelect = 
     _data => {
-        console.log({type:types.DOGDIC_SELECT,payload:_data});
-        return {type:types.DOGDIC_SELECT, payload: _data};
+        console.log({type:types.DOGOVORDIC_SELECT,payload:_data});
+        return {type:types.DOGOVORDIC_SELECT, payload: _data};
         };
-    // "a" -> {type:"DOGDIC_CREATE", payload:"a"}
+    // "a" -> {type:"DOGOVORDIC_CREATE", payload:"a"}
     export const dogDicCreate = 
     _data => {
-        console.log({type:types.DOGDIC_CREATE,payload:_data});
-        return {type:types.DOGDIC_CREATE, payload: _data};
+        console.log({type:types.DOGOVORDIC_CREATE,payload:_data});
+        return {type:types.DOGOVORDIC_CREATE, payload: _data};
         };
-    // "a" -> {type:"DOGDIC_UPDATE", payload:"a"}
+    // "a" -> {type:"DOGOVORDIC_UPDATE", payload:"a"}
     export const dogDicUpdate = 
     _data => {
-        console.log({type:types.DOGDIC_UPDATE,payload:_data});
-        return {type:types.DOGDIC_UPDATE, payload: _data};
+        console.log({type:types.DOGOVORDIC_UPDATE,payload:_data});
+        return {type:types.DOGOVORDIC_UPDATE, payload: _data};
         };
-    // "a" -> {type:"DOGDIC_DELETE", payload:"a"}
+    // "a" -> {type:"DOGOVORDIC_DELETE", payload:"a"}
     export const dogDicDelete = 
     _data => {
-        console.log({type:types.DOGDIC_DELETE,payload:_data});
-        return {type:types.DOGDIC_DELETE, payload: _data};
+        console.log({type:types.DOGOVORDIC_DELETE,payload:_data});
+        return {type:types.DOGOVORDIC_DELETE, payload: _data};
         };
 
 export const getOwner = owner.getOwner;
@@ -75,8 +76,15 @@ export const objectDicCreate = object.objectDicCreate;
 export const objectDicUpdate = object.objectDicUpdate;
 export const objectDicDelete = object.objectDicDelete;
 
+export const getDogovor = dogovor.getDogovor;
+export const postDogovor = dogovor.postDogovor;
+export const putDogovor = dogovor.putDogovor;
+export const deleteDogovor = dogovor.deleteDogovor;
+export const dogovorDicCreate = dogovor.dogovorDicCreate;
+export const dogovorDicUpdate = dogovor.dogovorDicUpdate;
+export const dogovorDicDelete = dogovor.dogovorDicDelete;
 // MISC- HAVE NO IDEA WHAT FOR ----------------------------------------
-    // "a" -> {type:"DOGDIC_SELECT", payload:"a"}
+    // "a" -> {type:"DOGOVORDIC_SELECT", payload:"a"}
     export const dogovorData = _data => {
         console.log({type:types.DOGOVOR_DATA, payload: _data});
         return {type:types.DOGOVOR_DATA, payload: _data}

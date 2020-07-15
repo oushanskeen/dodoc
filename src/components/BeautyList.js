@@ -89,7 +89,9 @@ export const NewDic = ({data}) => (
     alignItems='center'
     color='seven'
   >
+  {console.log("NEWDIC COMPONENT: STARTED")}
     {data[0]}{data[1]}
+  {console.log("NEWDIC COMPONENT: SUCCESS")}
   </Flex>
 );
 

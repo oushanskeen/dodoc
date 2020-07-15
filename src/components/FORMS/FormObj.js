@@ -8,17 +8,25 @@ import { connect } from "react-redux";
 
 const FormObj = ({ onObjDicCreate, onObjDicUpdate, objectId, state }) => {
   const importData = {
-    objectData: state.objDic.filter(e => e.id === objectId)[0],
-    objectName: state.objDic.map(object => object.name),
-    initStateForNewObject: state.home.initStateForNewObject
+    objectData: () => {
+      return state.objDic.data.filter(e => e.id === objectId)[0]
+     // console.log("STATE OBJDIC IN OBJDIC FORM: ", state.objDic);
+     // console.log("STATE OBJDIC FILTERD: ", 
+     //   state.objDic.data.filter(e => e.id === objectId)[0]
+     // );
+     // console.log("OBJECT ID: ", objectId);
+    },
+    objectName: () => state.objDic.map(object => object.name),
+    initStateForNewObject: () => state.home.initStateForNewObject
   };
-  console.log("objDog importData: ", importData);
-
+ // console.log("objDog importData: ", importData.objectData());
+ // console.log("Object id: ", objectId);
   const [formData, setFormData] = useState({
     ...(objectId === undefined
-      ? { ...importData.initStateForNewObject }
-      : importData.objectData)
-  });
+      ? { ...importData.initStateForNewObject() }
+      : importData.objectData())
+  }
+  );
   const updateFormData = event => {
     setFormData({
       ...formData,
@@ -29,10 +37,24 @@ const FormObj = ({ onObjDicCreate, onObjDicUpdate, objectId, state }) => {
   //  Calculated Data
 
   const Id = () => {
-    console.log("formData in formDog: ", formData.id);
-    return typeof formData.id === "number"
-      ? formData.id
-      : state.objDic[state.objDic.length - 1].id + 1;
+    console.log("formData.id in formDog: ", formData.id);
+    console.log("dics informDog: ", 
+      state.objDic
+    );
+    console.log("last dic in formDog: ", 
+      state.objDic.data[state.objDic.data.length-1].id
+    );
+    //return typeof formData.id === "string"
+    //  ? formData.id
+    //  : state.objDic[state.objDic.length - 1].id + 1;
+    if (formData.id === '-'){
+    //  return 0;
+    //}else{
+    //  console.log("CURRENT OBJECT ID: ", state.objDic);
+      return +state.objDic.data[state.objDic.data.length - 1].id + 1
+    }else{
+      return 0;
+    }
   };
 
   // --------------------------------------------------------------------

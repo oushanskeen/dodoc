@@ -11,18 +11,24 @@ import { Box, Flex } from 'rebass';
 //const assert = require('../../../src/utils/assert');
 
 export const DogovorFoot = ({ state, id }) => {
-  const dogovorData = state.dogDic.filter(e => e.id === id);
+  const dogovorData = state.dogDic.data.filter(e => e.id === id);
+  console.log(`DOGOVORDATA: ${JSON.stringify(dogovorData)}`);
   const ownerId = dogovorData[0].ownerId;
+  console.log(`OWNERID: ${ownerId}`)
   const agentId = dogovorData[0].agentId;
-  const ownerData = state.ownerDic.filter(e => e.id === ownerId)[0];
-  const agentData = state.agentDic.filter(e => e.id === agentId)[0];
+  console.log(`AGENTID: ${agentId}`);
+  const ownerData = state.ownerDic.data
+    .filter(e => +e.id === +ownerId)[0];
+  console.log(`OWNERDATA: ${JSON.stringify(state.ownerDic.data)}`);
+  const agentData = state.agentDic.data
+    .filter(e => e.id === agentId)[0];
   const dogType= dogovorData[0].dogovorType;
   const dogTypeMap = {
     'Договор проектирования': ['Заказчик', 'Исполнитель'],
     'Договор поставки': ['Покупатель','Поставщик']
   };
   const extractData = (actorData, dogType) => {
-    console.log('dogovorTypea:', dogType);
+    console.log('dogovorType:', dogType);
     console.log("actorData: ", actorData);
     switch (actorData.type) {
       case "YL":

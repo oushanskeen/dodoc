@@ -10,7 +10,7 @@
     ( _store, _dogovorId) => {
         const dicData = 
         (store,dic,ID) =>
-            store[dic].filter(e => e.id==ID)[0];
+            store[dic].data.filter(e => e.id==ID)[0];
             const dogovorData = 
             	dicData(_store,"dogDic",_dogovorId);
             const ownerData = 

@@ -12,8 +12,13 @@ const makeDogovorHeadIO = require("../NOTEBOOK/Doghead/makeDogovorHeadIO");
 const Dogovor = ({ state, id }) => {
   let { dogovor } = useParams();
   let [editable, setEditable] = useState(false);
-  const currentDog = state.dogDic.filter(e => e.id === id)[0];
-  const currentObject = state.objDic.filter(
+  const currentDog = state.dogDic.data.filter(e => +e.id === +id)[0];
+  console.log(
+    `input id: ${id}`,
+    `CURRENTDOC: ${currentDog}`,
+    `state.dogDic: ${JSON.stringify(state.dogDic.data)}`
+  );
+  const currentObject = state.objDic.data.filter(
     e => e.id === currentDog.objId)[0];
   const currentSrokDeistviya = () => {
     return currentDog.srokDeistviya.split(' / ');

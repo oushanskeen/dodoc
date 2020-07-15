@@ -19,7 +19,8 @@ import {
 } from "../constants/actionTypes";
 
 const initialState = (window.Cypress && window.initialState) || 
-  {data:[
+  {data:[],
+    /*
     {
       id: 0,
       name: "OBJECT ID:0 OBJECT_NAME",
@@ -30,6 +31,7 @@ const initialState = (window.Cypress && window.initialState) ||
       workRegime: "OBJECT ID:0 OBJECT_NAME SCHEDULE"
     }
     ],
+  */
   /*
   },
   {
@@ -55,6 +57,12 @@ const initialState = (window.Cypress && window.initialState) ||
   error: ""
 };
 
+const trimMongoReturn = (obj) => {
+  const trimmed = {...obj};
+  delete trimmed['_id'];
+  delete trimmed['__v'];
+  return trimmed;
+};
 export default function(state = initialState, action) {
   switch (action.type) {
     case OBJDIC_CREATE:
@@ -67,8 +75,7 @@ export default function(state = initialState, action) {
     case DELETE_OBJECT_STARTED:
       console.log("state in object reducer: ", state);
       return {
-        ...state,
-        data: [action.payload],
+        data: [...state.data],
         objectIsLoading: true
       };
     case GET_OBJECT_SUCCESS:
@@ -77,7 +84,35 @@ export default function(state = initialState, action) {
         objectIsLoading: false,
         error: null
       };
+    case POST_OBJECT_SUCCESS:
+      console.log("POST_OBJECT_SUCCESS in reducer",
+      "state.data: ", state.data,
+      "action.payload: ", action.payload);
+      return {
+        data: [...state.data,{...trimMongoReturn(action.payload)}],
+        objectIsLoading: false,
+        error: null
+      };
+    case PUT_OBJECT_SUCCESS:
+      return {
+        data: state.data.map(e =>
+          e.name === action.payload.name
+          ? {...trimMongoReturn(action.payload)}
+          : e
+        )
+      };
+    case DELETE_OBJECT_SUCCESS:
+      console.log("message after DELETE_OBJECT_SUCCESS: ",
+        action.payload.message
+      );
+      return {...state,
+        data: state.data.filter(e => 
+          e.id !== action.payload.message)
+        }; 
     case GET_OBJECT_FAILED:
+    case POST_OBJECT_FAILED:
+    case PUT_OBJECT_FAILED:
+    case DELETE_OBJECT_FAILED:
       return {
         data: [...state.data],
         objectIsLoading: false,

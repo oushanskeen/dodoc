@@ -7,6 +7,18 @@ import { Button, Flex, Modal } from "rebass";
 import { Select } from '@rebass/forms';
 import { DicBar, NewDic} from "../BeautyList";
 
+import typeCheck from '../../utils/typeCheck';
+
+const ObjModel = {
+  //id:"number",
+  id: "string",
+  name:"string",
+  adress:"string",
+  contactsFIO:"string",
+  workRegime:"string"
+};
+
+
 //  CONTENT -----------------------------------------------------------
 
 //  0.0 PopUpWindow ::  PopUpModal -> content -> PopUpWindow
@@ -66,7 +78,9 @@ const DetailsButton = ({ owner }) => (
         {record[0]} : {record[1]}
       </div>
     ))}
-  />
+  >
+  {console.log("DETAILS BUttoN IS RREADY WITH DATA: ", owner)}
+  </PopUpWindow>
 );
 //  0.3
 // EditButton ::
@@ -142,8 +156,8 @@ const ShowPrintReadyDogovor = ({ state, id }) => {
 const buttonSet = (state, owner, dictionaryName) => ({
   details: <DetailsButton owner={owner} />,
   edit: <EditButton owner={owner} dictionaryName={dictionaryName} />,
-  delete: <DeleteButton id={'zero' || owner.id} dictionaryName={dictionaryName} />,
-  show: <ShowPrintReadyDogovor state={state} id={'zero' || owner.id} />
+  delete: <DeleteButton id={owner.id} dictionaryName={dictionaryName} />,
+  show: <ShowPrintReadyDogovor state={state} id={owner.id} />
 });
 //  1
 // ShowDictionaryArticleData ::
@@ -151,35 +165,59 @@ const buttonSet = (state, owner, dictionaryName) => ({
 // : ["read","update"] -> <DetailsButton/><EditButton/>
 // : ["delete"] -> <DeleteButton/>
 export const ShowDictionaryArticleData = 
-({ state, dictionaryName, buttons }) => {
-  if (state[dictionaryName].data === undefined){return  <></>}
- console.log("STATE SOMEWHERE IN ELEMENTS.JS: ", state);
- console.log("DICTIONARY NAME FROM INPUT: ", dictionaryName);
- return (
-  state[dictionaryName].data.map(owner => (
-      <DicBar
-        barName={'random name' || owner.name}
-        buttonsBar={buttons.map(e => buttonSet(state, owner, dictionaryName)[e])}
-      />
-  )))};
+  ({ state, dictionaryName, buttons }) => {
+    {console.log("ShowDictionaryArticleData",
+    "state: ", state, "dictionaryName", dictionaryName,
+      "buttons", buttons)}
+    if (state[dictionaryName].data === undefined){
+      return  <></>
+    }else{
+    return ( 
+      state[dictionaryName].data
+        .map(owner => 
+          <DicBar
+            barName={owner.name}
+            buttonsBar={buttons.map(e => 
+                buttonSet(state, owner, dictionaryName)[e]
+            )}
+          />
+        )
+    )
+  }
+};
+
+
 
 // DicitonaryIO :: state -> dicName ->
 // HidableDivWithFormSelector+DictMappedToHidableDiv
 export const DictionaryIO = 
-({ state, dictionaryName, buttons, welcome }) => (
-  <div>
-    <NewDic
-      data={[welcome,
-      <CreateDictionaryArticle
-        dictionaryName={dictionaryName}
-        selectForm={selectForm}
-      />]
-      }
-    />
-    <ShowDictionaryArticleData
-      dictionaryName={dictionaryName}
-      state={state}
-      buttons={buttons}
-    />
-  </div>
-);
+({ state, dictionaryName, buttons, welcome }) => {
+  const dicData = state.objDic.data;
+  const isObjData = dicData.map(e => typeCheck(ObjModel,e)
+    ).filter(el => el.status === true).length > 0;
+  const typeCheckLog = dicData.map(e => typeCheck(ObjModel,e));
+  console.log("typeCheckLog: ", typeCheckLog);
+  console.log("isObjData: ", isObjData);
+    return (
+      <>
+        {console.log("STATE IN DICTIONARY IO: ", state)}
+        <NewDic
+          data={[welcome,
+          <CreateDictionaryArticle
+            dictionaryName={dictionaryName}
+            selectForm={selectForm}
+          />]}
+        />
+        <>
+          { !isObjData
+            ? <></>
+            : <ShowDictionaryArticleData
+                dictionaryName={dictionaryName}
+                state={state}
+                buttons={buttons}
+              />
+          }
+        </>
+      </>
+  )
+};

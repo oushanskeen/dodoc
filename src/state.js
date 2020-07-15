@@ -55,18 +55,18 @@ const FL =
     };
 const formDefaultData = "formDefaultData";
 let initStateForNewDogovor= {
-      id: "",
-      name: "",
-      date: "",
-      objName: "",
-      objId: "",
-      agentName: "",
-      agentId: "",
-      ownerName:"",
-      ownerId: "",
-      dogovorType: "",
-      systems:"",
-      price:"",
+      id: "-",
+      name: "-",
+      date: "-",
+      objName: "-",
+      objId: "-",
+      agentName: "-",
+      agentId: "-",
+      ownerName:"-",
+      ownerId: "-",
+      dogovorType: "-",
+      systems:"-",
+      price:"-",
 }; 
 let initStateForNewActor = actorType => {
     switch (actorType){

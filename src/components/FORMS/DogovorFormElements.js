@@ -18,7 +18,7 @@ export const ObjectSelect = ({ importData, formData, updateFormData }) => (
     >
       <br />
       <option>------------</option>
-      {importData.objects.map(e => (
+      {importData.objects().map(e => (
         <option value={e}>{e}</option>
       ))}
     </Select>
@@ -37,7 +37,7 @@ export const AgentSelect = ({ importData, formData, updateFormData }) => (
       required
     >
       <option>------------</option>
-      {importData.agents.map(e => (
+      {importData.agents().map(e => (
         <option value={e}>{e}</option>
       ))}
     </Select>
@@ -59,7 +59,7 @@ export const OwnerSelect = ({ importData, formData, updateFormData }) => (
       maxlength="10"
     >
       <option>------------</option>
-      {importData.owners.map(e => (
+      {importData.owners().map(e => (
         <option value={e}>{e}</option>
       ))}
     </Select>
@@ -82,7 +82,7 @@ export const DogovorTypeSelect = ({ importData, formData, updateFormData }) => (
     >
       <br />
       <option>------------</option>
-      {importData.dogovorTypes.map(e => (
+      {importData.dogovorTypes().map(e => (
         <option value={e}>{e}</option>
       ))}
     </Select>
@@ -110,7 +110,7 @@ export const SystemsSelect = ({ importData, formData, updateFormData }) => {
     <label>
       {" "}
       systems :
-      {importData.systemsDataVector.map((e, i) => (
+      {importData.systemsDataVector().map((e, i) => (
         <div>
           <input
             checked={formData.systems.split(",").includes(e) ? "yes" : ""}

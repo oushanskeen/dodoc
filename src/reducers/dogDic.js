@@ -1,13 +1,26 @@
 //import {state} from '../state.js';
 import {
-  DOGDIC_SELECT,
-  DOGDIC_CREATE,
-  DOGDIC_UPDATE,
-  DOGDIC_DELETE
+  DOGOVORDIC_CREATE,
+  DOGOVORDIC_UPDATE,
+  DOGOVORDIC_DELETE,
+  GET_DOGOVOR_STARTED,
+  GET_DOGOVOR_SUCCESS, 
+  GET_DOGOVOR_FAILED,
+  POST_DOGOVOR_STARTED,
+  POST_DOGOVOR_SUCCESS,
+  POST_DOGOVOR_FAILED,
+  DELETE_DOGOVOR_STARTED,
+  PUT_DOGOVOR_STARTED,
+  PUT_DOGOVOR_FAILED,
+  DELETE_DOGOVOR_FAILED,
+  PUT_DOGOVOR_SUCCESS,
+  DELETE_DOGOVOR_SUCCESS,
 } from "../constants/actionTypes";
 
-const initialState = (window.Cypress && window.initialState) || [
+const initialState = (window.Cypress && window.initialState) || 
   {
+    data:[],
+    /*
     id: 0,
     name: "Договор проектирования №2019А04 от 15-апреля-2019",
     date: "15-апреля-2019",
@@ -52,18 +65,70 @@ const initialState = (window.Cypress && window.initialState) || [
     price: "400 (четыреста рублей)",
     srokDeistviya: '4-января-2020 / 4-апреля-2020'
   }
-];
+  */
+  dogovorIsLoading: false,
+  error: ""
+};
+
+const trimMongoReturn = (obj) => {
+  const trimmed = {...obj};
+  delete trimmed['_id'];
+  delete trimmed['__v'];
+  return trimmed;
+}
 
 //--------------------------------------------------------------------
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case DOGDIC_CREATE:
-      return [...state, { ...action.payload }];
-    case DOGDIC_UPDATE:
-      return state.map(e => (e.id === action.payload.id ? action.payload : e));
-    case DOGDIC_DELETE:
-      return state.filter(e => e.id != action.payload);
+    case DOGOVORDIC_CREATE:
+    case DOGOVORDIC_UPDATE:
+    case DOGOVORDIC_DELETE:
+      return {...state};
+    case GET_DOGOVOR_STARTED:
+    case POST_DOGOVOR_STARTED:
+    case PUT_DOGOVOR_STARTED:
+    case DELETE_DOGOVOR_STARTED:
+      return {
+        data: [...state.data],
+        dogovorIsLoading:true,
+        error: ""
+      };
+    case GET_DOGOVOR_SUCCESS:
+      return {
+        data: [...action.payload],
+        dogovorIsLoading: false,
+        error: null
+      };
+    case POST_DOGOVOR_SUCCESS:
+      return {
+        data: [...state.data, {...trimMongoReturn(action.payload)}],
+        dogovorIsLoading: false,
+        error: null
+      };
+    case PUT_DOGOVOR_SUCCESS:
+      return{
+        ...state,
+        data: state.data.map(e =>
+          e.name === action.payload.name
+          ? {...trimMongoReturn(action.payload)}
+          : e) 
+      };
+    case DELETE_DOGOVOR_SUCCESS:
+      return {
+        ...state, 
+        data: state.data.filter(e =>
+          e.id !== action.payload.message)
+      };
+    case GET_DOGOVOR_FAILED:
+    case POST_DOGOVOR_FAILED:
+    case PUT_DOGOVOR_FAILED:
+    case DELETE_DOGOVOR_FAILED:
+      return {
+        data: [...state.data],
+        dogovorIsLoading: false,
+        error: [action.payload.error, action.payload]
+      };
     default:
       return state;
   }

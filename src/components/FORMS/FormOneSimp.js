@@ -86,7 +86,11 @@ const FormOneSimp = ({
         typeof formData.id === "number"
     );
     //console.log()
-    return Date.now(); 
+    const out = formData === undefined 
+      ? formData.id === "-" 
+      : Date.now();
+    console.log("out in owners or agents: ", out);
+    return out; 
       //typeof formData.id === "number"
       //? formData.id
       //: state[formName].data.length == 0
