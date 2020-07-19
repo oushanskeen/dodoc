@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import * as actions from "../../actions";
 import { Button } from "rebass";
-import { makeNewDogovorName } from '../../utils/nameGen';
 import {
   ObjectSelect,
   AgentSelect,
@@ -13,7 +12,10 @@ import {
   SubmitButton
 } from "./DogovorFormElements";
 import { connect } from "react-redux";
+import {createReturn} from "typescript";
 const manageId = require('../../utils/manageId');
+const makeNewDogovorName = 
+  require('../../utils/nameGen').makeNewDogovorName;
 
 const FormDog = ({
   state,
@@ -84,20 +86,19 @@ const FormDog = ({
   };
   const Name = () => {
     console.log('formData name in name generator: ', formData.name);
-    const out =  formData === undefined 
-      ? "undefined"    
-      : "defined";
-    console.log("formData out : ", out);
+    console.log("NAME GEN EMMITTED!");
+    const outTwo = makeNewDogovorName(
+      formData.dogovorType,
+      state.dogDic.data.map( e => e.name)
+    );
+    const out = formData.name === "-"//undefined 
+      ? makeNewDogovorName(
+          formData.dogovorType,
+          state.dogDic.data.map(e => e.name)
+        )
+      : formData.name;
     return out;
-//      || formData.name === "-"
-     // ? "NAME"
-    //
-     // ? makeNewDogovorName(
-     //   state.dogDic.data.filter(e => e.dogovorType === formData.dogovorType).pop().name
-     // )
-     // : state.dogDic.data.filter(e => e.name === formData.name)[0].name;
   };
-  //console.log("ID count: ", Id());
   const ObjectId = () => {
     const out = 
     state.objDic.data.filter(e => e.name === formData.objName)[0].id;
@@ -132,7 +133,9 @@ const FormDog = ({
           ownerId: OwnerId(),
           srokDeistviya: srokDeistviya()
         })
-      : onDogovorDicUpdate(formData);
+      : onDogovorDicUpdate(
+          {...formData, name: Name()}
+        );
   };
   // FORM ELEMENTS -------------------------------------------------
   return (
