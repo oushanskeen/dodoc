@@ -42,19 +42,25 @@ const printMe = async() => {
 */
 const printMe = (_component) => {
   let doc = new jsPDF();
-  //doc.text('Hello World!', 10,10);
-  //doc.fromHTML(
- // doc.html(
-  html2pdf(
-    ReactDOMServer.renderToStaticMarkup(_component),
-    printOpts
-   // {
-   //   callback: (doc) => 
-      //doc.save('hello.pdf')
-   //   doc.save('simpleComponent.pdf')
-   // }
-  );
+  html2pdf()
+    .from(ReactDOMServer.renderToStaticMarkup(_component))
+//    printOpts
+    .outputPdf().
+    then(pdf =>{
+      
+    })
+  //);
 };
+const SaveToGoogleDrive = () => (
+  <div>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+<div class="g-savetodrive"
+   data-src="//example.com/path/to/myfile.pdf"
+   data-filename="My Statement.pdf"
+   data-sitename="My Company Name">
+</div>
+  </div>
+);
 const Dogovor = ({ state, id }) => {
   let { dogovor } = useParams();
   let [editable, setEditable] = useState(false);
@@ -151,6 +157,7 @@ const Dogovor = ({ state, id }) => {
       <Button
         onClick={() => printMe(<Out/>)}
       >P R I N T M E</Button>
+      <SaveToGoogleDrive/>
     </>
   )
 };
