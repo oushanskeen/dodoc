@@ -7,7 +7,7 @@
         );
     };
 
-    const typeCheck = (objectModel, objectData) => {
+    export const typeCheck = (objectModel, objectData) => {
       const objOneKeys = () => Object.keys(objectModel).sort();
       const objTwoKeys = () => Object.keys(objectData).sort();
       const objLength = () => 
@@ -116,4 +116,4 @@
     // );
 
     //export {assert};
-    module.exports = typeCheck;
+   // module.exports = typeCheck;

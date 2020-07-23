@@ -7,7 +7,7 @@ import { Button, Flex, Modal } from "rebass";
 import { Select } from '@rebass/forms';
 import { DicBar, NewDic} from "../BeautyList";
 
-import typeCheck from '../../utils/typeCheck';
+import {typeCheck} from '../../utils/typeCheck';
 import objDic from "../../reducers/objDic";
 
 const YL = {
