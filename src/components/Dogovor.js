@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { Box, Flex, Button } from 'rebass';
 import * as jsPDF from 'jspdf';
 import html2pdf from 'html2pdf.js';
+import axios from 'axios';
 import {
   naked
 } from "../css/style.js";
@@ -12,6 +13,8 @@ import { DogovorFoot } from "./DogovorFoot";
 import { MontajBody } from './MONTAJ/MontajBody';
 //const puppeteer = require('puppeteer');
 const makeDogovorHeadIO = require("../NOTEBOOK/Doghead/makeDogovorHeadIO");
+const doMainmail =  require("../utils/nodemailerSample");
+const pdf2base64= require('pdf-to-base64');
 const printOpts = {
   margin: 8,
   fileName: "fileName.pdf",
@@ -23,32 +26,37 @@ const printOpts = {
   ]},
 
 };
-/*
-const printMe = async() => {
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-  await page.setViewport({width:1440,height:900,deviceScaleFactor:2});
-  await page.goto(
-    "http://localhost:3000/dodoc/dogdic",
-    {waitUntil: "networkidle2"}
+const handleSend = async(data) => {
+  console.log("PDF STRINGIFIED DATA READY TO BE HANDLED",
+    {data:data}
   );
-  await page.pdf({
-    path:"sampleDodocPDF.pdf",
-    format:"A4",
-    printBackground:true
-  });
-  await browser.close();
+  await axios.post('http://localhost:4001/send',{data:data})
+  .then(res => console.log('IN AXIOS RESPONSE: ', res))
+  .catch(err => console.log('IN AXIOS ERR: ', err))
 };
-*/
 const printMe = (_component) => {
   let doc = new jsPDF();
+  const makePdf = async(pdf) => await pdf2base64(pdf);
+  //const markUp = ReactDOMServer.renderToStaticMarkup(_component);
+  //console.log("REACTDMSERVER: ", markUp);
+  //handleSend(markUp);
+  //return markUp;
   html2pdf()
     .from(ReactDOMServer.renderToStaticMarkup(_component))
 //    printOpts
-    .outputPdf().
-    then(pdf =>{
-      
-    })
+    .outputPdf()
+    //.toPdf()
+    //.output('datauristring')
+    
+    .then(pdf => {
+     // handleSend(makePdf());
+     // console.log("HERE WILL BE BASE64 STRING");
+      //console.log(makePdf(pdf))
+      //console.log(btoa(pdf));
+      handleSend(btoa(pdf));
+      //handleSend("aGVsbG8gd29ybGQ=");
+    });
+    //.then(pdf => )
   //);
 };
 const SaveToGoogleDrive = () => (
@@ -157,6 +165,9 @@ const Dogovor = ({ state, id }) => {
       <Button
         onClick={() => printMe(<Out/>)}
       >P R I N T M E</Button>
+      <Button 
+        onClick={()=>printMe(<Out/>)}
+      >SEND ME HELLO</Button>
       <SaveToGoogleDrive/>
     </>
   )

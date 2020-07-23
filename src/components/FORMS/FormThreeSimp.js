@@ -15,6 +15,9 @@ const FormThreeSimp = ({
   onAgentDicCreate,
   onAgentDicUpdate
 }) => {
+  console.log(`! formName in FormThreeSimp: ${formName}`);
+  console.log(`! state in FormThreeSimp: ${JSON.stringify(state)}`);
+
   const actorId = formName => {
     switch (formName) {
       case "ownerDic":
@@ -25,13 +28,21 @@ const FormThreeSimp = ({
         return "no actor id";
     }
   };
+  console.log(
+    "! actorId: ",
+    actorId(formName)
+  );
   const importData = (formName, actorId) => ({
-    actorData: state[formName].filter(e => e.id === actorId)[0],
-    actorName: state[formName].map(actor => actor.name),
+    actorData: state[formName].data.filter(e => e.id === actorId)[0],
+    actorName: state[formName].data.map(actor => actor.name),
     initStateForNewActor: state.home.initStateForNewActor("FL")
   });
-  const currentImportData = () => importData(formName, actorId(formName));
-  console.log("objDog importData: ", currentImportData);
+  const currentImportData = () => 
+    importData(formName, actorId(formName));
+  console.log('objDog importData');
+  console.log(
+    currentImportData(JSON.stringify(currentImportData()))
+  );
   const [formData, setFormData] = useState({
     ...(actorId(formName) === undefined
       ? { ...currentImportData().initStateForNewActor }
@@ -42,6 +53,8 @@ const FormThreeSimp = ({
       ...formData,
       [event.target.name]: event.target.value
     });
+    console.log("formData onUpdate:");
+    console.log(formData);
   };
 
   const handleSubmit = e => {
@@ -65,17 +78,21 @@ const FormThreeSimp = ({
   };
 
   const Id = () => {
-    console.log("formData in formDog: ", formData.id);
-    return typeof formData.id === "number"
-      ? formData.id
-      : state[formName][state[formName].length - 1].id + 1;
+    //console.log("formData in formDog: ", formData.id);
+    //return typeof formData.id === "number"
+    //  ? formData.id
+    //  : state[formName][state[formName].length - 1].id + 1;
+    const out = formData === undefined
+      ? formData.id === "-"
+      : Date.now();
+    return out;
   };
   const Name = () => {
     // console.log("state[formName]:", state[formName]);
-    console.log("fprmData: ", formData);
-    return formData.name === ""
+    console.log("formData: ", formData);
+    return formData.name === "-"
       ? formData.NameInformal
-      : state[formName].filter(e => e.name === formData.name)[0].name;
+      : state[formName].data.filter(e => e.name === formData.name)[0].name;
   };
 
   return (

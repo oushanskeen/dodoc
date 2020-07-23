@@ -27,8 +27,8 @@ const FormTwoSimp = ({
   };
 
   const importData = (formName, actorId) => ({
-    actorData: state[formName].filter(e => e.id === actorId)[0],
-    actorName: state[formName].map(actor => actor.name),
+    actorData: state[formName].data.filter(e => e.id === actorId)[0],
+    actorName: state[formName].data.map(actor => actor.name),
     initStateForNewActor: state.home.initStateForNewActor("IP")
   });
   const currentImportData = () => importData(formName, actorId(formName));
@@ -54,7 +54,7 @@ const FormTwoSimp = ({
       if (ownerId === undefined) {
         onOwnerDicCreate({...formData, id: Id(), name: Name()});
       } else {
-        onOwnerDicUpdate(formData);
+        onOwnerDicUpdate({...formData, name: Name()});
       }
     } else {
       if (formName === "agentDic") {
@@ -68,16 +68,20 @@ const FormTwoSimp = ({
   };
   const Id = () => {
     console.log("formData in formDog: ", formData.id);
-    return typeof formData.id === "number"
-      ? formData.id
-      : state[formName][state[formName].length - 1].id + 1;
+    //return typeof formData.id === "number"
+    //  ? formData.id
+    //  : state[formName][state[formName].length - 1].id + 1;
+    const out = formData === undefined
+      ? formData.id === "-"
+      : Date.now();
+    return out;
   };
   const Name = () => {
     // console.log("state[formName]:", state[formName]);
-    console.log("fprmData: ", formData);
-    return formData.name === ""
-      ? formData.Name
-      : state[formName].filter(e => e.name === formData.name)[0].name;
+    console.log("formData: ", formData);
+    return formData.name === "-"
+      ? formData.ShortName
+      : state[formName].data.filter(e => e.name === formData.name)[0].name;
   };
 
   //console.log("store in formTwo : ", store)

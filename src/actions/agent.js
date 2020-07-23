@@ -25,9 +25,10 @@ export const getAgent = (data) => {
     console.log("GET AGENT ACTION INITIATED");
     dispatch(getAgentStarted());
     axios
-      .get(`http://localhost:4001/agents`)
-      .then(res => dispatch(getAgentSuccess(res.data)))
-      .catch(err =>dispatch(getAgentFailed(err.message)))
+    .get(`http://142.93.173.95:4001/agents`)
+    //.get(`http://localhost:4001/agents`)
+    .then(res => dispatch(getAgentSuccess(res.data)))
+    .catch(err =>dispatch(getAgentFailed(err.message)))
   }
   };
 // POST OWNER --------------------------------------------------------
@@ -47,8 +48,8 @@ export const postAgent = (data) => {
   return (dispatch) => {
     console.log("POST AGENT ACTION INITIATED");
     dispatch(postAgentStarted(data));
-    //axios.post('http://142.93.173.95:4001/owners',{...data})
-    axios.post(`http://localhost:4001/agents`,{...data})
+    axios.post('http://142.93.173.95:4001/agents',{...data})
+    //axios.post(`http://localhost:4001/agents`,{...data})
       .then(res => dispatch(postAgentSuccess(res.data)))
       .catch(err =>dispatch(postAgentFailed(err.message)))
   }
@@ -70,8 +71,8 @@ export const putAgent = (data) => {
   return (dispatch) => {
     console.log("PUT AGENT ACTION INITIATED");
     dispatch(putAgentStarted(data));
-    //axios.post('http://142.93.173.95:4001/owners',{...data})
-    axios.put(`http://localhost:4001/agents`,{...data})
+    axios.put('http://142.93.173.95:4001/agents',{...data})
+    //axios.put(`http://localhost:4001/agents`,{...data})
       .then(res => dispatch(putAgentSuccess(res.data)))
       .catch(err => dispatch(putAgentFailed(err.message)))
     }
@@ -95,10 +96,10 @@ export const deleteAgent = (data) => {
       console.log("DELETE AGENT ACTION INITIATED");
       console.log("data in delete: ", data);
       dispatch(deleteAgentStarted(data));
-      //axios.post('http://142.93.173.95:4001/owners',{...data})
-      axios.delete(`http://localhost:4001/agents`,{data:{id:data}}
+      axios
+      .delete('http://142.93.173.95:4001/agents',{data:{id:data}})
+      //axios.delete(`http://localhost:4001/agents`,{data:{id:data}}
       // {data:{id: 1000}}
-    )
       .then(res => dispatch(deleteAgentSuccess(res.data)))
       .catch(err =>dispatch(deleteAgentFailed(err.message)))
     }

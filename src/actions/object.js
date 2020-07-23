@@ -25,9 +25,10 @@ export const getObject = (data) => {
     console.log("GET OBJECT ACTION INITIATED");
     dispatch(getObjectStarted());
     axios
-      .get(`http://localhost:4001/objects`)
-      .then(res => dispatch(getObjectSuccess(res.data)))
-      .catch(err =>dispatch(getObjectFailed(err.message)))
+    .get('http://142.93.173.95:4001/objects')
+    //.get(`http://localhost:4001/objects`)
+    .then(res => dispatch(getObjectSuccess(res.data)))
+    .catch(err =>dispatch(getObjectFailed(err.message)))
   }
   };
 // POST OWNER --------------------------------------------------------
@@ -47,10 +48,10 @@ export const postObject = (data) => {
   return (dispatch) => {
     console.log("POST OBJECT ACTION INITIATED");
     dispatch(postObjectStarted(data));
-    //axios.post('http://142.93.173.95:4001/owners',{...data})
-    axios.post(`http://localhost:4001/objects`,{...data})
-      .then(res => dispatch(postObjectSuccess(res.data)))
-      .catch(err =>dispatch(postObjectFailed(err.message)))
+    axios.post('http://142.93.173.95:4001/objects',{...data})
+    //axios.post(`http://localhost:4001/objects`,{...data})
+    .then(res => dispatch(postObjectSuccess(res.data)))
+    .catch(err =>dispatch(postObjectFailed(err.message)))
   }
 }
 // PUT OWNER ---------------------------------------------------------
@@ -70,8 +71,9 @@ export const putObject = (data) => {
   return (dispatch) => {
     console.log("PUT OBJECT ACTION INITIATED");
     dispatch(putObjectStarted(data));
-    //axios.post('http://142.93.173.95:4001/owners',{...data})
-    axios.put(`http://localhost:4001/objects`,{...data})
+    axios
+    .put('http://142.93.173.95:4001/objects',{...data})
+    //axios.put(`http://localhost:4001/objects`,{...data})
       .then(res => dispatch(putObjectSuccess(res.data)))
       .catch(err => dispatch(putObjectFailed(err.message)))
     }
@@ -95,10 +97,10 @@ export const deleteObject= (data) => {
       console.log("DELETE AGENT ACTION INITIATED");
       console.log("data in delete: ", data);
       dispatch(deleteObjectStarted(data));
-      //axios.post('http://142.93.173.95:4001/owners',{...data})
-      axios.delete(`http://localhost:4001/objects`,{data:{id:data}}
+      axios
+      .delete('http://142.93.173.95:4001/objects',{data:{id:data}})
+      //axios.delete(`http://localhost:4001/objects`,{data:{id:data}}
       // {data:{id: 1000}}
-    )
       .then(res => dispatch(deleteObjectSuccess(res.data)))
       .catch(err =>dispatch(deleteObjectFailed(err.message)))
     }

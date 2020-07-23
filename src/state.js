@@ -1,7 +1,7 @@
 const YL =
   {
-    id:"",
-    name:"",
+    id:"-",
+    name:"-",
     type:"YL",
     compFullName: "-",
     compShortName: "-",
@@ -22,8 +22,8 @@ const YL =
   }
 const IP= 
   {
-    id:"",
-    name:"",
+    id:"-",
+    name:"-",
     type:"IP",
     Name: "-",
     FIO: "-",
@@ -38,8 +38,8 @@ const IP=
   };
 const FL = 
     {
-        id:"",
-        name:"",
+        id:"-",
+        name:"-",
         type:"FL",
         NameInformal: "-",
         lastName: "-",

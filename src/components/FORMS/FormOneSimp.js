@@ -63,7 +63,7 @@ const FormOneSimp = ({
         onOwnerDicUpdate({
           //dicName: "owners",
           //dicData: {
-            ...formData
+            ...formData, name: Name()
           //}
         });
       }
@@ -99,8 +99,8 @@ const FormOneSimp = ({
   };
   const Name = () => {
     // console.log("state[formName]:", state[formName]);
-    //console.log("fprmData: ", formData);
-    return formData.name === ""
+    console.log("formData: ", formData);
+    return formData.name === "-"
       ? formData.compShortName
       : state[formName].data.filter(e => e.name === formData.name)[0].name;
   };

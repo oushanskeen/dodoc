@@ -37,24 +37,28 @@ const FormObj = ({ onObjDicCreate, onObjDicUpdate, objectId, state }) => {
   //  Calculated Data
 
   const Id = () => {
-    console.log("formData.id in formDog: ", formData.id);
-    console.log("dics informDog: ", 
-      state.objDic
-    );
-    console.log("last dic in formDog: ", 
-      state.objDic.data[state.objDic.data.length-1].id
-    );
+    //console.log("formData.id in formDog: ", formData.id);
+    //console.log("dics informDog: ", 
+    //  state.objDic
+    //);
+    //console.log("last dic in formDog: ", 
+    //  state.objDic.data[state.objDic.data.length-1].id
+    //);
     //return typeof formData.id === "string"
     //  ? formData.id
     //  : state.objDic[state.objDic.length - 1].id + 1;
-    if (formData.id === '-'){
+    //if (formData.id === '-'){
     //  return 0;
     //}else{
     //  console.log("CURRENT OBJECT ID: ", state.objDic);
-      return +state.objDic.data[state.objDic.data.length - 1].id + 1
-    }else{
-      return 0;
-    }
+    //  return +state.objDic.data[state.objDic.data.length - 1].id + 1
+    //}else{
+    //  return 0;
+    //}
+    const out = formData.id === undefined
+      ? formData.id ="-"
+      : Date.now();
+    return out;
   };
 
   // --------------------------------------------------------------------
