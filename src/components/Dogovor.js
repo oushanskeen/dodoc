@@ -11,9 +11,11 @@ import {
 } from "../css/style.js";
 import { DogovorFoot } from "./DogovorFoot";
 import { MontajBody } from './MONTAJ/MontajBody';
+//import {doMainmail} from "../utils/nodemailerSample";
 //const puppeteer = require('puppeteer');
 const makeDogovorHeadIO = require("../NOTEBOOK/Doghead/makeDogovorHeadIO");
-const doMainmail =  require("../utils/nodemailerSample");
+//const doMainmail =  require("../utils/nodemailerSample");
+//const doMainmail =  require("../utils/nodemailerSample");
 const pdf2base64= require('pdf-to-base64');
 const printOpts = {
   margin: 8,
