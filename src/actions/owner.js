@@ -25,7 +25,8 @@ export const getOwner = (data) => {
     console.log("GET ACTION INITIATED");
     dispatch(getOwnerStarted(data));
     axios
-      .get(`http://142.93.173.95:4001/owners`)
+      .get(`https://dodoc.site/owners`)
+      //.get(`http://142.93.173.95:4001/owners`)
       //.get(`http://localhost:4001/owners`)
       .then(res => dispatch(getOwnerSuccess(res.data)))
       .catch(err =>dispatch(getOwnerFailed(err.message)))
@@ -48,7 +49,7 @@ export const postOwner = (data) => {
   return (dispatch) => {
     console.log("POST ACTION INITIATED");
     dispatch(postOwnerStarted(data));
-    axios.post('http://142.93.173.95:4001/owners',{...data})
+    axios.post('https://dodoc.site/owners',{...data})
     //axios.post(`http://localhost:4001/owners`,{...data})
       .then(res => dispatch(postOwnerSuccess(res.data)))
       .catch(err =>dispatch(postOwnerFailed(err.message)))
@@ -71,7 +72,7 @@ export const putOwner = (data) => {
   return (dispatch) => {
     console.log("PUT ACTION INITIATED");
     dispatch(putOwnerStarted(data));
-    axios.put('http://142.93.173.95:4001/owners',{...data})
+    axios.put('https://dodoc.site/owners',{...data})
     //axios.put(`http://localhost:4001/owners`,{...data})
       .then(res => dispatch(putOwnerSuccess(res.data)))
       .catch(err => dispatch(putOwnerFailed(err.message)))
@@ -96,7 +97,7 @@ export const deleteOwner = (data) => {
       console.log("DELETE ACTION INITIATED");
       console.log("data in delete: ", data);
       dispatch(deleteOwnerStarted(data));
-      axios.delete('http://142.93.173.95:4001/owners',{data:{id:data}})
+      axios.delete('https://dodoc.site/owners',{data:{id:data}})
       //axios.delete(`http://localhost:4001/owners`,{data:{id:data}}
       // {data:{id: 1000}}
     
