@@ -32,7 +32,8 @@ const handleSend = async(data) => {
   console.log("PDF STRINGIFIED DATA READY TO BE HANDLED",
     {data:data}
   );
-  await axios.post('http://localhost:4001/send',{data:data})
+  //await axios.post('http://localhost:4001/send',{data:data})
+  await axios.post('https://dodoc.site/send',{data:data})
   .then(res => console.log('IN AXIOS RESPONSE: ', res))
   .catch(err => console.log('IN AXIOS ERR: ', err))
 };
