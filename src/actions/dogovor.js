@@ -26,7 +26,8 @@ export const getDogovor = (data) => {
     dispatch(getDogovorStarted());
     axios
       //.get(`http://localhost:4001/dogovors`)
-      .get(`http://142.93.173.95:4001/dogovors`)
+      //.get(`http://142.93.173.95:4001/dogovors`)
+      .get(`https://dodoc.site/dogovors`)
       .then(res => dispatch(getDogovorSuccess(res.data)))
       .catch(err =>dispatch(getDogovorFailed(err.message)))
   }
@@ -48,7 +49,8 @@ export const postDogovor = (data) => {
   return (dispatch) => {
     console.log("POST DOGOVOR ACTION INITIATED");
     dispatch(postDogovorStarted(data));
-    axios.post('http://142.93.173.95:4001/dogovors',{...data})
+    //axios.post('http://142.93.173.95:4001/dogovors',{...data})
+    axios.post('https://dodoc.site/dogovors',{...data})
     //axios.post(`http://localhost:4001/dogovors`,{...data})
       .then(res => dispatch(postDogovorSuccess(res.data)))
       .catch(err =>dispatch(postDogovorFailed(err.message)))
@@ -71,7 +73,8 @@ export const putDogovor = (data) => {
   return (dispatch) => {
     console.log("PUT DOGOVOR ACTION INITIATED");
     dispatch(putDogovorStarted(data));
-    axios.put('http://142.93.173.95:4001/dogovors',{...data})
+    //axios.put('http://142.93.173.95:4001/dogovors',{...data})
+    axios.put('https://dodoc.site/dogovors',{...data})
     //axios.put(`http://localhost:4001/dogovors`,{...data})
       .then(res => dispatch(putDogovorSuccess(res.data)))
       .catch(err => dispatch(putDogovorFailed(err.message)))
@@ -96,7 +99,8 @@ export const deleteDogovor = (data) => {
       console.log("DELETE DOGOVOR ACTION INITIATED");
       console.log("data in delete: ", data);
       dispatch(deleteDogovorStarted(data));
-      axios.delete('http://142.93.173.95:4001/dogovors',{data:{id:data}})
+      //axios.delete('http://142.93.173.95:4001/dogovors',{data:{id:data}})
+      axios.delete('https://dodoc.site/dogovors',{data:{id:data}})
       //axios.delete(`http://localhost:4001/dogovors`,{data:{id:data}}
       // {data:{id: 1000}}
     

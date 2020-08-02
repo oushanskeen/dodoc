@@ -25,7 +25,8 @@ export const getObject = (data) => {
     console.log("GET OBJECT ACTION INITIATED");
     dispatch(getObjectStarted());
     axios
-    .get('http://142.93.173.95:4001/objects')
+    //.get('http://142.93.173.95:4001/objects')
+    .get('https://dodoc.site/objects')
     //.get(`http://localhost:4001/objects`)
     .then(res => dispatch(getObjectSuccess(res.data)))
     .catch(err =>dispatch(getObjectFailed(err.message)))
@@ -48,7 +49,8 @@ export const postObject = (data) => {
   return (dispatch) => {
     console.log("POST OBJECT ACTION INITIATED");
     dispatch(postObjectStarted(data));
-    axios.post('http://142.93.173.95:4001/objects',{...data})
+    //axios.post('http://142.93.173.95:4001/objects',{...data})
+    axios.post('https://dodoc.site/objects',{...data})
     //axios.post(`http://localhost:4001/objects`,{...data})
     .then(res => dispatch(postObjectSuccess(res.data)))
     .catch(err =>dispatch(postObjectFailed(err.message)))
@@ -72,7 +74,8 @@ export const putObject = (data) => {
     console.log("PUT OBJECT ACTION INITIATED");
     dispatch(putObjectStarted(data));
     axios
-    .put('http://142.93.173.95:4001/objects',{...data})
+    //.put('http://142.93.173.95:4001/objects',{...data})
+    .put('https://dodoc.site/objects',{...data})
     //axios.put(`http://localhost:4001/objects`,{...data})
       .then(res => dispatch(putObjectSuccess(res.data)))
       .catch(err => dispatch(putObjectFailed(err.message)))
@@ -98,7 +101,8 @@ export const deleteObject= (data) => {
       console.log("data in delete: ", data);
       dispatch(deleteObjectStarted(data));
       axios
-      .delete('http://142.93.173.95:4001/objects',{data:{id:data}})
+      //.delete('http://142.93.173.95:4001/objects',{data:{id:data}})
+      .delete('https://dodoc.site/objects',{data:{id:data}})
       //axios.delete(`http://localhost:4001/objects`,{data:{id:data}}
       // {data:{id: 1000}}
       .then(res => dispatch(deleteObjectSuccess(res.data)))
