@@ -45,9 +45,11 @@ const printMe = (_component) => {
   //console.log("REACTDMSERVER: ", markUp);
   //handleSend(markUp);
   //return markUp;
+  const componentToString = ReactDOMServer.renderToStaticMarkup(_component);
+  console.log(componentToString);
   html2pdf()
     .set(printOpts)
-    .from(ReactDOMServer.renderToStaticMarkup(_component))
+    .from(componentToString)
 //    printOpts
     .outputPdf()
     //.toPdf()
