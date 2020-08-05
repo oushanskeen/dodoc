@@ -26,7 +26,7 @@ const printOpts = {
     'css'
     //,'legacy'
   ]},
-  html2canvas: {dpi: 300,scale: 2,/*, logging: true,*/ /*letterRendering: true*/},
+  html2canvas: {dpi: 300,scale: 2,/*, logging: true,*/ letterRendering: true},
   //jsPDF: {unit: 'in', format: 'a4', orientation: 'p'}
 };
 const handleSend = async(data) => {
