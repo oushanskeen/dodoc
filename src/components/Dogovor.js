@@ -18,7 +18,7 @@ const makeDogovorHeadIO = require("../NOTEBOOK/Doghead/makeDogovorHeadIO");
 //const doMainmail =  require("../utils/nodemailerSample");
 const pdf2base64= require('pdf-to-base64');
 const printOpts = {
-  margin: 8,
+  margin: 20,
   fileName: "fileName.pdf",
   pagebreak:
   {mode:[
@@ -26,7 +26,8 @@ const printOpts = {
     'css'
     //,'legacy'
   ]},
-
+  html2canvas: {dpi: 300/*scale: 2*/, logging: true, letterRendering: true},
+  jsPDF: {unit: 'in', format: 'a4', orientation: 'l'}
 };
 const handleSend = async(data) => {
   console.log("PDF STRINGIFIED DATA READY TO BE HANDLED",
@@ -45,6 +46,7 @@ const printMe = (_component) => {
   //handleSend(markUp);
   //return markUp;
   html2pdf()
+    .set(printOpts)
     .from(ReactDOMServer.renderToStaticMarkup(_component))
 //    printOpts
     .outputPdf()
