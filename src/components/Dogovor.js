@@ -45,24 +45,26 @@ const printMe = (_component) => {
   //console.log("REACTDMSERVER: ", markUp);
   //handleSend(markUp);
   //return markUp;
-  const componentToString = ReactDOMServer.renderToStaticMarkup(_component);
+  const componentToString = 
+    ReactDOMServer.renderToStaticMarkup(_component);
+  handleSend(componentToString);
   console.log(componentToString);
-  html2pdf()
-    .set(printOpts)
-    .from(componentToString)
+  ////html2pdf()
+  ////  .set(printOpts)
+  ////  .from(componentToString)
 //    printOpts
-    .outputPdf()
+  ////  .outputPdf()
     //.toPdf()
     //.output('datauristring')
     
-    .then(pdf => {
+    ////.then(pdf => {
      // handleSend(makePdf());
      // console.log("HERE WILL BE BASE64 STRING");
       //console.log(makePdf(pdf))
       //console.log(btoa(pdf));
-      handleSend(btoa(pdf));
+     //// handleSend(btoa(pdf));
       //handleSend("aGVsbG8gd29ybGQ=");
-    });
+    ////});
     //.then(pdf => )
   //);
 };
