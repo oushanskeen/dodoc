@@ -15,26 +15,9 @@ const getDogovorStarted =(data) => {
 const getDogovorSuccess = (data) => {
   console.log("GET_DOGOVOR_SUCCESS with data: ", data);
   console.log(`GET DOGOVOR SUCCESS store: ${JSON.stringify(store.getState())}`);
-  const out = 
-      data.map(e => ({
-      agentId: e.agentId,
-      //agentName: store.getState().agentDic.data.filter(el => el.id === e.agentId)[0].name,
-      date: e.date,
-      dogovorType: e.dogovorType,
-      id: e.id,
-      name: e.name,
-      objId: e.objId,
-      //objName: store.getState().objDic.data.filter(el => el.id === e.objId)[0].name,
-      ownerId: e.ownerId,
-      //ownerName: store.getState().ownerDic.data.filter(el => el.id === e.ownerId)[0].name,
-      price: e.price,
-      srokDeistviya: e.srokDeistviya,
-      systems: e.systems
-      }))
   return {
     type: types.GET_DOGOVOR_SUCCESS, 
-    //payload: data
-    payload: out,
+    payload: data
   };
   };
 const getDogovorFailed = (error) => {
