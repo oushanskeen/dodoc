@@ -135,15 +135,19 @@ export const ShowHideButton = ({
 // : ["a","b"] -> (div a -> click -> "") -> ""
 // : ["a","b"] -> ("" -> click -> div a) -> div a div b
 const DetailsButton = async ({ owner, state }) => {
+  const [properOwner, setProperOwner] =  owner;
   console.log(`OWNER OF A DETAILS BUTTON : `, owner);
   console.log(`STATE IN A DETAILS BUTTON: `, state);
-  const responseState = await state;
-  const updatedOwner = {...responseState,
-    ...e,
-    agentName: state.agentDic.data.filter(el => el.id === owner.agentId)[0].name
+  //const responseState = await state;
+  const updatedOwner = 
+    state.dogDic.data.length !== 0 && state.ownerDic.data.length !== 0 && state.objDic.data.length !== 0 
+    ? setProperOwner(
+      {  ...properOwner,
+        agentName: state.agentDic.data.filter(el => el.id === owner.agentId)[0].name
     //ownerName:
     //objectName:
-  };
+      })
+    : {...owner}
   //));
   console.log(`UPDATED OWNER: ${updatedOwner}`)
   return (
