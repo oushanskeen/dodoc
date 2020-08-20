@@ -16,8 +16,9 @@ import {
   PUT_DOGOVOR_SUCCESS,
   DELETE_DOGOVOR_SUCCESS,
 } from "../constants/actionTypes";
-const store = require('../index').store;
+//const store = require('../index').store;
 
+import {store} from '../index';
 const initialState = (window.Cypress && window.initialState) || 
   {
     data:[],
