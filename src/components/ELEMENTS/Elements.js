@@ -143,11 +143,11 @@ const DetailsButton = async ({ owner, state }) => {
     state.dogDic.data.length !== 0 && state.ownerDic.data.length !== 0 && state.objDic.data.length !== 0 
     ? setProperOwner(
       {  ...properOwner,
-        agentName: state.agentDic.data.filter(el => el.id === owner.agentId)[0].name
+        agentName: state.agentDic.data.filter(el => el.id === properOwner.agentId)[0].name
     //ownerName:
     //objectName:
       })
-    : {...owner}
+    : {...properOwner}
   //));
   console.log(`UPDATED OWNER: ${updatedOwner}`)
   return (
