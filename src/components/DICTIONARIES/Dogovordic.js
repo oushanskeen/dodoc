@@ -18,10 +18,10 @@ const mapStateToProps = _state => ({
   state: _state
 });
 const mapDispatchToProps = _dispatch => ({
-  onGetDogovor: (() => _dispatch(actions.getDogovor('dogovor')))(),
   onGetOwner: (() => _dispatch(actions.getOwner('owner')))(),
   onGetAgent: (() => _dispatch(actions.getAgent('agent')))(),
   onGetObject: (() => _dispatch(actions.getObject('object')))(),
+  onGetDogovor: (() => _dispatch(actions.getDogovor('dogovor')))(),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dogovordic);
