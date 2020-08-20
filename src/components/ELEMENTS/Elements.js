@@ -137,20 +137,20 @@ export const ShowHideButton = ({
 const DetailsButton = async ({ owner, state }) => {
   //const [properOwner, setProperOwner] =  {...owner};
   console.log(`OWNER OF A DETAILS BUTTON : `, owner);
-  console.log(`STATE IN A DETAILS BUTTON: `, state);
-  const [properOwner, setProperOwner] = useState(owner);
+  {console.log(`STATE IN A DETAILS BUTTON: `, state);
+  const [properOwner, setProperOwner] = useState({...owner});
   //const responseState = await state;
-  const updatedOwner = 
-    state.dogDic.data.length !== 0 && state.ownerDic.data.length !== 0 && state.objDic.data.length !== 0 
-    ? setProperOwner(
-      {  ...properOwner,
-        agentName: state.agentDic.data.filter(el => el.id === properOwner.agentId)[0].name
+  //const updatedOwner = 
+  //  state.dogDic.data.length !== 0 && state.ownerDic.data.length !== 0 && state.objDic.data.length !== 0 
+  //  ? setProperOwner(
+  //    {  ...properOwner,
+  //      agentName: state.agentDic.data.filter(el => el.id === properOwner.agentId)[0].name
     //ownerName:
     //objectName:
-      })
-    : {...properOwner}
+  //    })
+  //  : {...properOwner}
   //));
-  console.log(`UPDATED OWNER: ${updatedOwner}`)
+  //console.log(`UPDATED OWNER: ${updatedOwner}`)
   return (
   <PopUpWindow
     name={"details"}
