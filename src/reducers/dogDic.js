@@ -99,12 +99,13 @@ export default function(state = initialState, action) {
         error: ""
       };
     case GET_DOGOVOR_SUCCESS:
-      //console.log(
-      // `store : ${state},
-      // `
+      const awaitStore = await store;
+
+      console.log(
+       `store : ${awaitStore} `
        //agent data : ${state.agentDic.data.map(e => JSON.stringify(e))}
         
-     // );
+     );
       return {
         //data: [...action.payload],
         data: action.payload.map(e => ({
