@@ -138,7 +138,7 @@ const DetailsButton = async ({ owner, state }) => {
   //const [properOwner, setProperOwner] =  {...owner};
   console.log(`OWNER OF A DETAILS BUTTON : `, owner);
   console.log(`STATE IN A DETAILS BUTTON: `, state);
-  const [properOwner, setProperOwner] = useState({...owner});
+  //const [properOwner, setProperOwner] = useState({...owner});
   //const responseState = await state;
   //const updatedOwner = 
   //  state.dogDic.data.length !== 0 && state.ownerDic.data.length !== 0 && state.objDic.data.length !== 0 
