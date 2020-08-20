@@ -134,11 +134,12 @@ export const ShowHideButton = ({
 //   data -> ShowHideButton -> DetailsFoldableDiv
 // : ["a","b"] -> (div a -> click -> "") -> ""
 // : ["a","b"] -> ("" -> click -> div a) -> div a div b
-const DetailsButton = ({ owner, state }) => {
+const DetailsButton = async ({ owner, state }) => {
   console.log(`OWNER OF A DETAILS BUTTON : `, owner);
   console.log(`STATE IN A DETAILS BUTTON: `, state);
-  const updatedOwner = {...owner,
-    //...e,
+  const responseState = await state;
+  const updatedOwner = {...responseState,
+    ...e,
     agentName: state.agentDic.data.filter(el => el.id === owner.agentId)[0].name
     //ownerName:
     //objectName:
