@@ -14,10 +14,9 @@ const getDogovorStarted =(data) => {
   };
 const getDogovorSuccess = (data) => {
   console.log("GET_DOGOVOR_SUCCESS with data: ", data);
-  return {
-    type: types.GET_DOGOVOR_SUCCESS, 
-    //payload: data
-    payload: data.map(e => ({
+  console.log(`GET DOGOVOR SUCCESS store: ${store}`);
+  const out = 
+      data.map(e => ({
       agentId: e.agentId,
       agentName: store.getState().agentDic.data.filter(el => el.id === e.agentId)[0].name,
       date: e.date,
@@ -31,7 +30,11 @@ const getDogovorSuccess = (data) => {
       price: e.price,
       srokDeistviya: e.srokDeistviya,
       systems: e.systems
-    }))
+      }))
+  return {
+    type: types.GET_DOGOVOR_SUCCESS, 
+    //payload: data
+    payload: out,
   };
   };
 const getDogovorFailed = (error) => {
