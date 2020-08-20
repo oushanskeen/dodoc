@@ -124,18 +124,32 @@ const FormDog = ({
     e.preventDefault();
     dogovorId === undefined
       ? onDogovorDicCreate(
-        {...formData,
+       // {...formData,
+      { 
           id: Id(),
           name: Name(),
           date: Today(),
+          dogovorType: formData.dogovorType,
           objId: ObjectId(),
           agentId: AgentId(),
           ownerId: OwnerId(),
+          price: formData.price,
+          systems: formData.systems,
           srokDeistviya: srokDeistviya()
         })
       : onDogovorDicUpdate(
-          {...formData, name: Name()}
-        );
+      //    {...formData, name: Name()}
+      { 
+          name: Name(),
+          dogovorType: formData.dogovorType,
+          objId: ObjectId(),
+          agentId: AgentId(),
+          ownerId: OwnerId(),
+          price: formData.price,
+          systems: formData.systems,
+       //   srokDeistviya: srokDeistviya()
+        })
+       // );
   };
   // FORM ELEMENTS -------------------------------------------------
   return (
