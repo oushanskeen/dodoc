@@ -1,4 +1,5 @@
 //import {state} from '../state.js';
+const store = require('../index').store;
 import {
   DOGOVORDIC_CREATE,
   DOGOVORDIC_UPDATE,
