@@ -99,14 +99,15 @@ export default function(state = initialState, action) {
         error: ""
       };
     case GET_DOGOVOR_SUCCESS:
-      const awaitStore = await store;
+      //const awaitStore = async () => await store;
 
-      console.log(
-       `store : ${awaitStore} `
+      //console.log(
+       //`store : ${awaitStore} `
        //agent data : ${state.agentDic.data.map(e => JSON.stringify(e))}
         
-     );
-      return {
+      const out = 
+      //return {
+        {
         //data: [...action.payload],
         data: action.payload.map(e => ({
           agentId: e.agentId,
@@ -127,6 +128,9 @@ export default function(state = initialState, action) {
         dogovorIsLoading: false,
         error: null
       };
+      console.log("out in dogovor reduceri : ", out);
+      console.log("store in dogovor reducer : ", store);
+      return out;
     case POST_DOGOVOR_SUCCESS:
       return {
         data: [...state.data, {...trimMongoReturn(action.payload)}],
