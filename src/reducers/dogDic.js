@@ -98,8 +98,8 @@ export default function(state = initialState, action) {
       };
     case GET_DOGOVOR_SUCCESS:
       console.log(
-       `store : ${store.getState()},
-        agent data : ${store.getState().agentDic.data.map(e => JSON.stringify(e))}
+       `store : ${state},
+        agent data : ${state.agentDic.data.map(e => JSON.stringify(e))}
         `
       );
       return {
