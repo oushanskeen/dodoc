@@ -135,7 +135,7 @@ export const ShowHideButton = ({
 // : ["a","b"] -> (div a -> click -> "") -> ""
 // : ["a","b"] -> ("" -> click -> div a) -> div a div b
 const DetailsButton = async ({ owner, state }) => {
-  const [properOwner, setProperOwner] =  owner;
+  const [properOwner, setProperOwner] =  {...owner};
   console.log(`OWNER OF A DETAILS BUTTON : `, owner);
   console.log(`STATE IN A DETAILS BUTTON: `, state);
   //const responseState = await state;
