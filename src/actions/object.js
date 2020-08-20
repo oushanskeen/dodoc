@@ -78,6 +78,7 @@ export const putObject = (data) => {
     .put('https://dodoc.site/objects',{...data})
     //axios.put(`http://localhost:4001/objects`,{...data})
       .then(res => dispatch(putObjectSuccess(res.data)))
+   //   .then(res => dispatch(getObject('object')))
       .catch(err => dispatch(putObjectFailed(err.message)))
     }
 }
