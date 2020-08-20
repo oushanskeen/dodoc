@@ -82,6 +82,7 @@ const trimMongoReturn = (obj) => {
 //--------------------------------------------------------------------
 
 export default function(state = initialState, action) {
+  console.log("state in dogovor reducer : ", state);
   switch (action.type) {
     case DOGOVORDIC_CREATE:
     case DOGOVORDIC_UPDATE:
