@@ -129,7 +129,7 @@ export default function(state = initialState, action) {
         error: null
       };
       console.log("out in dogovor reduceri : ", out);
-      console.log("store in dogovor reducer : ", store);
+      console.log("store in dogovor reducer : ", store.getState());
       return out;
     case POST_DOGOVOR_SUCCESS:
       return {
