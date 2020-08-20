@@ -137,6 +137,13 @@ export const ShowHideButton = ({
 const DetailsButton = ({ owner, state }) => {
   console.log(`OWNER OF A DETAILS BUTTON : `, owner);
   console.log(`STATE IN A DETAILS BUTTON: `, state);
+  const updatedOwner = owner.map(e => ({
+    ...e,
+    agentName: state.agentDic.data.filter(el => el.id === e.agentId)[0].name
+    //ownerName:
+    //objectName:
+  }
+  ));
   return (
   <PopUpWindow
     name={"details"}
