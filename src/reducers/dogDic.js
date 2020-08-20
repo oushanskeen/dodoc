@@ -19,6 +19,7 @@ import {
 //const store = require('../index').store;
 
 import {store} from '../index';
+import rootReducer from './index';
 const initialState = (window.Cypress && window.initialState) || 
   {
     data:[],
