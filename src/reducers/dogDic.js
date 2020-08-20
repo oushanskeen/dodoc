@@ -97,7 +97,23 @@ export default function(state = initialState, action) {
       };
     case GET_DOGOVOR_SUCCESS:
       return {
-        data: [...action.payload],
+        //data: [...action.payload],
+        data: action.payload.map(e => ({
+          agentId: e.agentId,
+          //agentName: "AYL1",
+          date: e.date,
+          dogovorType: e.dogovorType,
+          id: e.id,
+          name: e.name,
+          objId: e.objId,
+          //objName: "OONE",
+          ownerId: e.ownerId,
+          //ownerName: "0YL1",
+          price: e.price,
+          srokDeistviya: e.srokDeistviya,
+          systems: e.systems,
+        })
+        ),
         dogovorIsLoading: false,
         error: null
       };
