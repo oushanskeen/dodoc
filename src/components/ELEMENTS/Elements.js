@@ -139,7 +139,7 @@ const DetailsButton = ({ owner, state }) => {
   console.log(`STATE IN A DETAILS BUTTON: `, state);
   const updatedOwner = {...owner,
     //...e,
-    agentName: state.agentDic.data.filter(el => el[id] === e[agentId])[0].name
+    agentName: state.agentDic.data.filter(el => el.id === owner.agentId)[0].name
     //ownerName:
     //objectName:
   };
