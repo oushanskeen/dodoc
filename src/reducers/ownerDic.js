@@ -146,7 +146,7 @@ export default function(state = initialState,action){
     case PUT_OWNER_SUCCESS:
       return {
         data: state.data.map(e => 
-          e.name===action.payload.name 
+          e.id ===action.payload.id 
           ? {...trimMongoReturn(action.payload)} : 
           e
         ),
