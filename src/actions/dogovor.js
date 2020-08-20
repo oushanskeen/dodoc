@@ -18,15 +18,15 @@ const getDogovorSuccess = (data) => {
   const out = 
       data.map(e => ({
       agentId: e.agentId,
-      agentName: store.getState().agentDic.data.filter(el => el.id === e.agentId)[0].name,
+      //agentName: store.getState().agentDic.data.filter(el => el.id === e.agentId)[0].name,
       date: e.date,
       dogovorType: e.dogovorType,
       id: e.id,
       name: e.name,
       objId: e.objId,
-      objName: store.getState().objDic.data.filter(el => el.id === e.objId)[0].name,
+      //objName: store.getState().objDic.data.filter(el => el.id === e.objId)[0].name,
       ownerId: e.ownerId,
-      ownerName: store.getState().ownerDic.data.filter(el => el.id === e.ownerId)[0].name,
+      //ownerName: store.getState().ownerDic.data.filter(el => el.id === e.ownerId)[0].name,
       price: e.price,
       srokDeistviya: e.srokDeistviya,
       systems: e.systems
