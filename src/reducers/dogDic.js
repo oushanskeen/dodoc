@@ -100,7 +100,7 @@ export default function(state = initialState, action) {
         //data: [...action.payload],
         data: action.payload.map(e => ({
           agentId: e.agentId,
-          //agentName: "AYL1",
+          agentName: store.getState().agentDic.data.map(el => el.id === e.agentId)[0].name,
           date: e.date,
           dogovorType: e.dogovorType,
           id: e.id,
