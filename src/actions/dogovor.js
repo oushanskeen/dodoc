@@ -13,8 +13,6 @@ const getDogovorStarted =(data) => {
   return {type: types.GET_DOGOVOR_STARTED};
   };
 const getDogovorSuccess = (data) => {
-  console.log("GET_DOGOVOR_SUCCESS with data: ", data);
-  console.log(`GET DOGOVOR SUCCESS store: ${JSON.stringify(store.getState())}`);
   return {
     type: types.GET_DOGOVOR_SUCCESS, 
     payload: data
