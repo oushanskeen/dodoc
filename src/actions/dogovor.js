@@ -14,7 +14,7 @@ const getDogovorStarted =(data) => {
   };
 const getDogovorSuccess = (data) => {
   console.log("GET_DOGOVOR_SUCCESS with data: ", data);
-  console.log(`GET DOGOVOR SUCCESS store: ${store}`);
+  console.log(`GET DOGOVOR SUCCESS store: ${JSON.stringify(store.getState())}`);
   const out = 
       data.map(e => ({
       agentId: e.agentId,
