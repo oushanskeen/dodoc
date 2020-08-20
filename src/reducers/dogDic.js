@@ -1,5 +1,4 @@
 //import {state} from '../state.js';
-const store = require('../index').store;
 import {
   DOGOVORDIC_CREATE,
   DOGOVORDIC_UPDATE,
@@ -17,6 +16,7 @@ import {
   PUT_DOGOVOR_SUCCESS,
   DELETE_DOGOVOR_SUCCESS,
 } from "../constants/actionTypes";
+const store = require('../index').store;
 
 const initialState = (window.Cypress && window.initialState) || 
   {
