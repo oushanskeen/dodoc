@@ -144,6 +144,7 @@ const DetailsButton = ({ owner, state }) => {
     //objectName:
   }
   ));
+  console.log(`UPDATED OWNER: ${updatedOwner}`)
   return (
   <PopUpWindow
     name={"details"}
