@@ -128,9 +128,8 @@ export default function(state = initialState, action) {
         dogovorIsLoading: false,
         error: null
       };
-      console.log("out in dogovor reduceri : ", out);
-      //console.log("store in dogovor reducer : ", store.getState());
-      store.subscribe(() => console.info(store.getState()))
+      //console.log("out in dogovor reduceri : ", out);
+      //console.log("store in dogovor reducer : ", store);
       return out;
     case POST_DOGOVOR_SUCCESS:
       return {

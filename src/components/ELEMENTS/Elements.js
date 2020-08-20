@@ -134,7 +134,10 @@ export const ShowHideButton = ({
 //   data -> ShowHideButton -> DetailsFoldableDiv
 // : ["a","b"] -> (div a -> click -> "") -> ""
 // : ["a","b"] -> ("" -> click -> div a) -> div a div b
-const DetailsButton = ({ owner }) => (
+const DetailsButton = ({ owner, state }) => {
+  console.log(`OWNER OF A DETAILS BUTTON : `, owner);
+  console.log(`STATE IN A DETAILS BUTTON: `, state);
+  return (
   <PopUpWindow
     name={"details"}
     content={Object.entries(owner).map(record => (
@@ -145,7 +148,7 @@ const DetailsButton = ({ owner }) => (
   >
   {console.log("DETAILS BUttoN IS RREADY WITH DATA: ", owner)}
   </PopUpWindow>
-);
+)};
 //  0.3
 // EditButton ::
 //   formManager -> dictionaryName
@@ -218,7 +221,7 @@ const ShowPrintReadyDogovor = ({ state, id }) => {
 };
 
 const buttonSet = (state, owner, dictionaryName) => ({
-  details: <DetailsButton owner={owner} />,
+  details: <DetailsButton owner={owner} state={state}/>,
   edit: <EditButton owner={owner} dictionaryName={dictionaryName} />,
   delete: <DeleteButton id={owner.id} dictionaryName={dictionaryName} />,
   show: <ShowPrintReadyDogovor state={state} id={owner.id} />
