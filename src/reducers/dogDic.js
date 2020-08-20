@@ -98,7 +98,7 @@ export default function(state = initialState, action) {
     case GET_DOGOVOR_SUCCESS:
       console.log(
        `store : ${store ? store.getState() : "pardon, no state"},
-        agent data : ${store ? store.getState().agentDic.data.map(e => JSON.stringify(e))}
+        agent data : ${store ? store.getState().agentDic.data.map(e => JSON.stringify(e)) : "pardon, no agent"}
         `
       );
       return {
