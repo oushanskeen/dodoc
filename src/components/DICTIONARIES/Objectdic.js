@@ -24,7 +24,7 @@ const Objectdic = ({ state }) => (
       <DictionaryIO
           state={state}
           dictionaryName={"objDic"}
-          buttons={["details", "edit", "delete"]}
+          buttons={["details", "edit"]}
           welcome={ 'СПРАВОЧНИК НАШИХ ОБЪЕКТОВ:' }
         />
 );

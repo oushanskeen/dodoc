@@ -7,7 +7,7 @@ const Agentdic = ({ state }) => (
     <DictionaryIO
       state={state}
       dictionaryName={"agentDic"}
-      buttons={["details", "edit", "delete"]}
+      buttons={["details", "edit"]}
       welcome={ 'СПРАВОЧНИК НАШИХ КОНТРАГЕНТОВ: '}
     />
 );
