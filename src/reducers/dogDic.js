@@ -97,12 +97,12 @@ export default function(state = initialState, action) {
         error: ""
       };
     case GET_DOGOVOR_SUCCESS:
-      console.log(
-       `store : ${state},
-       `
+      //console.log(
+      // `store : ${state},
+      // `
        //agent data : ${state.agentDic.data.map(e => JSON.stringify(e))}
         
-      );
+     // );
       return {
         //data: [...action.payload],
         data: action.payload.map(e => ({
