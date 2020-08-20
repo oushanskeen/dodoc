@@ -99,8 +99,9 @@ export default function(state = initialState, action) {
     case GET_DOGOVOR_SUCCESS:
       console.log(
        `store : ${state},
-        agent data : ${state.agentDic.data.map(e => JSON.stringify(e))}
-        `
+       `
+       //agent data : ${state.agentDic.data.map(e => JSON.stringify(e))}
+        
       );
       return {
         //data: [...action.payload],
