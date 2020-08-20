@@ -96,19 +96,24 @@ export default function(state = initialState, action) {
         error: ""
       };
     case GET_DOGOVOR_SUCCESS:
+      console.log(
+       `store : ${store ? store.getState() : "pardon, no state"},
+        agent data : ${store ? store.getState().agentDic.data.map(e => JSON.stringify(e))}
+        `
+      );
       return {
         //data: [...action.payload],
         data: action.payload.map(e => ({
           agentId: e.agentId,
-          agentName: store.getState().agentDic.data.map(el => el.id === e.agentId)[0].name,
+          agentName: 'stubAgentName',
           date: e.date,
           dogovorType: e.dogovorType,
           id: e.id,
           name: e.name,
           objId: e.objId,
-          //objName: "OONE",
+          objName: "stubObjectName",
           ownerId: e.ownerId,
-          //ownerName: "0YL1",
+          ownerName: "stubOwnerName",
           price: e.price,
           srokDeistviya: e.srokDeistviya,
           systems: e.systems,
