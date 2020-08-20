@@ -13,11 +13,9 @@ const getDogovorStarted =(data) => {
   return {type: types.GET_DOGOVOR_STARTED};
   };
 const getDogovorSuccess = (data) => {
-  return {
-    type: types.GET_DOGOVOR_SUCCESS, 
-    payload: data
-  };
-  };
+  console.log("GET_DOGOVOR_SUCCESS with data:" , data);
+  return {type: types.GET_DOGOVOR_SUCCESS, payload: data};
+};
 const getDogovorFailed = (error) => {
   console.log("GET_DOGOVOR_FAILED with error: ", error);
   return {type: types.GET_OWNER_FAILED, payload: error};
