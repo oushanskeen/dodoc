@@ -4,6 +4,7 @@ import { Input } from "@rebass/forms";
 import { Button } from 'rebass';
 import * as actions from "../../actions";
 import { connect } from "react-redux";
+import {OnSubmitNotifier} from "./OnSubmitNotifier";
 
 const FormOneSimp = ({
   formName,
@@ -17,7 +18,7 @@ const FormOneSimp = ({
 }) => {
   console.log("formName in FormOneSimp :", formName);
   console.log("state in FormOneSimp: ", state);
-
+  let [submitted, setSubmitted] = useState(false);
   // state,formName,ownerId,agentId
   const actorId = formName => {
     switch (formName) {
@@ -69,13 +70,16 @@ const FormOneSimp = ({
             ...formData, id: Id(), name: Name()
          // }
         });
+        setSubmitted(true)
+        //setFormData({...formData});
       } else {
         onOwnerDicUpdate({
           //dicName: "owners",
           //dicData: {
             ...formData, name: Name()
-          //}
+          //}:
         });
+        setFormData({...formData});
       }
     } else {
       if (formName === "agentDic") {
@@ -358,7 +362,14 @@ const FormOneSimp = ({
         <br />
       </label>
       <br />
-      <Button bg='two' onClick={handleSubmit}>Submit</Button>
+      <OnSubmitNotifier 
+        state={state}
+        formName={formName}
+        exactName={"compShortName"}
+        submitted={submitted}
+        formData={formData}
+        handleSubmit={handleSubmit}
+      />
     </form>
   );
 };

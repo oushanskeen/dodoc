@@ -4,6 +4,7 @@ import { Input } from '@rebass/forms';
 import { Button } from 'rebass';
 import * as actions from "../../actions";
 import { connect } from "react-redux";
+import { OnSubmitNotifier } from "./OnSubmitNotifier";
 
 const FormTwoSimp = ({
   formName,
@@ -15,6 +16,7 @@ const FormTwoSimp = ({
   onAgentDicCreate,
   onAgentDicUpdate
 }) => {
+  const [submitted, setSubmitted] = useState(false);
   const actorId = formName => {
     switch (formName) {
       case "ownerDic":
@@ -53,15 +55,19 @@ const FormTwoSimp = ({
     if (formName === "ownerDic") {
       if (ownerId === undefined) {
         onOwnerDicCreate({...formData, id: Id(), name: Name()});
+        setSubmitted(true)
       } else {
         onOwnerDicUpdate({...formData, name: Name()});
+        setSubmitted(true)
       }
     } else {
       if (formName === "agentDic") {
         if (agentId === undefined) {
           onAgentDicCreate({...formData, id: Id(), name: Name()});
+          setSubmitted(true)
         } else {
           onAgentDicUpdate({...formData, name: Name()});
+          setSubmitted(true)
         }
       }
     }
@@ -235,7 +241,14 @@ const FormTwoSimp = ({
         <br />
       </label>
       <br />
-      <Button bg='two' onClick={handleSubmit}>Submit</Button>
+      <OnSubmitNotifier 
+        state={state}
+        formName={formName}
+        exactName={"ShortName"}
+        submitted={submitted}
+        formData={formData}
+        handleSubmit={handleSubmit}
+      />
     </form>
   );
 };
