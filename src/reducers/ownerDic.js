@@ -1,31 +1,32 @@
 //import {state} from '../state.js';
-import {store} from '../index';
+import { store } from "../index";
 import {
-    OWNERDIC_SELECT,
-    OWNERDIC_CREATE,
-    OWNERDIC_UPDATE,
-    OWNERDIC_DELETE,
-    GET_OWNER_STARTED,
-    GET_OWNER_SUCCESS,
-    GET_OWNER_FAILED,
-    POST_OWNER_STARTED,
-    POST_OWNER_SUCCESS,
-    POST_OWNER_FAILED,
-    PUT_OWNER_STARTED,
-    PUT_OWNER_SUCCESS,
-    PUT_OWNER_FAILED,
-    DELETE_OWNER_STARTED,
-    DELETE_OWNER_SUCCESS,
-    DELETE_OWNER_FAILED,
-    //GET_DIC_STARTED,
-    //GET_DIC_SUCCESS,
-    //GET_DIC_FAILED
-} from '../constants/actionTypes'
-import * as actionTypes from '../constants/actionTypes';
-import * as actions from '../actions/index';
-const initialState = (window.Cypress && window.initialState) ||
-{data:[],
- /* 
+  OWNERDIC_SELECT,
+  OWNERDIC_CREATE,
+  OWNERDIC_UPDATE,
+  OWNERDIC_DELETE,
+  GET_OWNER_STARTED,
+  GET_OWNER_SUCCESS,
+  GET_OWNER_FAILED,
+  POST_OWNER_STARTED,
+  POST_OWNER_SUCCESS,
+  POST_OWNER_FAILED,
+  PUT_OWNER_STARTED,
+  PUT_OWNER_SUCCESS,
+  PUT_OWNER_FAILED,
+  DELETE_OWNER_STARTED,
+  DELETE_OWNER_SUCCESS,
+  DELETE_OWNER_FAILED
+  //GET_DIC_STARTED,
+  //GET_DIC_SUCCESS,
+  //GET_DIC_FAILED
+} from "../constants/actionTypes";
+import * as actionTypes from "../constants/actionTypes";
+import * as actions from "../actions/index";
+const trimMongoReturn = require('../utils/trimMongoReturn').trimMongoReturn;
+const initialState = (window.Cypress && window.initialState) || {
+  data: [],
+  /* 
   [ 
     {
     id:0,
@@ -87,79 +88,72 @@ const initialState = (window.Cypress && window.initialState) ||
     signature: "OWNER ID:2 TYPE:FL SIGNATURE"
   }
   ],
- */ 
+ */
+
   ownerIsLoading: false,
-  error:"",
+  error: ""
 };
 
-const trimMongoReturn = (obj) => {
-  const trimmed = {...obj};
-  delete trimmed['_id'];
-  delete trimmed['__v'];
+/*const trimMongoReturn = obj => {
+  const trimmed = { ...obj };
+  delete trimmed["_id"];
+  delete trimmed["__v"];
   return trimmed;
-};
+};*/
 
 //---------------------------------------------------------------------
 
-export default function(state = initialState,action){
-  switch (action.type){
+export default function(state = initialState, action) {
+  switch (action.type) {
     case OWNERDIC_CREATE:
     case OWNERDIC_UPDATE:
     case OWNERDIC_DELETE:
-      return {...state}
-      //return state.data.filter(e => 
-      //  e.id != action.payload);
+      return { ...state };
     case GET_OWNER_STARTED:
     case POST_OWNER_STARTED:
     case PUT_OWNER_STARTED:
     case DELETE_OWNER_STARTED:
-     // console.log("Something started in OWNERDIC");
-     // console.log("state in owner: ", state);
       return {
-        data:[...state.data],
+        data: [...state.data],
         ownerIsLoading: true
       };
     case GET_OWNER_SUCCESS:
       return {
-        data:[...action.payload],
+        data: [...action.payload],
         ownerIsLoading: false,
-        error: null,
+        error: null
       };
     case POST_OWNER_SUCCESS:
-      return{
-        data: [...state.data, {...trimMongoReturn(action.payload)}],
+      return {
+        data: [...state.data, { ...trimMongoReturn(action.payload) }],
         ownerIsLoading: false,
-        error: null,
-    };
+        error: null
+      };
     case GET_OWNER_FAILED:
     case POST_OWNER_FAILED:
     case PUT_OWNER_FAILED:
     case DELETE_OWNER_FAILED:
-    //  console.log(
-    //    "action.payload in owner failed: ", action.payload
-    //  );
       return {
-        data:[...state.data],
+        data: [...state.data],
         ownerIsLoading: false,
         error: [action.payload.error, action.payload]
       };
     case PUT_OWNER_SUCCESS:
       return {
-        data: state.data.map(e => 
-          e.id ===action.payload.id 
-          ? {...trimMongoReturn(action.payload)} : 
-          e
+        data: state.data.map(e =>
+          e.id === action.payload.id
+            ? { ...trimMongoReturn(action.payload) }
+            : e
         ),
         ownerIsLoading: false,
-        error: null,
+        error: null
       };
     case DELETE_OWNER_SUCCESS:
-      return {...state,
-        data:state.data.filter(e => 
-          e.id !== action.payload.message)
-    };
- default:        
+      return {
+        ...state,
+        data: state.data.filter(e => e.id !== action.payload.message)
+      };
+    default:
       return state;
-    };
-};
-
+  }
+}

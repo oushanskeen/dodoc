@@ -7,7 +7,7 @@ const Ownerdic = ({ state }) => (
     <DictionaryIO
       state={state}
       dictionaryName={"ownerDic"}
-      buttons={["details", "edit"]}
+      buttons={["details", "edit","delete"]}
       welcome={ 'СПРАВОЧНИК НАШИХ ФИРМ: '}
     />
 );

@@ -12,10 +12,9 @@ import {
   SubmitButton
 } from "./DogovorFormElements";
 import { connect } from "react-redux";
-import {createReturn} from "typescript";
-const manageId = require('../../utils/manageId');
-const makeNewDogovorName = 
-  require('../../utils/nameGen').makeNewDogovorName;
+import { createReturn } from "typescript";
+const manageId = require("../../utils/manageId");
+const makeNewDogovorName = require("../../utils/nameGen").makeNewDogovorName;
 
 const FormDog = ({
   state,
@@ -23,27 +22,20 @@ const FormDog = ({
   onDogovorDicCreate,
   onDogovorDicUpdate
 }) => {
-  // --------------------------------------------------------------------
+  // -----------------------------------------------------------------
   // IMPORTS --------------------------------------------------------
   const importData = {
-    dogovor: () =>  
-      state.dogDic.data.filter(e => e.id === dogovorId)[0],
-    owners: () =>
-      state.ownerDic.data.map(owner => owner.name),
-    agents: () =>
-      state.agentDic.data.map(agent => agent.name),
-    objects: () =>
-      state.objDic.data.map(object => object.name),
-    systemsDataVector: () =>
-      state.home.systemsDataVector,
-    dogovorTypes: () =>
-      state.home.dogovorTypes,
-    initStateForNewDogovor: () => 
-      state.home.initStateForNewDogovor
+    dogovor: () => state.dogDic.data.filter(e => e.id === dogovorId)[0],
+    owners: () => state.ownerDic.data.map(owner => owner.name),
+    agents: () => state.agentDic.data.map(agent => agent.name),
+    objects: () => state.objDic.data.map(object => object.name),
+    systemsDataVector: () => state.home.systemsDataVector,
+    dogovorTypes: () => state.home.dogovorTypes,
+    initStateForNewDogovor: () => state.home.initStateForNewDogovor
   };
   console.log("formDog importData: ", importData);
 
-  // FORM STATE MANAGEMENT ----------------------------------------------------
+  // FORM STATE MANAGEMENT -------------------------------------------
 
   const [formData, setFormData] = useState({
     ...(dogovorId === undefined
@@ -64,7 +56,7 @@ const FormDog = ({
 
   // CALCULATED DATA FOR THE FORM --------------------------------------------
 
-  const Today = (addDuration=0) => {
+  const Today = (addDuration = 0) => {
     var today = new Date();
     var date =
       today.getFullYear() +
@@ -85,71 +77,82 @@ const FormDog = ({
     return out.out;
   };
   const Name = () => {
-    console.log('formData name in name generator: ', formData.name);
+    console.log("formData name in name generator: ", formData.name);
     console.log("NAME GEN EMMITTED!");
     const outTwo = makeNewDogovorName(
       formData.dogovorType,
-      state.dogDic.data.map( e => e.name)
+      state.dogDic.data.map(e => e.name)
     );
-    const out = formData.name === "-"//undefined 
-      ? makeNewDogovorName(
-          formData.dogovorType,
-          state.dogDic.data.map(e => e.name)
-        )
-      : formData.name;
+    const out =
+      formData.name === "-" //undefined
+        ? makeNewDogovorName(
+            formData.dogovorType,
+            state.dogDic.data.map(e => e.name)
+          )
+        : formData.name;
     return out;
   };
   const ObjectId = () => {
-    const out = 
-    state.objDic.data.filter(e => e.id === formData.objId)[0].id;
+    console.log(
+      `IN DOGOVOR OBJECTID formData: ${JSON.stringify(formData)}`
+    );
+    const out = state.objDic.data.filter(e => 
+      e.name === formData.objName
+    )[0].id;
+    console.log(`ObjectId: ${out}`);
     return out;
   };
-  //console.log("objId in DormDog: ", formData.objId);
-  //console.log("ObjectId: ", ObjectId());
   const AgentId = () => {
-    return state.agentDic.data.filter(e => e.id === formData.agentId)[0].id;
+    const out =  state.agentDic.data.filter(e => 
+      e.name === formData.agentName
+    )[0].id;
+    console.log(`AgentId: ${out}`);
+    return out;
   };
-  //console.log("AfentId: ", AgentId());
   const OwnerId = () => {
-    return state.ownerDic.data.filter(e => e.id === `${formData.ownerId}`)[0].id;
+    const out = state.ownerDic.data.filter(e => 
+      e.name === `${formData.ownerName}`)[0]
+      .id;
+    console.log(`OwnerId: ${out}`);
+    return out;
   };
   const srokDeistviya = () => {
-    return `${Today()} / ${Today(4)}`
+    return `${Today()} / ${Today(4)}`;
   };
   //console.log("FormData: ", formData);
   const handleSubmit = e => {
-    console.log(
-      `fromData on submit`
-    );
+    console.log(`formData on submit: ${formData}`);
     e.preventDefault();
     dogovorId === undefined
       ? onDogovorDicCreate(
-       // {...formData,
-      { 
-          id: Id(),
-          name: Name(),
-          date: Today(),
-          dogovorType: formData.dogovorType,
-          objId: ObjectId(),
-          agentId: AgentId(),
-          ownerId: OwnerId(),
-          price: formData.price,
-          systems: formData.systems,
-          srokDeistviya: srokDeistviya()
-        })
+          // {...formData,
+          {
+            id: Id(),
+            name: Name(),
+            date: Today(),
+            dogovorType: formData.dogovorType,
+            objId: ObjectId(),
+            agentId: AgentId(),
+            ownerId: OwnerId(),
+            price: formData.price,
+            systems: formData.systems,
+            srokDeistviya: srokDeistviya()
+          }
+        )
       : onDogovorDicUpdate(
-      //    {...formData, name: Name()}
-      { 
-          name: Name(),
-          dogovorType: formData.dogovorType,
-          objId: ObjectId(),
-          agentId: AgentId(),
-          ownerId: OwnerId(),
-          price: formData.price,
-          systems: formData.systems,
-       //   srokDeistviya: srokDeistviya()
-        })
-       // );
+          //    {...formData, name: Name()}
+          {
+            name: Name(),
+            dogovorType: formData.dogovorType,
+            objId: ObjectId(),
+            agentId: AgentId(),
+            ownerId: OwnerId(),
+            price: formData.price,
+            systems: formData.systems
+            //   srokDeistviya: srokDeistviya()
+          }
+        );
+    // );
   };
   // FORM ELEMENTS -------------------------------------------------
   return (
@@ -195,10 +198,8 @@ const mapStateToProps = _state => ({
 const mapDispatchToProps = _dispatch => ({
   onDataReady: data => _dispatch(actions.formDataNew(data)),
   onDogovorData: data => _dispatch(actions.dogovorData(data)),
-  onDogovorDicCreate: data => _dispatch(actions
-    .dogovorDicCreate(data)),
-  onDogovorDicUpdate: data => _dispatch(actions
-    .dogovorDicUpdate(data))
+  onDogovorDicCreate: data => _dispatch(actions.dogovorDicCreate(data)),
+  onDogovorDicUpdate: data => _dispatch(actions.dogovorDicUpdate(data))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormDog);

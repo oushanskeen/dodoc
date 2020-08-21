@@ -17,6 +17,7 @@ import {
     DELETE_AGENT_SUCCESS,
     DELETE_AGENT_FAILED,
 } from '../constants/actionTypes'
+const trimMongoReturn = require('../utils/trimMongoReturn').trimMongoReturn;
 
 const initialState = (window.Cypress && window.initialState) ||
 {data:[],
@@ -109,7 +110,9 @@ export default function(state = initialState,action){
       };
     case POST_AGENT_SUCCESS:
       return {
-        data: [...state.data, {...action.payload}],
+        data: [...state.data, 
+          {...trimMongoReturn(action.payload)}
+        ],
         agentIsLoading: false,
         error: null
     };
@@ -130,8 +133,8 @@ export default function(state = initialState,action){
       console.log("PUT_AGENT_SUCCESS ready to change state");
       return {
         data: state.data.map(e =>
-          e.name === action.payload.name
-          ? action.payload
+          e.id === action.payload.id
+          ? {...trimMongoReturn(action.payload)}
           : e
         ),
         agentIsLoading: false,
