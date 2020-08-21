@@ -17,7 +17,13 @@ import {
     DELETE_AGENT_SUCCESS,
     DELETE_AGENT_FAILED,
 } from '../constants/actionTypes'
-const trimMongoReturn = require('../utils/trimMongoReturn').trimMongoReturn;
+//const trimMongoReturn = require('../utils/trimMongoReturn').trimMongoReturn;
+const trimMongoReturn = obj => {
+  const trimmed = { ...obj };
+  delete trimmed["_id"];
+  delete trimmed["__v"];
+  return trimmed;
+};
 
 const initialState = (window.Cypress && window.initialState) ||
 {data:[],

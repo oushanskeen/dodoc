@@ -23,7 +23,7 @@ import {
 } from "../constants/actionTypes";
 import * as actionTypes from "../constants/actionTypes";
 import * as actions from "../actions/index";
-const trimMongoReturn = require('../utils/trimMongoReturn');
+//const trimMongoReturn = require('../utils/trimMongoReturn');
 const initialState = (window.Cypress && window.initialState) || {
   data: [],
   /* 
@@ -94,12 +94,12 @@ const initialState = (window.Cypress && window.initialState) || {
   error: ""
 };
 
-/*const trimMongoReturn = obj => {
+const trimMongoReturn = obj => {
   const trimmed = { ...obj };
   delete trimmed["_id"];
   delete trimmed["__v"];
   return trimmed;
-};*/
+};
 
 //---------------------------------------------------------------------
 
