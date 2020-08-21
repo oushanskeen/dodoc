@@ -23,7 +23,7 @@ import {
 } from "../constants/actionTypes";
 import * as actionTypes from "../constants/actionTypes";
 import * as actions from "../actions/index";
-const trimMongoReturn = require('../utils/trimMongoReturn').trimMongoReturn;
+const trimMongoReturn = require('../utils/trimMongoReturn');
 const initialState = (window.Cypress && window.initialState) || {
   data: [],
   /* 
