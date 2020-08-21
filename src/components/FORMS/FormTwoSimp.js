@@ -61,7 +61,7 @@ const FormTwoSimp = ({
         if (agentId === undefined) {
           onAgentDicCreate({...formData, id: Id(), name: Name()});
         } else {
-          onAgentDicUpdate(formData);
+          onAgentDicUpdate({...formData, name: Name()});
         }
       }
     }
@@ -79,9 +79,12 @@ const FormTwoSimp = ({
   const Name = () => {
     // console.log("state[formName]:", state[formName]);
     console.log("formData: ", formData);
-    return formData.name === "-"
-      ? formData.ShortName
-      : state[formName].data.filter(e => e.name === formData.name)[0].name;
+    return (
+    //formData.name === "-"
+     // ?
+    formData.ShortName
+     // : state[formName].data.filter(e => e.name === formData.name)[0].name;
+    )
   };
 
   //console.log("store in formTwo : ", store)

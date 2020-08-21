@@ -101,17 +101,17 @@ const FormDog = ({
   };
   const ObjectId = () => {
     const out = 
-    state.objDic.data.filter(e => e.name === formData.objName)[0].id;
+    state.objDic.data.filter(e => e.id === formData.objId)[0].id;
     return out;
   };
   //console.log("objId in DormDog: ", formData.objId);
   //console.log("ObjectId: ", ObjectId());
   const AgentId = () => {
-    return state.agentDic.data.filter(e => e.name === formData.agentName)[0].id;
+    return state.agentDic.data.filter(e => e.id === formData.agentId)[0].id;
   };
   //console.log("AfentId: ", AgentId());
   const OwnerId = () => {
-    return state.ownerDic.data.filter(e => e.name === formData.ownerName)[0].id;
+    return state.ownerDic.data.filter(e => e.id === `${formData.ownerId}`)[0].id;
   };
   const srokDeistviya = () => {
     return `${Today()} / ${Today(4)}`

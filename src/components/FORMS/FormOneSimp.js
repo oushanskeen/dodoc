@@ -49,6 +49,16 @@ const FormOneSimp = ({
       [event.target.name]: event.target.value
     });
   };
+  const Name = () => {
+    // console.log("state[formName]:", state[formName]);
+    console.log("formData: ", formData);
+    return (
+      //formData.name === "-"
+      //? 
+      formData.compShortName
+      //: state[formName].data.filter(e => e.name === formData.name)[0].name;
+    )
+  };
   const handleSubmit = e => {
     e.preventDefault();
     if (formName === "ownerDic") {
@@ -72,7 +82,7 @@ const FormOneSimp = ({
         if (agentId === undefined) {
           onAgentDicCreate({...formData, id: Id(), name: Name()});
         } else {
-          onAgentDicUpdate(formData);
+          onAgentDicUpdate({...formData, name: Name()});
         }
       }
     }
@@ -97,13 +107,16 @@ const FormOneSimp = ({
       //  ? 0
       //  : state[formName].data[state[formName].data.length - 1].id + 1;
   };
-  const Name = () => {
+//  const Name = () => {
     // console.log("state[formName]:", state[formName]);
-    console.log("formData: ", formData);
-    return formData.name === "-"
-      ? formData.compShortName
-      : state[formName].data.filter(e => e.name === formData.name)[0].name;
-  };
+//    console.log("formData: ", formData);
+//    return (
+      //formData.name === "-"
+      //? 
+//      formData.compShortName
+      //: state[formName].data.filter(e => e.name === formData.name)[0].name;
+//    )
+//  };
 
   return (
     <form>
