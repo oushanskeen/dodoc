@@ -7,4 +7,6 @@ const trimMongoReturn = (obj) => {
   return trimmed;
 };
 
-module.exports = trimMongoReturn;
+module.exports = {
+  trimMongoReturn
+};
