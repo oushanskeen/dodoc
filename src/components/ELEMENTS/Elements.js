@@ -142,7 +142,7 @@ const DetailsButton = ({ owner, state, dicName }) => {
   //const responseState = await state;
   
   const updatedOwner = () => (
-    state.dogDic.data.length !== 0 && state.ownerDic.data.length !== 0 && state.objDic.data.length !== 0 
+    state.agentDic.data.length !== 0 && state.ownerDic.data.length !== 0 && state.objDic.data.length !== 0 
     ? //setProperOwner(
       {  ...owner,
         agentName: state.agentDic.data.filter(el => el.id === owner.agentId)[0].name,

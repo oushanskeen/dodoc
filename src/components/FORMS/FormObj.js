@@ -5,8 +5,11 @@ import { Input } from '@rebass/forms';
 import { Button } from 'rebass';
 import * as actions from "../../actions";
 import { connect } from "react-redux";
+import {OnSubmitNotifier} from "./OnSubmitNotifier";
 
 const FormObj = ({ onObjDicCreate, onObjDicUpdate, objectId, state }) => {
+
+  const [submitted, setSubmitted] = useState(false);
   const importData = {
     objectData: () => {
       return state.objDic.data.filter(e => e.id === objectId)[0]
@@ -71,6 +74,7 @@ const FormObj = ({ onObjDicCreate, onObjDicUpdate, objectId, state }) => {
     objectId === undefined
       ? onObjDicCreate({...formData, id: Id()})
       : onObjDicUpdate(formData);
+    setSubmitted(true);
     return null;
     //onObjDicCreate(formData);
   };
@@ -139,8 +143,15 @@ const FormObj = ({ onObjDicCreate, onObjDicUpdate, objectId, state }) => {
         />
         <br />
       </label>
-      <Button bg='two' type='submit' 
-      >Submit</Button>
+      <br/>
+      <OnSubmitNotifier 
+        state={state}
+        formName={"objDic"}
+        exactName={"name"}
+        submitted={submitted}
+        formData={formData}
+        handleSubmit={handleSubmit}
+      />
     </form>
   );
 };

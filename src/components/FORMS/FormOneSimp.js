@@ -79,14 +79,16 @@ const FormOneSimp = ({
             ...formData, name: Name()
           //}:
         });
-        setFormData({...formData});
+        setSubmitted(true)
       }
     } else {
       if (formName === "agentDic") {
         if (agentId === undefined) {
           onAgentDicCreate({...formData, id: Id(), name: Name()});
+        setSubmitted(true)
         } else {
           onAgentDicUpdate({...formData, name: Name()});
+        setSubmitted(true)
         }
       }
     }

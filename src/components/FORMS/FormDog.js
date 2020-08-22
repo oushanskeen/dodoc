@@ -13,6 +13,7 @@ import {
 } from "./DogovorFormElements";
 import { connect } from "react-redux";
 import { createReturn } from "typescript";
+import {OnSubmitNotifier} from "./OnSubmitNotifier";
 const manageId = require("../../utils/manageId");
 const makeNewDogovorName = require("../../utils/nameGen").makeNewDogovorName;
 
@@ -22,6 +23,8 @@ const FormDog = ({
   onDogovorDicCreate,
   onDogovorDicUpdate
 }) => {
+  let [submitted, setSubmitted] = useState(false);
+  let [dogName, setDogName] = useState("stubDogName");
   // -----------------------------------------------------------------
   // IMPORTS --------------------------------------------------------
   const importData = {
@@ -123,12 +126,16 @@ const FormDog = ({
   const handleSubmit = e => {
     console.log(`formData on submit: ${formData}`);
     e.preventDefault();
+    //setDogName(Name());
+    //setFormData({...formData, name: Name()})
     dogovorId === undefined
       ? onDogovorDicCreate(
           // {...formData,
           {
             id: Id(),
             name: Name(),
+            //name: formData.name,
+            //name: dogName,
             date: Today(),
             dogovorType: formData.dogovorType,
             objId: ObjectId(),
@@ -152,6 +159,7 @@ const FormDog = ({
             //   srokDeistviya: srokDeistviya()
           }
         );
+        setSubmitted(true);
     // );
   };
   // FORM ELEMENTS -------------------------------------------------
@@ -185,7 +193,16 @@ const FormDog = ({
       />
       <PriceInput formData={formData} updateFormData={UpdateFormData} />
       <br />
-      <SubmitButton handleSubmit={handleSubmit} />
+      {console.log(`FORMDATA BEFORE OnSubmitNotifier: 
+         ${JSON.stringify(formData)}`)}
+      <OnSubmitNotifier 
+        state={state}
+        formName={'dogDic'}
+        exactName={"name"}
+        submitted={submitted}
+        formData={formData}
+        handleSubmit={handleSubmit}
+       />
     </form>
   );
 };
