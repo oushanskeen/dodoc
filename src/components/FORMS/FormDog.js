@@ -14,9 +14,9 @@ import {
 import { connect } from "react-redux";
 import { createReturn } from "typescript";
 import {OnSubmitNotifier} from "./OnSubmitNotifier";
+import {makeNewDogovorName} from  '../../utils/nameGen';
 const manageId = require("../../utils/manageId");
-const makeNewDogovorName = require("../../utils/nameGen").makeNewDogovorName;
-
+//const makeNewDogovorName = require("../../utils/nameGen");
 const FormDog = ({
   state,
   dogovorId,
@@ -105,15 +105,15 @@ const FormDog = ({
   const Name = () => {
     console.log("formData name in name generator: ", formData.name);
     console.log("NAME GEN EMMITTED!");
-    const outTwo = makeNewDogovorName(
-      formData.dogovorType,
-      state.dogDic.data.map(e => e.name)
-    );
+    //const outTwo = makeNewDogovorName(
+    //  formData.dogovorType,
+    //  state.dogDic.data.map(e => e.name)
+    //);
     const out =
       formData.name === "-" //undefined
         ? makeNewDogovorName(
-            formData.dogovorType,
-            state.dogDic.data.map(e => e.name)
+            state.dogDic.data.map(e => e.name),
+            formData.dogovorType
           )
         : formData.name;
     return out;
