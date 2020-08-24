@@ -129,64 +129,79 @@ export const ShowHideButton = ({
     </span>
   );
 };
+  const updateOwner = (_owner, _state, _dicName) => (
+    _dicName === "dogDic"
+    &&  _state.agentDic.data.length !== 0 
+    && _state.ownerDic.data.length !== 0 
+    && _state.objDic.data.length   !== 0 
+    ? 
+      {  ..._owner,
+        agentName: _state.agentDic.data
+                   .filter(el => el.id === _owner.agentId)
+                   [0].name,
+        objName: _state.objDic.data
+                 .filter(el => el.id === _owner.objId)
+                 [0].name,
+        ownerName: _state.ownerDic.data
+                   .filter(el => el.id === `${_owner.ownerId}`)
+                   [0].name,
+      }
+    : {..._owner}
+  )
 //  0.2
 // DetailsButton ::
 //   data -> ShowHideButton -> DetailsFoldableDiv
 // : ["a","b"] -> (div a -> click -> "") -> ""
 // : ["a","b"] -> ("" -> click -> div a) -> div a div b
 const DetailsButton = ({ owner, state, dicName }) => {
-  //const [properOwner, setProperOwner] =  {...owner};
-  console.log(`OWNER OF A DETAILS BUTTON : ${JSON.stringify(owner)}`);
-  console.log(`STATE IN A DETAILS BUTTON:, ${JSON.stringify(state)}`);
-  //const [properOwner, setProperOwner] = useState({...owner});
-  //const responseState = await state;
-  
-  const updatedOwner = () => (
-    state.agentDic.data.length !== 0 && state.ownerDic.data.length !== 0 && state.objDic.data.length !== 0 
-    ? //setProperOwner(
-      {  ...owner,
-        agentName: state.agentDic.data.filter(el => el.id === owner.agentId)[0].name,
-        objName: state.objDic.data.filter(el => el.id === owner.objId)[0].name,
-        ownerName: state.ownerDic.data.filter(el => el.id === `${owner.ownerId}`)[0].name,
-    //ownerName:
-    //objectName:
-      }//)
-    : {...owner}
-  )
-  //));
-  const outputArray = dicName === "dogDic" ? updatedOwner() : owner;
-  console.log(`UPDATED OWNER: ${JSON.stringify(updatedOwner)}`)
+  console.log(`On DETAILS message : ${JSON.stringify(owner)}`);
+  const outputOwner = updateOwner(owner,state,dicName);
+  console.log(`outputOwner on DETAILS message: 
+    ${JSON.stringify(outputOwner)}`);
   return (
   <PopUpWindow
     name={"details"}
-    content={Object.entries(outputArray).map(record => (
+    content={Object.entries(outputOwner).map(record => (
       <div>
         {record[0]} : {record[1]}
       </div>
     ))}
   >
-  {console.log("DETAILS BUttoN IS RREADY WITH DATA: ", owner)}
   </PopUpWindow>
 )};
 //  0.3
 // EditButton ::
 //   formManager -> dictionaryName
 //   -> ShowHideButton -> EditFoldableDiv
-const EditButton = ({ owner, dictionaryName }) => (
+const EditButton = ({ owner, state, dicName }) => {
+  console.log(`On EDIT message : ${JSON.stringify(owner)}`);
+  const outputOwner = updateOwner(owner,state,dicName);
+  console.log(`outputOwner on EDIT message: 
+    ${JSON.stringify(outputOwner)}`);
+  const customSelectForm = (_dicName) => {
+    return (
+      _dicName === "dicName"
+      ? selectForm(
+          dicName, 
+          "def", 
+          outputOwner.id
+          ).form
+      : selectForm(dicName,  
+          outputOwner.type,
+          outputOwner.id,
+          ).form
+    );    
+  }; 
+  return (
   <PopUpWindow
     name="edit"
     content={
       <div>
-        {console.log(
-          "edit button owner,dictionaryName: ",
-          owner,
-          dictionaryName
-        )}
-        {selectForm(dictionaryName, owner.type, owner.id).form}
+        {customSelectForm(dicName)}
       </div>
     }
   />
-);
+)};
 //  0.4
 // DeleteButton :: dictionaryName -> articleId -> dictionary
 // : {1:"a",2:"b"} -> 2 -> {1:"a"}
@@ -241,7 +256,7 @@ const ShowPrintReadyDogovor = ({ state, id }) => {
 
 const buttonSet = (state, owner, dictionaryName) => ({
   details: <DetailsButton owner={owner} state={state} dicName={dictionaryName}/>,
-  edit: <EditButton owner={owner} dictionaryName={dictionaryName} />,
+  edit: <EditButton owner={owner} state={state} dicName={dictionaryName} />,
   delete: <DeleteButton id={owner.id} dictionaryName={dictionaryName} />,
   show: <ShowPrintReadyDogovor state={state} id={owner.id} />
 });

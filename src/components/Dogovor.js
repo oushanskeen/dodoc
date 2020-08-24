@@ -108,7 +108,7 @@ const Dogovor = ({ state, id }) => {
   );
   const EditButton = () => (
     <Button
-      bg={editable===false ? 'one' : 'five' }
+      bg={editable===false ? 'two' : 'four' }
       mb={3}
       onClick={() => setEditable(!editable)}
     >edit</Button>
@@ -170,14 +170,12 @@ const Dogovor = ({ state, id }) => {
   );
   return (
     <>
+      <EditButton />
       <Out/>
       <Button
+        bg={"two"}
         onClick={() => printMe(<Out/>)}
       >P R I N T M E</Button>
-      <Button 
-        onClick={()=>printMe(<Out/>)}
-      >SEND ME HELLO</Button>
-      <SaveToGoogleDrive/>
     </>
   )
 };

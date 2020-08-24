@@ -40,10 +40,33 @@ const FormDog = ({
 
   // FORM STATE MANAGEMENT -------------------------------------------
 
+  const updateOwner = (_owner, _state) => (
+       _state.agentDic.data.length !== 0
+    && _state.ownerDic.data.length !== 0
+    && _state.objDic.data.length   !== 0
+    ?
+      {  ..._owner,
+        agentName: _state.agentDic.data
+          .filter(el => el.id === _owner.agentId)
+          [0].name,
+        objName: _state.objDic.data
+          .filter(el => el.id === _owner.objId)
+          [0].name,
+         ownerName: _state.ownerDic.data
+        .filter(el => el.id === `${_owner.ownerId}`)
+        [0].name,
+      }
+    : {..._owner}
+);
+
   const [formData, setFormData] = useState({
     ...(dogovorId === undefined
-      ? { ...importData.initStateForNewDogovor() }
-      : importData.dogovor())
+      ?  {...importData.initStateForNewDogovor()}
+      : updateOwner(
+          importData.dogovor(),
+          state
+        )
+     )
   });
 
   console.log("formData in dogovor: ", formData);
@@ -149,14 +172,16 @@ const FormDog = ({
       : onDogovorDicUpdate(
           //    {...formData, name: Name()}
           {
-            name: Name(),
+            id: formData.id,
+            name: formData.name,
+            date: formData.date,
             dogovorType: formData.dogovorType,
             objId: ObjectId(),
             agentId: AgentId(),
             ownerId: OwnerId(),
             price: formData.price,
-            systems: formData.systems
-            //   srokDeistviya: srokDeistviya()
+            systems: formData.systems,
+            srokDeistviya: formData.srokDeistviya
           }
         );
         setSubmitted(true);
