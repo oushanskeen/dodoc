@@ -9,6 +9,7 @@ const Ownerdic = ({ state }) => (
       dictionaryName={"ownerDic"}
       buttons={["details", "edit","delete"]}
       welcome={ 'СПРАВОЧНИК НАШИХ ФИРМ: '}
+      className="ownerDicComponent"
     />
 );
 

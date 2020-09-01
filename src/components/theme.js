@@ -5,5 +5,7 @@ export default {
     white: '#fff',
     blue: '#077ce0',
     navy: '#004175',
+    silver: "silver",
+    clouds: "clouds"
   }, 
 }

@@ -11,6 +11,8 @@ lerna-debug.log*
 
 /src/components/WIP
 
+planandlog
+*.stories.js
 *.swp
 *.swo
 

@@ -6,6 +6,8 @@ import PopUpModal from "../PopUpModal";
 import { Button, Flex, Modal } from "rebass";
 import { Select } from '@rebass/forms';
 import { DicBar, NewDic} from "../BeautyList";
+import ShowBeauty from "../ShowBeauty";
+import PaperDogovor from "../DICTIONARIES/DogovorCVS/PaperDogovor";
 
 import {typeCheck} from '../../utils/typeCheck';
 import objDic from "../../reducers/objDic";
@@ -248,8 +250,22 @@ export const CreateDictionaryArticle = ({ dictionaryName, selectForm }) => {
 const ShowPrintReadyDogovor = ({ state, id }) => {
   return (
     <PopUpWindow
-      name="show beauty"
-      content={<Dogovor state={state} id={id} />}
+      name="beauty"
+      content={<ShowBeauty state={state} id={id}/>}
+    />
+  );
+};
+const ShowPaperDogovor = ({ state, id }) => {
+  return (
+    <PopUpWindow
+      name="paper"
+      content={<PaperDogovor data={{
+        dogName: "STUB DOGOVOR NAME",
+        id: "STUB ID",
+        state:"ON_FOLD",
+        component: "<div>hello from inside elements</div>"
+      }}
+      />}
     />
   );
 };
@@ -258,7 +274,8 @@ const buttonSet = (state, owner, dictionaryName) => ({
   details: <DetailsButton owner={owner} state={state} dicName={dictionaryName}/>,
   edit: <EditButton owner={owner} state={state} dicName={dictionaryName} />,
   delete: <DeleteButton id={owner.id} dictionaryName={dictionaryName} />,
-  show: <ShowPrintReadyDogovor state={state} id={owner.id} />
+  show: <ShowPrintReadyDogovor state={state} id={owner.id} />,
+  paper: <ShowPaperDogovor />
 });
 //  1
 // ShowDictionaryArticleData ::

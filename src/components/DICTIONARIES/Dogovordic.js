@@ -9,7 +9,7 @@ const Dogovordic = ({ state }) => (
     <DictionaryIO
       state={state}
       dictionaryName={"dogDic"}
-      buttons={["details", "edit", "delete", "show"]}
+      buttons={["details", "edit", "delete", "show", "paper"]}
       welcome = { 'СПРАВОЧНИК НАШИХ ДОГОВОРОВ: '}
     />
 );
