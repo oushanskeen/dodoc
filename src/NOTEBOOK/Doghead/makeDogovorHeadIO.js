@@ -23,7 +23,7 @@ const makeAgentHeadIO = require("./AGENTHEAD/makeAgentHeadIO");
  );
 
 
-const makeDogovorHeadIO = (_store, _dogovorId) => {
+export const makeDogovorHeadIO = (_store, _dogovorId) => {
   console.log(`_store in dogHead: ${JSON.stringify(_store)}`);
   console.log(`_dogovorId in dogHead: ${_dogovorId}`);
   const initDogData = (store, dogId) =>
@@ -42,4 +42,4 @@ const makeDogovorHeadIO = (_store, _dogovorId) => {
   );
 };
 
-module.exports = makeDogovorHeadIO;
+//export makeDogovorHeadIO;
