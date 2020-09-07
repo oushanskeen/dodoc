@@ -1,8 +1,10 @@
-import React from "react";
-import {Text, Box, Button} from "rebass";
-import {ThemeProvider} from "emotion-theming";
+import React, { useState } from "react";
+import { Text, Box, Button } from "rebass";
+import { ThemeProvider } from "emotion-theming";
 import theme from "../../theme";
-import {createGlobalStyle} from "styled-components";
+import { createGlobalStyle } from "styled-components";
+import * as actions from "../../actions/paperDogovor";
+import { connect } from "react-redux";
 const GlobalStyles = createGlobalStyle`
   @import url('https://fonts.google.com/css2?family=Roboto&disply=swap');
   body{
@@ -10,27 +12,25 @@ const GlobalStyles = createGlobalStyle`
   }
 `;
 
-const OnSaveNotifier = ({ state }) => (
+const OnSaveNotifier = ({ state, onDogOnSaveStatusToDefault }) => (
   <>
-  <GlobalStyles/>
-  <ThemeProvider theme={theme} >
-      <Button 
-        width={"auto"} 
-        bg={"white"} 
-        color={"four"} 
-        disabled={"true"}
-      >
-      { state === "ON_SAVE_STARTED"
-        ? <i>договор сохраняется ...</i>
-        : state === "ON_SAVE_SUCCESS"
-          ? <i>договор успешно сохранён</i>
-          : state === "ON_SAVE_FAILED"
-            ? <i>ошибка сервера</i>
-            : ""
-      }
+    <GlobalStyles />
+    <ThemeProvider theme={theme}>
+      <Button width={"auto"} bg={"white"} color={"four"} disabled={"true"}>
+        {state === "ON_SAVE_SUCCESS"
+          ? setTimeout(() => onDogOnSaveStatusToDefault(), 1000)
+          : state}
       </Button>
-  </ThemeProvider>
+    </ThemeProvider>
   </>
 );
+const mapStateToProps = _store => ({
+  store: _store
+});
+const mapDispatchToProps = _dispatch => ({
+  onDogOnSaveStatusToDefault: () =>
+    _dispatch(actions.dogOnSaveStatusToDefault())
+});
 
-export default OnSaveNotifier;
+export default connect(mapStateToProps, mapDispatchToProps)(OnSaveNotifier);
+//export default OnSaveNotifier;

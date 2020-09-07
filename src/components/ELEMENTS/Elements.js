@@ -8,6 +8,7 @@ import { Select } from '@rebass/forms';
 import { DicBar, NewDic} from "../BeautyList";
 import ShowBeauty from "../ShowBeauty";
 import PaperDogovor from "../DICTIONARIES/DogovorCVS/PaperDogovor";
+import ShowPaper from "../ShowPaper";
 
 import {typeCheck} from '../../utils/typeCheck';
 import objDic from "../../reducers/objDic";
@@ -263,7 +264,7 @@ const ShowPaperDogovor = ({ state, id }) => {
         dogName: "STUB DOGOVOR NAME",
         id: "STUB ID",
         state:"ON_FOLD",
-        component: "<div>hello from inside elements</div>"
+        component: state.paperDogovor.data[0]
       }}
       />}
     />
@@ -275,7 +276,8 @@ const buttonSet = (state, owner, dictionaryName) => ({
   edit: <EditButton owner={owner} state={state} dicName={dictionaryName} />,
   delete: <DeleteButton id={owner.id} dictionaryName={dictionaryName} />,
   show: <ShowPrintReadyDogovor state={state} id={owner.id} />,
-  paper: <ShowPaperDogovor />
+  paper: <ShowPaper name={owner.name} id={owner.id}/>
+
 });
 //  1
 // ShowDictionaryArticleData ::

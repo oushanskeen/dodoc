@@ -36,42 +36,35 @@ const PaperDogovor = ({
   );
   console.log(`IN PAPER DOGOVOR ID INPUT: ${dogVersion}`);
   // .filter(e => e.id === dogVersion)[0].data
-/*
- *
-      {Object.entries(store.paperDogovor.data).length === 0
-        ? onShow({ id: dogVersion, name: dogName })
-        : console.log("state is up to date")}
-              onShow({ id: dogVersion, name: dogName });
- * */
+
   return (
     <ThemeProvider theme={theme}>
       <DicBar
-        barName={new Date(+dogVersion)
-          .toString()
-          .split(" ")
-          .slice(0, 5)
-          .join(" ")}
+        barName={(new Date(+dogVersion)).toString().split(" ").slice(0,5).join(" ")}
         buttonsBar={
           <Button
             bg={"silver"}
             width={"20%"}
             onClick={() => {
               onShowHandler({ s: _state, ss: _setState });
-              console.log(`STORE.PAPERDOGOVOR: ${store.paperDogovor}`);
             }}
           >
             show
           </Button>
         }
       />
+      {Object.entries(store.paperDogovor.data).length === 0
+        ? onShow({ id: dogVersion, name: dogName })
+        : console.log("state is up to date")}
       {_state === "ON_SHOW" ? (
         <EditManager
           inputComponent={
-             "<div>stub component</div>"
+            store.paperDogovor.data.filter(e => e.id === dogVersion)[0][
+              "data"
+            ] || "<div>stub component</div>"
           }
           state={store.paperDogovor.dogOnSaveStatus}
           onSave={onSave}
-          onShow={() => onShow({ id: dogVersion, name: dogName })}
           onPrint={onPrint}
           name={dogName}
         />
@@ -87,9 +80,9 @@ const mapStateToProps = _store => ({
   dogList: _store.dogList
 });
 const mapDispatchToProps = _dispatch => ({
-  onShow: data => _dispatch(actions.getPaperDogovor(data)),
-  onSave: data => _dispatch(actions.savePaperDogovor(data)),
-  onPrint: data => console.log(`action:"PRINT_PAPER_DOGOVOR", payload: ${data}`)
+  onShow: (data) => _dispatch(actions.getPaperDogovor(data)),
+  onSave: (data) => _dispatch(actions.savePaperDogovor(data)),
+  onPrint: (data) => console.log(`action:"PRINT_PAPER_DOGOVOR", payload: ${data}`)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PaperDogovor);

@@ -7,6 +7,8 @@ import ReactDOMServer from "react-dom/server";
 
 const ShowBeauty = ({ store, id, onSave, onPrint }) => {
   console.log(`SHOW BEAUTY DOGONSAVE: ${JSON.stringify(store)}`)
+  const name = store.dogDic.data.filter(e => e.id === id)[0].name;
+  console.log(`DOGOVOR TO PROCESS NAME: ${name}`);
   return(
   <EditManager
     inputComponent={
@@ -14,6 +16,8 @@ const ShowBeauty = ({ store, id, onSave, onPrint }) => {
         <Dogovor state={store} id={id} />
       )
     }
+    isWatchMode={true}
+    name={name}
     state={store.paperDogovor.dogOnSaveStatus} 
     onSave={onSave}
     onPrint={onPrint}
