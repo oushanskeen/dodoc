@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Box, Flex } from "rebass";
 import { DogovorFoot } from "./DogovorFoot";
 import { MontajBody } from "./MONTAJ/MontajBody";
-import makeDogovorHeadIO from "../NOTEBOOK/Doghead/makeDogovorHeadIO";
+import {makeDogovorHeadIO} from "../NOTEBOOK/Doghead/makeDogovorHeadIO";
 //const makeDogovorHeadIO = require("../NOTEBOOK/Doghead/makeDogovorHeadIO");
 
 const Dogovor = ({ state, id }) => {
