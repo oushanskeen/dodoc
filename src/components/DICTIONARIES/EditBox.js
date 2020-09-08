@@ -17,20 +17,22 @@ const EditBox = ({
   onPrint
 }) => {
   let textVal = useRef(null);
-  let [textExportState, setTextExportState] = useState(inputComponent);
+  let focused = useRef(null);
+  //let [textExportState, setTextExportState] = useState(inputComponent);
   let [textState, setTextState] = useState(inputComponent);
   let InputComponent = () => (
     <div dangerouslySetInnerHTML={(() => ({ __html: inputComponent }))()} />
   );
+  if(state==="ON_EDIT"){focused.current.focus()};
   return (
     <ThemeProvider theme={theme}>
-      <Box>
+      <Box ref={focused}>
         <Text
           bg={state === "ON_EDIT" ? "zero" : ""}
           mb={2}
           mt={2}
           p={2}
-          contentEditable={state === "ON_EDIT"}
+          contentEditable={true}
           onInput={e => {
             setTextState(e.target.value);
           }}
@@ -40,11 +42,13 @@ const EditBox = ({
           </div>
         </Text>
         <Button
+          bg={"four"}
           onClick={() => onPrint(`${unEntity(textVal.current.innerHTML)}`)}
         >
           pdf
         </Button>
         <Button
+          bg={"four"}
           onClick={() =>
             onSave({
               name: name,

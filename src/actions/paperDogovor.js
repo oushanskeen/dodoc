@@ -66,6 +66,8 @@ const savePaperDogovorStarted = (data) => {
   return { type: types.SAVE_PAPER_DOGOVOR_STARTED };
 };
 const savePaperDogovorSuccess = (data) => {
+  getPaperDogovorsList(data.name);
+  console.log(`ON PAPER DOGOVR SUCCESS SAVE EMIT GET PAPER DOGOVR LIST`);
   console.log(`SAVE_PAPER_DOGOVOR_SUCCESS with data: ${JSON.stringify(data)}`);
   return { type: types.SAVE_PAPER_DOGOVOR_SUCCESS, payload: data };
 };
@@ -79,7 +81,9 @@ export const savePaperDogovor = (data) => {
     dispatch(savePaperDogovorStarted(data));
     axios
       .post(`https://dodoc.site/paperdogovors`,{...data})
-      .then(res => dispatch(savePaperDogovorSuccess(res)))
+      .then(res => {dispatch(savePaperDogovorSuccess(res));
+
+      dispatch(getPaperDogovorsList({name:data.name}))})
       .catch(err => dispatch(savePaperDogovorFailed(err.message)));
   };
 };

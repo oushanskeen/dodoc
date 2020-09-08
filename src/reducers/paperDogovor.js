@@ -54,7 +54,8 @@ export default function(state = initialState, action) {
     case GET_PAPER_DOGOVOR_SUCCESS:
       return {
         ...state, 
-        data: [...state.data, {...action.payload}],
+        //data: [...state.data, {...action.payload}],
+        data:{...action.payload},
         paperDogovorIsLoading: false,
         error: null
       };

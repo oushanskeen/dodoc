@@ -54,7 +54,7 @@ export const DicButton = ({ action,isDisabled=false, name, width="20%" }) => (
    onClick={() => action[0](action[1])}
     bg={isDisabled ? "one" : "four"} 
     color={isDisabled ? "" : "zero"} 
-    heigth={"100%"} width={width}
+    heigth={"100%"} width={"20%"}
     disabled={isDisabled}
   >
     {name}

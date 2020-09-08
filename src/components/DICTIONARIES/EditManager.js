@@ -11,7 +11,7 @@ const EditManager = ({
    name, isWatchMode, inputComponent, state, onSave, onPrint, onShow, store 
 }) => {
   console.log(`EditManager inputComponent`);
-  console.log(`STORE IN EDIT MANANGER: ${store.paperDogovor}`);
+  console.log(`STORE IN EDIT MANANGER: ${JSON.stringify(store.paperDogovor)}`);
  // console.log(`EditManager inputComponent: 
  //   ${ReactDOMServer.renderToStaticMarkup(inputComponent)}`);
   console.log(inputComponent);
@@ -24,9 +24,9 @@ const EditManager = ({
   return (
     <ThemeProvider theme={theme}>
     <Box width={"90%"} p={3} m={3} style={{border:"1px solid silver"}}>
-    {  isWatchMode ? <></> :
+    {/*  isWatchMode ? <></> :
          <DicButton action={[onEdit, ""]} name={"edit"} />
-      }
+      */}
         <EditBox
           editBoxData={{
             inputComponent: inputComponentOut(),

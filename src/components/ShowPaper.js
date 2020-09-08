@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import * as actions from "../actions/paperDogovor";
 import PaperDogovor from "./DICTIONARIES/DogovorCVS/PaperDogovor";
 import { Text, Button } from "rebass";
+import {Select} from "@rebass/forms";
 import PopUpModal from "./PopUpModal";
 import { Modal } from "../Modal";
 import useModal from "../useModalPlus";
@@ -13,7 +14,7 @@ import EditManager from "./DICTIONARIES/EditManager";
 <Button bg={'silver'} onClick={() => onShow({
   id: "0", name: "Dogovor proyekrotovaniya"})}>
   paper
- </Button>
+</Button>
  <div>{state}</div>
 </>
 */
@@ -37,7 +38,8 @@ const ShowPaper = ({
   return (
     <>
       <Button
-        bg={"silver"}
+        bg={"two"}
+        width={"20%"}
         onClick={() => {
           onShowList({ name: name });
           toggle(isShowing);
@@ -51,11 +53,12 @@ const ShowPaper = ({
         data={
           state === "isLoaded" && dogList[name] !== undefined ? (
             <>
-              <Text bg={"lightGrey"} p={"2"} m={"2"}>
-                {name}<br/>{showPaper=== "" ? "" : ` версия от ${secToDate(showPaper)}`}
+              <Text bg={"lightGrey"} p={"2"} mb={"2"}>
+                {name}
+            {/*<br/>{showPaper=== "" ? "" : ` версия от ${secToDate(showPaper)}`}*/}
               </Text>
-              <label for="paper-dogovor-select">Choose paper dogovor</label>
-              <select
+            {/*<label for="paper-dogovor-select">Choose paper dogovor</label>*/}
+              <Select
                 name="paper-dogovors"
                 value={showPaper}
                 id="paper-dogovors"
@@ -64,18 +67,26 @@ const ShowPaper = ({
                   onShow({ id: e.target.value.split(".")[0], name: name });
                 }}
               >
-                <option> - - - - - </option>
+                <option>выберите версию договора</option>
                 {dogList[name].map(e => (
-                  <option value={e}>{e}</option>
+                  <option
+                    value={e}>
+                      
+                      {`${
+                        (() => {
+                          let d=new Date(+`${e.split(".")[0]}`);
+                          return d})()}`.split(" ").slice(0,5).join(" ")
+                      }
+                    </option>
                 ))}
-              </select>
+              </Select>
               <div>
                 {showPaper === "" ? (
                   <></>
                 ) : (
                   <EditManager
                     inputComponent={getSafe(
-                      () => store.paperDogovor.data[0].data
+                      () => store.paperDogovor.data.data
                     )}
                     state={store.paperDogovor.dogOnSaveStatus}
                     onSave={onSave}
