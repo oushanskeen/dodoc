@@ -1,4 +1,4 @@
-    
+ /*   
 import React from 'react';
 import {
     dogSampleData,
@@ -53,14 +53,15 @@ const HeadFootOut = ({store,selectors,formData}) => {
                 Smap),
             {ct: "ORG",cd: "actualTestData",st: "varOne"}
         );
-        */
+        *//*
         return {
             a : input(actualInput,defaultInput,Cmap,Smap).ct,
             b : input(actualInput,defaultInput,Cmap,Smap).cd,
             c : input(actualInput,defaultInput,Cmap,Smap).st
         };
     };
-
+*/
+  /*
     const a = DataMapper().a;
     const b = DataMapper().b;
     const c = DataMapper().c;
@@ -89,6 +90,7 @@ const HeadFootOut = ({store,selectors,formData}) => {
               FactAdress:10, GenDirector:11, Buhgalter:12, tel:13, bankName:14, BIK:15, BillOne:16, BillTwo:17 }
        );
         */
+/*
         const ServerData = (_serverType,_serverData) => {
             return  _serverData[_serverType];
         };
@@ -97,7 +99,7 @@ const HeadFootOut = ({store,selectors,formData}) => {
             ServerData("varOne",{"varOne":"VarOneData","varTwo":"VarTwoData"}),
             "VarOneData"
         );
-        */
+        *//*
         console.log("hf return : ", {
             ClientType:ClientType,
             ClientData:ClientData,
@@ -164,4 +166,4 @@ const HeadFootOut = ({store,selectors,formData}) => {
         mapDispatchToProps
     )(HeadFootOut);
 
-    
+   */ 
