@@ -39,7 +39,10 @@ const EditBox = ({
         </Text>
         <Button
           bg={"four"}
-          onClick={() => onPrint(`${unEntity(textVal.current.innerHTML)}`)}
+          onClick={() => onPrint({
+            dogText:`${unEntity(textVal.current.innerHTML)}`,
+            dogName: name  
+          })}
         >
           pdf
         </Button>

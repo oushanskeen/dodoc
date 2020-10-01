@@ -102,12 +102,11 @@ const printPaperDogovorFailed = (error) => {
 export const printPaperDogovor = (data) => {
   return dispatch => {
     console.log("PRINT PDF ACTION INITIATED");
-    
     dispatch(printPaperDogovorStarted(data));
     axios
       //.post(`https://dodoc.site/send`,{...data})
       //.post(`https://dodoc.site/send`,{hello:"world"})
-      .post(`https://dodoc.site/send`,{data:data})
+      .post(`https://dodoc.site/send`,{data:data.dogText, dogovorName:data.dogName})
       .then(res => dispatch(printPaperDogovorSuccess(res)))
       .catch(err => dispatch(printPaperDogovorFailed(err.message)));
   };
