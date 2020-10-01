@@ -1,17 +1,19 @@
 // Dogovordics.js
-import React from "react";
+import React/*, {useState}*/ from "react";
 import { connect } from "react-redux";
 import { DictionaryIO } from "../ELEMENTS/Elements";
-import { DicHead } from '../BeautyList';
 import * as actions from '../../actions/index';
 
 const Dogovordic = ({ state }) => (
+  <>
     <DictionaryIO
       state={state}
       dictionaryName={"dogDic"}
-      buttons={["details", "edit", "delete", "show", "paper"]}
+      buttons={["details", "edit", "delete", "show"]}
       welcome = { 'СПРАВОЧНИК НАШИХ ДОГОВОРОВ: '}
     />
+  <div>editor</div>
+  </>
 );
 
 const mapStateToProps = _state => ({

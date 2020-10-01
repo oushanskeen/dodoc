@@ -12,7 +12,7 @@ import {
   SubmitButton
 } from "./DogovorFormElements";
 import { connect } from "react-redux";
-import { createReturn } from "typescript";
+//import { createReturn } from "typescript";
 import {OnSubmitNotifier} from "./OnSubmitNotifier";
 import {makeNewDogovorName} from  '../../utils/nameGen';
 const manageId = require("../../utils/manageId");

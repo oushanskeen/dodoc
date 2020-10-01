@@ -286,9 +286,9 @@ const buttonSet = (state, owner, dictionaryName) => ({
 // : ["delete"] -> <DeleteButton/>
 export const ShowDictionaryArticleData = 
   ({ state, dictionaryName, buttons }) => {
-    {console.log("ShowDictionaryArticleData",
+    console.log("ShowDictionaryArticleData",
     "state: ", state, "dictionaryName", dictionaryName,
-      "buttons", buttons)}
+      "buttons", buttons)
     if (state[dictionaryName].data === undefined){
       return  <></>
     }else{

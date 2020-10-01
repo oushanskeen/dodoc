@@ -31,7 +31,8 @@ const mapDispatchToProps = _dispatch => ({
     //console.log(`{action:"SAVE_PAPER_DOGOVOR", payload: ${data}}`),
     _dispatch(actions.savePaperDogovor(data)),
   onPrint: data =>
-    console.log(`{action:"PRINT_PAPER_DOGOVOR", payload: ${data}}`)
+    //console.log(`{action:"PRINT_PAPER_DOGOVOR", payload: ${data}}`)
+    _dispatch(actions.printPaperDogovor(data))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShowBeauty);

@@ -14,7 +14,7 @@ import {
   SAVE_PAPER_DOGOVOR_FAILED,
   PRINT_PAPER_DOGOVOR
 } from "../constants/actionTypes";
-import {ObjectFlags} from "typescript";
+//import {ObjectFlags} from "typescript";
 //const trimMongoReturn = require('../utils/trimMongoReturn');
 const initialState = (window.Cypress && window.initialState) || {
   data: [],

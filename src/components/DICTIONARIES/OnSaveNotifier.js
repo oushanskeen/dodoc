@@ -32,5 +32,5 @@ const mapDispatchToProps = _dispatch => ({
     _dispatch(actions.dogOnSaveStatusToDefault())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(OnSaveNotifier);
-//export default OnSaveNotifier;
+//export default connect(mapStateToProps, mapDispatchToProps)(OnSaveNotifier);
+export default OnSaveNotifier;

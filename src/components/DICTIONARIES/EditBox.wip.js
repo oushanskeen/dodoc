@@ -32,9 +32,13 @@ const EditBox = ({
           mb={2}
           mt={2}
           p={2}
+          contentEditable={true}
+          onInput={e => {
+            setTextState(e.target.value);
+          }}
         >
           <div ref={textVal} className="refContainer">
-           <InputComponent/>
+            <InputComponent />
           </div>
         </Text>
         <Button
@@ -42,6 +46,18 @@ const EditBox = ({
           onClick={() => onPrint(`${unEntity(textVal.current.innerHTML)}`)}
         >
           pdf
+        </Button>
+        <Button
+          bg={"four"}
+          onClick={() =>
+            onSave({
+              name: name,
+              data: textVal.current.innerHTML,
+              date: `${Date.now()}`
+            })
+          }
+        >
+          save
         </Button>
         <OnSaveNotifier state={state} />
       </Box>
